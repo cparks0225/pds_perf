@@ -12,7 +12,7 @@
         { name: "Results" }
         { name: "Suites" }
         { name: "Tests" }
-        { name: "Appointments" }
+        { name: "Queries" }
       ]
 
   App.reqres.setHandler "header:entities", ->
