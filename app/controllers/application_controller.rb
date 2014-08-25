@@ -4,5 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
+    # @queries = Query.all
+    # gon.rabl :template => "app/views/queries/index.json.rabl"
+    gon.rabl
+    @query = Query.first
+    gon.rabl "app/views/queries/show.json", as: "query"
   end
 end

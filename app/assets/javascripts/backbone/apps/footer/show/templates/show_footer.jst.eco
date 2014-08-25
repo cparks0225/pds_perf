@@ -1,5 +1,7 @@
+<% console.log @ %>
+
 <div id="footer">
   <div class="container">
-    <p class="muted">Trading Technologies - PDS Performance Tool</p>
+    <p class="muted">Trading Technologies - PDS Performance Tool </p>
   </div>
 </div>
