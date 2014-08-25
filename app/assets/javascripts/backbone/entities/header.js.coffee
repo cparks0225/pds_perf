@@ -8,11 +8,11 @@
   API =
     getHeaders: ->
       new Entities.HeaderCollection [
-        { name: "Environment" }
-        { name: "Results" }
-        { name: "Suites" }
-        { name: "Tests" }
-        { name: "Queries" }
+        { name: "Environment", url: Routes.environments_path() }
+        { name: "Results", url: Routes.results_path() }
+        { name: "Suites", url: Routes.suites_path() }
+        { name: "Tests", url: Routes.tests_path() }
+        { name: "Queries", url: Routes.queries_path() }
       ]
 
   App.reqres.setHandler "header:entities", ->

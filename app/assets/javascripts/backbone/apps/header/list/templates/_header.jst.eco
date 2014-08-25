@@ -1,1 +1,1 @@
-  <a data-toggle="tab" href=#><%= @name %></a>
+<%- @linkTo @name, @url %>

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :environments
+  resources :results
+  resources :suites
+  resources :tests
   resources :queries
 
   root to: "application#index"
