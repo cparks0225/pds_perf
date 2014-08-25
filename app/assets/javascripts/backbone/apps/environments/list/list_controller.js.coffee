@@ -3,9 +3,31 @@
   List.Controller =
     
     listEnvironments: ->
-      environmentsView = @getEnvironmentsView()
-      
-      App.mainRegion.show environmentsView
+      App.request "environment:entities", (environments) =>
+        @layout = @getLayoutView()
+
+        @layout.on "show", =>
+          @showPanel environments 
+          @showEnvironments environments 
+
+        App.mainRegion.show @layout
     
-    getEnvironmentsView: ->
+    showPanel: (environments) ->
+      panelView = @getPanelView environments
+      @layout.panelRegion.show panelView
+
+    showEnvironments: (environments) ->
+      environmentsView = @getEnvironmentsView environments
+      @layout.environmentsRegion.show environmentsView
+
+    getPanelView: (environments) ->
+      new List.Panel
+        collection: environments
+
+    getEnvironmentsView: (environments) ->
+      console.log environments
       new List.Environments
+        collection: environments
+
+    getLayoutView: ->
+      new List.LayoutView

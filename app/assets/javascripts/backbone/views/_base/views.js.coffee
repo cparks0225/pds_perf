@@ -1,7 +1,12 @@
 @PdsPerf.module "Views", (Views, App, Backbone, Marionette, $, _) ->
 
+  _remove = Marionette.View::remove
+  
   _.extend Marionette.View::,
 
+    remove: (args...) ->
+      console.log "removing", @
+      _remove.apply @, args
 
     templateHelpers: ->
 
@@ -12,6 +17,3 @@
         url = "#" + url unless options.external
 
         "<a href='#{url}'>#{@escape(name)}</a>"
-
-    #   currentQuery:
-    #     App.request("get:current:query").toJSON() 

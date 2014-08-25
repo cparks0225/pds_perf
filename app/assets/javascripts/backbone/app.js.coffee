@@ -2,7 +2,7 @@
 
   App = new Marionette.Application
 
-  App.rootRoute = Routes.queries_path()
+  App.rootRoute = Routes.environments_path()
 
   App.on "before:start", (options) ->
     @currentQuery = App.request "set:current:query", options.currentQuery

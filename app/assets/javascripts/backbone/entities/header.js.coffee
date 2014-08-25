@@ -8,7 +8,7 @@
   API =
     getHeaders: ->
       new Entities.HeaderCollection [
-        { name: "Environment", url: Routes.environments_path() }
+        { name: "Environments", url: Routes.environments_path() }
         { name: "Results", url: Routes.results_path() }
         { name: "Suites", url: Routes.suites_path() }
         { name: "Tests", url: Routes.tests_path() }

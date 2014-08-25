@@ -26,6 +26,7 @@
         collection: queries
 
     getQueriesView: (queries) ->
+      console.log queries
       new List.Queries
         collection: queries
 

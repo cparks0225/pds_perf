@@ -1,2 +1,3 @@
+<% console.log @ %>
 <td><%= @method %></td>
 <td><%= @url %></td>

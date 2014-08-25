@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140825052402) do
+ActiveRecord::Schema.define(version: 20140825141156) do
+
+  create_table "environments", force: true do |t|
+    t.text     "riskapi"
+    t.text     "pds"
+    t.text     "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "queries", force: true do |t|
     t.string   "method"
