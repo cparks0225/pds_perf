@@ -10,13 +10,14 @@
     setCurrentQuery: (currentQuery) ->
       new Entities.Query currentQuery
 
-    getQueryEntities: ->
+    getQueryEntities: (cb) ->
       queries = new Entities.QueriesCollection
-      queries.fetch()
-      queries
+      queries.fetch
+        success: ->
+          cb queries
 
   App.reqres.setHandler "set:current:query", (currentQuery) ->
     API.setCurrentQuery currentQuery
 
-  App.reqres.setHandler "query:entities", ->
-    API.getQueryEntities()
+  App.reqres.setHandler "query:entities", (cb) ->
+    API.getQueryEntities cb

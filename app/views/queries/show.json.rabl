@@ -1,3 +1,3 @@
-object @query => "query"
+object @query
 
 extends "queries/_base"

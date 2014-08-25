@@ -1,3 +1,3 @@
-collection @queries => "queries"
+collection @queries
 
 extends "queries/_base"
