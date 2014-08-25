@@ -20,5 +20,5 @@
     API.setCurrentEnvironment currentEnvironment
 
   App.reqres.setHandler "environment:entities", (cb) ->
-    console.log( "3" )
+    console.log( "2" )
     API.getEnvironmentEntities cb

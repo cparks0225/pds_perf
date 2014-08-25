@@ -22,7 +22,8 @@
   App.on "start", (options) ->
     if Backbone.history
       Backbone.history.start()
-      @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
+      console.log "navigate to root route"
+      @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is null
 
   App
   
