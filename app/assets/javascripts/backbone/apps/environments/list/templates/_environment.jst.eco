@@ -1,4 +1,2 @@
-<%= console.log @ %>
 <td><%= @riskapi %></td>
 <td><%= @pds %></td>
-<td><%= @token %></td>

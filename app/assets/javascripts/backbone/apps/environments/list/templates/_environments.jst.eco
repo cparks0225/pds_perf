@@ -1,9 +1,8 @@
-<table class="table table-stripted table-bordered">
+<table class="table table-bordered">
   <thead>
     <tr>
       <th>Risk Api</th>
       <th>Pds</th>
-      <th>Token</th>
     </tr>
   </thead>
   <tbody></tbody>

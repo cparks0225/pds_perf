@@ -7,18 +7,11 @@
     url: -> Routes.environments_path()
 
   API =
-    setCurrentEnvironment: (currentEnvironment) ->
-      new Entities.Environment currentEnvironment
-
-    getEnvironmentEntities: (cb) ->
+    getEnvironments: ->
       environments = new Entities.EnvironmentsCollection
       environments.fetch
-        success: ->
-          cb environments
+        reset: true
+      environments
 
-  App.reqres.setHandler "set:current:environment", (currentEnvironment) ->
-    API.setCurrentEnvironment currentEnvironment
-
-  App.reqres.setHandler "environment:entities", (cb) ->
-    console.log( "2" )
-    API.getEnvironmentEntities cb
+  App.reqres.setHandler "environments:entities", ->
+    API.getEnvironments()

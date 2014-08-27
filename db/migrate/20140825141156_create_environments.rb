@@ -3,7 +3,6 @@ class CreateEnvironments < ActiveRecord::Migration
     create_table :environments do |t|
       t.text :riskapi
       t.text :pds
-      t.text :token
 
       t.timestamps
     end

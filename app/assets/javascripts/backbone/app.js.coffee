@@ -20,10 +20,8 @@
     App.module("FooterApp").start()
 
   App.on "start", (options) ->
-    if Backbone.history
-      Backbone.history.start()
-      console.log "navigate to root route"
-      @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is null
+    @startHistory()
+    @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is null
 
   App
   
