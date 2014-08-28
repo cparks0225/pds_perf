@@ -7,19 +7,29 @@
     regions:
       loginRegion: "#login-region"
       environmentsRegion: "#environments-region"
-      addEnvironmentRegion: "#add-environment-region"
+      newEnvironmentRegion: "#add-environment-region"
 
   class List.Login extends App.Views.ItemView
     template: "environments/list/_login"
 
+    triggers:
+      "click #login" : "environments:environment:login:clicked"
+
   class List.Environment extends App.Views.ItemView
     template: "environments/list/_environment"
-    tagName: "tr"
+    tagName: "li"
+    className: "list-group-item"
+
+    events:
+      "click" : -> @trigger "environments:environment:clicked", @model
+
+  class List.Empty extends App.Views.CompositeView
+    template: "environments/list/_empty"
+    tagName: "li"
+    className: "list-group-item text-center list-group-item-warning"
 
   class List.Environments extends App.Views.CompositeView
     template: "environments/list/_environments"
     childView: List.Environment
-    childViewContainer: "tbody"
-
-  class List.AddEnvironment extends App.Views.ItemView
-    template: "environments/list/_add"
+    childViewContainer: "ul"
+    emptyView: List.Empty

@@ -1,2 +1,10 @@
-<td><%= @riskapi %></td>
-<td><%= @pds %></td>
+<a href="#" >
+  <div class="container">
+    <div class="col-md-6">
+      <%= @riskapi %>
+    </div>
+    <div class="col-md-6 ">
+      <%= @pds %>
+    </div>
+  </div>
+</a>

@@ -4,27 +4,36 @@
     
     listEnvironments: ->
       environments = App.request "environments:entities"
-      console.log environments
       @layout = @getLayoutView()
 
       @layout.on "show", =>
-        @showLogin environments 
-        @showEnvironments environments
-        @showAddEnvironment()
+        @loginRegion environments 
+        @environmentsRegion environments
+        @newEnvironmentRegion()
 
       App.mainRegion.show @layout
     
-    showLogin: (environments) ->
+    loginRegion: (environments) ->
       loginView = @getLoginView environments
+
+      loginView.on "environments:environment:login:clicked", ->
+        console.log "login clicked"
+
       @layout.loginRegion.show loginView
 
-    showEnvironments: (environments) ->
+    environmentsRegion: (environments) ->
       environmentsView = @getEnvironmentsView environments
+
+      environmentsView.on "childview:environments:environment:clicked", (child, member) ->
+        console.log "environment clicked"
+        console.log child
+        console.log member 
+
       @layout.environmentsRegion.show environmentsView
 
-    showAddEnvironment: ->
-      addEnvironmentView = @getAddEnvironmentView()
-      @layout.addEnvironmentRegion.show addEnvironmentView
+    newEnvironmentRegion: ->
+      newEnvironmentView = App.request "new:environments:environment:view"
+      @layout.newEnvironmentRegion.show newEnvironmentView
 
     getLoginView: (environments) ->
       new List.Login
@@ -33,9 +42,6 @@
     getEnvironmentsView: (environments) ->
       new List.Environments
         collection: environments
-
-    getAddEnvironmentView: ->
-      new List.AddEnvironment
 
     getLayoutView: ->
       new List.LayoutView

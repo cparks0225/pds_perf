@@ -1,9 +1,2 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Risk Api</th>
-      <th>Pds</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+  <ul class="list-group">
+  </ul>

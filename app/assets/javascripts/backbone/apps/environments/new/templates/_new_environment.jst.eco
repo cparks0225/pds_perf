@@ -5,5 +5,5 @@
   <div class="form-group">
     <input type="text" class="form-control" id="pds" placeholder="pds">
   </div>
-  <button type="submit" class="btn btn-default">Add Enviornment</button>
+  <button type="submit" class="btn btn-default" id="new-environment">Add Environment</button>
 </form>
