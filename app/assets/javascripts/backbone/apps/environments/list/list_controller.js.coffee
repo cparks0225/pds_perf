@@ -25,7 +25,11 @@
       environmentsView = @getEnvironmentsView environments
 
       environmentsView.on "childview:environments:environment:clicked", (child, member) ->
-        console.log "environment clicked"
+        # Toggle the CSS to display the currently selected environment
+        $(child.el).closest(".list-group").children(".list-group-item-info").removeClass("list-group-item-info");
+        $(child.el).addClass("list-group-item-info")
+
+        
         console.log child
         console.log member 
 
