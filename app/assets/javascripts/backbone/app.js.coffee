@@ -4,11 +4,12 @@
 
   App.rootRoute = Routes.environments_path()
 
-  App.on "before:start", (options) ->
-    @currentQuery = App.request "set:current:query", options.currentQuery
+  # Handle Application level requests
+  App.reqres.setHandler "get:selected:environment", ->
+    App.selectedEnvironment
 
-  App.reqres.setHandler "get:current:query", ->
-    App.currentQuery
+  App.reqres.setHandler "set:selected:environment", (environment) ->
+    App.selectedEnvironment = environment
 
   App.addRegions
     headerRegion: "#header-region"

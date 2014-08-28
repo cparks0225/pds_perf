@@ -13,7 +13,9 @@
     template: "environments/list/_login"
 
     triggers:
-      "click #login" : "environments:environment:login:clicked"
+      "click #login" : ->
+        console.log @model
+        # "environments:environment:login:clicked", @model
 
   class List.Environment extends App.Views.ItemView
     template: "environments/list/_environment"
