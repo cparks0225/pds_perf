@@ -2,6 +2,7 @@
 
   class List.LayoutView extends App.Views.LayoutView
     template: "queries/list/list_layoutview"
+    id: "queries-list"
 
     regions:
       panelRegion: "#panel-region"
@@ -12,14 +13,21 @@
 
   class List.Query extends App.Views.ItemView
     template: "queries/list/_query"
-    tagName: "tr"
+    tagName: "li"
+    className: "list-group-item"
+    events:
+      "click" : -> @trigger "queries:query:clicked", @model
+
+    triggers:
+      "click button" : "queries:delete:clicked"
 
   class List.Empty extends App.Views.ItemView
     template: "queries/list/_empty"
-    tagName: "tr"
+    tagName: "li"
+    className: "list-group-item"
 
   class List.Queries extends App.Views.CompositeView
     template: "queries/list/_queries"
     childView: List.Query
     emptyView: List.Emtpy
-    childViewContainer: "tbody"
+    childViewContainer: "ul"

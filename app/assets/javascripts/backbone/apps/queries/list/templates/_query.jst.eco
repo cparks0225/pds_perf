@@ -1,3 +1,11 @@
-<% console.log @ %>
-<td><%= @method %></td>
-<td><%= @url %></td>
+<div class="container">
+  <div class="col-md-1">
+    <td><%= @method %></td>
+  </div>
+  <div class="col-md-10">
+    <td><%= @url %></td>
+  </div>
+  <div class="col-md-1">
+    <button type="button" class="btn btn-xs btn-danger">Delete</button>
+  </div>
+</div>

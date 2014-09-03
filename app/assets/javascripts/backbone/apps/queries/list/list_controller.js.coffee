@@ -19,6 +19,15 @@
 
     showQueries: (queries) ->
       queriesView = @getQueriesView queries
+
+      queriesView.on "childview:queries:query:clicked", (child, environment) ->
+        # Toggle the CSS to display the currently selected environment
+        $(child.el).closest(".list-group").children(".list-group-item-info").removeClass("list-group-item-info");
+        $(child.el).addClass("list-group-item-info")
+
+      queriesView.on "childview:queries:delete:clicked", (child) ->
+        App.vent.trigger "queries:delete:clicked", child.model
+
       @layout.queriesRegion.show queriesView
 
     getPanelView: (queries) ->
