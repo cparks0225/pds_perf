@@ -36,7 +36,7 @@
           alert "Failed to Login: " + errorThrown
           return
 
-    deleteSelectedEnvironment: (environment) ->
+    deleteEnvironment: (environment) ->
       environment.destroy()
 
   App.reqres.setHandler "get:selected:environment", (environment) ->
@@ -49,7 +49,7 @@
     API.setSelectedEnvironment environment
 
   App.vent.on "environments:delete:clicked", (environment) ->
-    API.deleteSelectedEnvironment environment
+    API.deleteEnvironment environment
 
   App.commands.setHandler "login", (username, password, environment) ->
     API.login username, password, environment
