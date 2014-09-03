@@ -1,3 +1,3 @@
 object @environment
 
-extends "environment/_base"
+extends "environments/_base"

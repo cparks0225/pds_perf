@@ -4,13 +4,6 @@
 
   App.rootRoute = Routes.environments_path()
 
-  # Handle Application level requests
-  App.reqres.setHandler "get:selected:environment", ->
-    App.selectedEnvironment
-
-  App.reqres.setHandler "set:selected:environment", (environment) ->
-    App.selectedEnvironment = environment
-
   App.addRegions
     headerRegion: "#header-region"
     mainRegion: "#main-region"
@@ -19,6 +12,15 @@
   App.addInitializer ->
     App.module("HeaderApp").start()
     App.module("FooterApp").start()
+
+  App.reqres.setHandler "default:region", ->
+    App.mainRegion
+  
+  App.commands.setHandler "register:instance", (instance, id) ->
+    App.register instance, id if App.environment is "development"
+  
+  App.commands.setHandler "unregister:instance", (instance, id) ->
+    App.unregister instance, id if App.environment is "development"
 
   App.on "start", (options) ->
     @startHistory()

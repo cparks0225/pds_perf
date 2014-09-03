@@ -13,9 +13,7 @@
     template: "environments/list/_login"
 
     triggers:
-      "click #login" : ->
-        console.log @model
-        # "environments:environment:login:clicked", @model
+      "submit" : "login:submit"
 
   class List.Environment extends App.Views.ItemView
     template: "environments/list/_environment"
@@ -24,6 +22,9 @@
 
     events:
       "click" : -> @trigger "environments:environment:clicked", @model
+
+    triggers:
+      "click button" : "environments:delete:clicked"
 
   class List.Empty extends App.Views.CompositeView
     template: "environments/list/_empty"

@@ -1,27 +1,31 @@
 @PdsPerf.module "EnvironmentsApp.List", (List, App, Backbone, Marionette, $, _) ->
   
-  List.Controller =
+  class List.Controller extends App.Controllers.Base
     
-    listEnvironments: ->
+    initialize: ->
       environments = App.request "environments:entities"
-      @layout = @getLayoutView()
-
-      @layout.on "show", =>
-        @loginRegion environments 
-        @environmentsRegion environments
-        @newEnvironmentRegion()
 
       App.execute "when:fetched", [environments], =>
-        App.mainRegion.show @layout
+
+        @layout = @getLayoutView()
+
+        @listenTo @layout, "show", =>
+          @loginRegion()
+          @environmentsRegion environments
+          @newEnvironmentRegion()
+
+        @show @layout
     
-    loginRegion: (environments) ->
-      loginView = @getLoginView environments
+    loginRegion: ->
+      loginView = @getLoginView()
 
-      loginView.on "environments:environment:login:clicked", (model) ->
-        console.log "login clicked"
-        console.log model
-        App.commands.execute "login", "u", "p"
-
+      loginView.on "login:submit", ->
+        env = App.request "get:selected:environment"
+        data = Backbone.Syphon.serialize loginView
+        if env != undefined
+          App.commands.execute "login", data['username'], data['password'], env
+        else
+          alert "Select an Environment to login to"
       @layout.loginRegion.show loginView
 
     environmentsRegion: (environments) ->
@@ -35,15 +39,17 @@
         # Pass the event on up to the environments application
         App.vent.trigger "environments:environment:clicked", environment
 
+      environmentsView.on "childview:environments:delete:clicked", (child) ->
+        console.log "delete on"
+        App.vent.trigger "environments:delete:clicked", child.model
+
       @layout.environmentsRegion.show environmentsView
 
     newEnvironmentRegion: ->
-      newEnvironmentView = App.request "new:environments:environment:view"
-      @layout.newEnvironmentRegion.show newEnvironmentView
+      newEnvironmentView = App.execute "new:environments:environment:view", @layout.newEnvironmentRegion
 
-    getLoginView: (environments) ->
+    getLoginView: ->
       new List.Login
-        collection: environments
 
     getEnvironmentsView: (environments) ->
       new List.Environments
