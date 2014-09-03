@@ -40,7 +40,6 @@
         App.vent.trigger "environments:environment:clicked", environment
 
       environmentsView.on "childview:environments:delete:clicked", (child) ->
-        console.log "delete on"
         App.vent.trigger "environments:delete:clicked", child.model
 
       @layout.environmentsRegion.show environmentsView

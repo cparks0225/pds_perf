@@ -1,13 +1,11 @@
-<a href="#" >
-  <div class="container">
-    <div class="col-md-6">
-      <%= @riskapi %>
-    </div>
-    <div class="col-md-5">
-      <%= @pds %>
-    </div>
-    <div class="col-md-1">
-      <button type="button" class="btn btn-xs btn-danger">Delete</button>
-    </div>
+<div class="container">
+  <div class="col-md-6">
+    <%= @riskapi %>
   </div>
-</a>
+  <div class="col-md-5">
+    <%= @pds %>
+  </div>
+  <div class="col-md-1">
+    <button type="button" class="btn btn-xs btn-danger">Delete</button>
+  </div>
+</div>
