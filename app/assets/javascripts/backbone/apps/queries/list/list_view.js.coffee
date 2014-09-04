@@ -1,4 +1,4 @@
-@PdsPerf.module "QueryApp.List", (List, App, Backbone, Marionette, $, _) ->
+@PdsPerf.module "QueriesApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.LayoutView extends App.Views.LayoutView
     template: "queries/list/list_layoutview"
@@ -6,10 +6,14 @@
 
     regions:
       panelRegion: "#panel-region"
+      newRegion: "#new-region"
       queriesRegion: "#queries-region"
 
   class List.Panel extends App.Views.ItemView
     template: "queries/list/_panel"
+
+    triggers:
+      "click #new-query" : "new:queries:button:clicked"
 
   class List.Query extends App.Views.ItemView
     template: "queries/list/_query"

@@ -1,21 +1,30 @@
-@PdsPerf.module "QueryApp", (QueryApp, App, Backbone, Marionette, $, _) ->
+@PdsPerf.module "QueriesApp", (QueriesApp, App, Backbone, Marionette, $, _) ->
 
-  class QueryApp.Router extends Marionette.AppRouter
+  class QueriesApp.Router extends Marionette.AppRouter
     appRoutes:
       "queries" : "listQueries"
 
   API =
     listQueries: ->
-      QueryApp.List.Controller.listQueries()
+      console.log "queries_app:listQueries"
+      new QueriesApp.List.Controller
 
     deleteQuery: (query) ->
-      console.log "DELETE THIS QUERY" 
-      console.log query
       query.destroy()
 
+    newQueryView: (region) ->
+      new QueriesApp.New.Controller
+        region: region
+        
   App.vent.on "queries:delete:clicked", (query) ->
     API.deleteQuery query
 
+  App.commands.setHandler "new:queries:query:view", (region) ->
+    API.newQueryView region 
+
+  App.commands.setHandler "new:queries:query", (region) ->
+    API.newQueryView region
+
   App.addInitializer ->
-    new QueryApp.Router
+    new QueriesApp.Router
       controller: API

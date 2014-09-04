@@ -4,7 +4,6 @@
     
     initialize: ->
       environment = App.request "new:environments:entity"
-      environment.on "all", (e) -> console.log e
 
       @listenTo environment, "created", ->
         App.vent.trigger "environments:created", environment 

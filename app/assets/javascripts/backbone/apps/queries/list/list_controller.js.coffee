@@ -1,20 +1,29 @@
-@PdsPerf.module "QueryApp.List", (List, App, Backbone, Marionette, $, _) ->
+@PdsPerf.module "QueriesApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-  List.Controller =
+  class List.Controller extends App.Controllers.Base
 
-    listQueries: ->
-      App.request "query:entities", (queries) =>
+    initialize: ->
+      queries = App.request "queries:entities"
+
+      App.execute "when:fetched", [queries], =>
 
         @layout = @getLayoutView()
 
-        @layout.on "show", =>
-          @showPanel queries
+        @listenTo @layout, "show", =>
+          @showPanel()
           @showQueries queries
 
-        App.mainRegion.show @layout
+        @show @layout
 
-    showPanel: (queries) ->
-      panelView = @getPanelView queries
+    showPanel: ->
+      panelView = @getPanelView()
+
+      console.log '1'
+      @listenTo panelView, "new:queries:button:clicked", =>
+        console.log "1.5"
+        @newRegion()
+
+      console.log '2'
       @layout.panelRegion.show panelView
 
     showQueries: (queries) ->
@@ -30,14 +39,15 @@
 
       @layout.queriesRegion.show queriesView
 
-    getPanelView: (queries) ->
+    getPanelView: ->
       new List.Panel
-        collection: queries
 
     getQueriesView: (queries) ->
-      console.log queries
       new List.Queries
         collection: queries
 
     getLayoutView: ->
       new List.LayoutView
+
+    newRegion: ->
+      App.execute "new:queries:query", @layout.newRegion

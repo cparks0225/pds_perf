@@ -1,23 +1,35 @@
 @PdsPerf.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.Query extends Entities.Model
+    urlRoot: -> Routes.queries_path()
 
   class Entities.QueriesCollection extends Entities.Collection
     model: Entities.Query
+
     url: -> Routes.queries_path()
 
   API =
-    setCurrentQuery: (currentQuery) ->
-      new Entities.Query currentQuery
-
-    getQueryEntities: (cb) ->
+    getQueries: ->
       queries = new Entities.QueriesCollection
       queries.fetch
-        success: ->
-          cb queries
+        reset: true
+      queries
 
-  App.reqres.setHandler "set:current:query", (currentQuery) ->
-    API.setCurrentQuery currentQuery
+    getQuery: (id) ->
+      query = new Entities.Query
+        id: id
+      query.fetch()
+      query
 
-  App.reqres.setHandler "query:entities", (cb) ->
-    API.getQueryEntities cb
+    newQuery: ->
+      new Entities.Query
+
+  App.reqres.setHandler "queries:entities", ->
+    API.getQueries()
+
+  App.reqres.setHandler "queries:entity", (id) ->
+    API.getQuery id
+  
+  App.reqres.setHandler "new:queries:entity", ->
+    console.log "new query"
+    API.newQuery()

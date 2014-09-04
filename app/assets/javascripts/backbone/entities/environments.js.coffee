@@ -32,3 +32,4 @@
   
   App.reqres.setHandler "new:environments:entity", ->
     API.newEnvironment()
+    
