@@ -32,7 +32,7 @@
     class: "panel-group"
 
     templateHelpers:
-      renderParams: (obj, models) =>
+      renderParams: (obj, models, unique_id) =>
         return_val = ""
 
         primitives = ['long', 'Short', 'int', 'string', 'Date', 'Map[string,string]', 'boolean']
@@ -46,7 +46,8 @@
               return_val += "<hr>"
               param['inputType'] = param.dataType
               if not param['name']?
-                param['name'] = param['dataType'] 
+                param['name'] = param['dataType']
+              param['unique_id'] = param['name'] + "-" + unique_id
               switch param.dataType
                 when "boolean" then param['inputType'] = "checkbox"
                 when "int" then param['inputType'] = "number"
@@ -62,6 +63,7 @@
                 for sub_param_key of models[param.dataType]["properties"]
                   sub_param = models[param.dataType]["properties"][sub_param_key]
                   sub_param['name'] = sub_param_key
+                  sub_param['unique_id'] = sub_param['name'] + "-" + unique_id
                   sub_param['dataType'] = sub_param['type']
                   r = ""
                   if $.inArray(sub_param.dataType, primitives) != -1

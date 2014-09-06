@@ -13,7 +13,7 @@
         <div class="panel-body">
           <h4><%= operation.summary%></h4>
           <form class="form-horizontal" role="form">
-            <%- @renderParams(operation, @models) %>
+            <%- @renderParams(operation, @models, collapse_id) %>
             <hr>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
