@@ -36,7 +36,24 @@ class PdsApis < PdsSerializer
 end
 
 class PdsService < PdsSerializer
-  attr_accessor :path, :description
+  attr_accessor :path, :description, :apis, :models
+end
+
+def FetchApi(api)
+  proxy = ENV['HTTP_PROXY']
+  clnt = HTTPClient.new(proxy)
+  clnt.set_cookie_store("cookie.dat")
+
+  api_url_base = "http://pds-dev.debesys.net/api/1/api-docs/1/"
+  api_url = api_url_base + api.path
+  api_result = clnt.get(api_url)
+  raw_api_json = JSON.parse(api_result.body)
+
+  api_obj = PdsApis.new
+  api_obj.from_json(JSON.generate(raw_api_json))
+
+  api.apis = api_obj.apis
+  api.models = api_obj.models
 end
 
 class PdsapisController < ApplicationController
@@ -60,22 +77,14 @@ class PdsapisController < ApplicationController
       new_pds.from_json(JSON.generate(service))
 
       new_pds.path = new_pds.path.split("\/")[4]
+      # new_pds.apis = FetchApi(new_pds.path)
+      FetchApi(new_pds)
+      Rails.logger.debug( new_pds )
       @pds_apis.push(new_pds)
     end
   end
 
   def show
-    proxy = ENV['HTTP_PROXY']
-    clnt = HTTPClient.new(proxy)
-    clnt.set_cookie_store("cookie.dat")
-
-    api_url_base = "http://pds-dev.debesys.net/api/1/api-docs/1/"
-    api_url = api_url_base + params['id']
-    api_result = clnt.get(api_url)
-    raw_api_json = JSON.parse(api_result.body)
-
-    api_obj = PdsApis.new
-    api_obj.from_json(JSON.generate(raw_api_json))
 
     @pds_api = api_obj
   end

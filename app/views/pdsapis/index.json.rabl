@@ -1,3 +1,3 @@
 collection @pds_apis
 
-attributes :path
+attributes :path, :apis, :models

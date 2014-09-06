@@ -1,0 +1,5 @@
+<% console.log @ %>
+<table class="table table-bordered">
+<tbody>
+</tbody> 
+</table>

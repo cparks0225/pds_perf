@@ -4,18 +4,47 @@
     
     initialize: ->
       query = App.request "new:queries:entity"
+      pdsapis = App.request "pdsapi:entities"
 
-      @listenTo query, "created", ->
-        App.vent.trigger "queries:created", query 
+      App.execute "when:fetched", [pdsapis], =>
+        @layout = @getNewQueryView()
 
-      newView = @getNewQueryView query
+        @listenTo @layout, "show", =>
+          @apiListRegion pdsapis
 
-      @listenTo newView, "cancel:new:query:button:clicked", =>
-        @region.reset()
-        @destroy()
+        @listenTo @layout, "cancel:new:query:button:clicked", =>
+          @region.reset()
+          @destroy()
 
-      @show newView
+        @show @layout
 
-    getNewQueryView: (env) ->
-      new New.Query
-        model: env
+    apiRestful: (restful) ->
+      restfulView = @getRestfulView restful
+
+      # restfulView.on "queries:restful:clicked", (child, restful) =>
+        # console.log "restful click"
+
+      @layout.restfulsRegion.show restfulView
+
+    apiListRegion: (pdsapis) ->
+      apisView = @getApisView pdsapis
+
+      apisView.on "childview:queries:api:clicked", (child, api) =>
+        # Toggle the CSS to display the currently selected environment
+        $(child.el).closest("tbody").children("tr").removeClass("list-group-item-info");
+        $(child.el).addClass("list-group-item-info")
+
+        @apiRestful api
+
+      @layout.apiRegion.show apisView
+
+    getNewQueryView: ->
+      new New.QueryBuilder
+
+    getApisView: (pdsapis) ->
+      new New.ApiList
+        collection: pdsapis
+
+    getRestfulView: (restful) ->
+      new New.RestfulList
+        model: restful

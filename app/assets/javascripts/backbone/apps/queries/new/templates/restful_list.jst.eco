@@ -1,0 +1,28 @@
+<% for val, idx in @apis: %>
+  <% for operation, odx in val.operations: %>
+    <% collapse_id = "collapseId" + idx + "-" + odx %>
+    <div class="panel panel-default">
+      <div class="panel-heading restful-operation-<%= operation.httpMethod.toLowerCase() %>">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#restfuls" href="#<%= collapse_id %>">
+            <%= val.path %>
+          </a>
+        </h4>
+      </div>
+      <div class="panel-collapse collapse" id="<%= collapse_id %>">
+        <div class="panel-body">
+          <h4><%= operation.summary%></h4>
+          <form class="form-horizontal" role="form">
+            <%- @renderParams(operation, @models) %>
+            <hr>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Create</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

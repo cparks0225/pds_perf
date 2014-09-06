@@ -5,4 +5,31 @@
   .btn-primary {
     margin-bottom: 20px;
   }
+  .restful-operation-get {
+    background-color: #e7f0f7 !important;
+    border-top: 1px solid #c3d9ec !important;
+    border-bottom: 1px solid #c3d9ec !important;
+    color: #0f6ab4 !important;
+  }
+  .restful-operation-delete {
+      background-color: #f5e8e8 !important;
+      border-top: 1px solid #e8c6c7 !important;
+      border-bottom: 1px solid #e8c6c7 !important;
+      color: #a41e22 !important;
+  }
+  .restful-operation-post {
+      background-color: #e7f6ec !important;
+      border-top: 1px solid #c3e8d1 !important;
+      border-bottom: 1px solid #c3e8d1 !important;
+      color: #10a54a !important;
+  }
+  .restful-operation-put {
+      background-color: #f9f2e9 !important;
+      border-top: 1px solid #f0e0ca !important;
+      border-bottom: 1px solid #f0e0ca !important;
+      color: #c5862b !important;
+  }
+  .restful-api-selected {
+      background-color: #d9d9d9;
+  }
 }

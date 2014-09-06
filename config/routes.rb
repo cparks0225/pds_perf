@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :tests
   resources :queries
 
-  resources :pdsapis
-  get '/pdsapis/:id', to: 'pdsapis#show'
+  get '/pdsapis', to: 'pdsapis#index'
+  # get '/pdsapis/restful/:id', to: 'pdsapis#show'
 
   # match "static" => "application:static"
   root to: "application#index"

@@ -18,12 +18,9 @@
     showPanel: ->
       panelView = @getPanelView()
 
-      console.log '1'
       @listenTo panelView, "new:queries:button:clicked", =>
-        console.log "1.5"
         @newRegion()
 
-      console.log '2'
       @layout.panelRegion.show panelView
 
     showQueries: (queries) ->

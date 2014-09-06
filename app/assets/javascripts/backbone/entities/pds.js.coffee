@@ -1,15 +1,18 @@
 @PdsPerf.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
   class Entities.PdsApi extends Entities.Model
-    urlRoot: -> Routes.pds_apis.path() #"http://pds-dev.debesys.net/api/1/api-docs"
+    urlRoot: -> Routes.pdsapis_path()
 
   class Entities.PdsApiCollection extends Entities.Collection
     model: Entities.PdsApi
 
-    url: -> Routes.pds_apis.path() #"http://pds-dev.debesys.net/api/1/api-docs"
+    url: -> Routes.pdsapis_path()
+
+  class Entities.PdsRestful extends Entities.Model
+    urlRoot: -> Routes.pdsapis
 
   API =
-    getPdsApi: ->
+    getPdsApis: ->
       pdsapi = new Entities.PdsApiCollection
       pdsapi.fetch
         reset: true
@@ -25,7 +28,7 @@
       new Entities.PdsApi
 
   App.reqres.setHandler "pdsapi:entities", ->
-    API.getPdsApi()
+    API.getPdsApis()
 
   App.reqres.setHandler "pdsapi:entity", (id) ->
     API.getPdsApi id

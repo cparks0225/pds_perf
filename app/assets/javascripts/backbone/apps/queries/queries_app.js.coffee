@@ -6,8 +6,10 @@
 
   API =
     listQueries: ->
-      console.log "queries_app:listQueries"
       new QueriesApp.List.Controller
+
+    # listRestfuls: (api) ->
+      # console.log "list restfuls for", api
 
     deleteQuery: (query) ->
       query.destroy()
@@ -18,6 +20,9 @@
         
   App.vent.on "queries:delete:clicked", (query) ->
     API.deleteQuery query
+
+  # App.vent.on "queries:api:clicked", (query) ->
+    # API.listRestfuls query
 
   App.commands.setHandler "new:queries:query:view", (region) ->
     API.newQueryView region 

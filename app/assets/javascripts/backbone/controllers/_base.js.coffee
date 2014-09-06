@@ -9,7 +9,6 @@
       App.execute "register:instance", @, @_instance_id
     
     destroy: (args...) ->
-      # @region.reset()
       delete @region
       delete @options
       super args
