@@ -30,6 +30,12 @@
   class New.RestfulList extends App.Views.ItemView
     template: "queries/new/restful_list"
     class: "panel-group"
+    onShow: ->
+      console.log "onShow"
+      console.log $(@.$el).find("form")
+      $(@.$el).find("form").submit (e) ->
+        e.preventDefault()
+        App.vent.trigger "new:queries:query:clicked", e
 
     templateHelpers:
       renderParams: (obj, models, unique_id) =>
@@ -78,6 +84,3 @@
                   return_val += r
 
         return return_val
-
-    # events:
-    #   "click" : -> @trigger "queries:restful:clicked", @, @model

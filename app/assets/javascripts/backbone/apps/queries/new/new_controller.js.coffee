@@ -21,8 +21,18 @@
     apiRestful: (restful) ->
       restfulView = @getRestfulView restful
 
-      # restfulView.on "queries:restful:clicked", (child, restful) =>
-        # console.log "restful click"
+      App.vent.on "new:queries:query:clicked", (e) ->
+        console.log "create click"
+
+        data = Backbone.Syphon.serialize e.target
+        console.log data
+        console.log e.target.dataset['method']
+        console.log e.target.dataset['url']
+        # console.log data
+        # console.log restfulView.model
+        # console.log restfulView.collection
+        # restfulView.model.save data,
+          # collection: restfulView.collection
 
       @layout.restfulsRegion.show restfulView
 
