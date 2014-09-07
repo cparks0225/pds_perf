@@ -31,5 +31,4 @@
     API.getQuery id
   
   App.reqres.setHandler "new:queries:entity", ->
-    console.log "new query"
     API.newQuery()

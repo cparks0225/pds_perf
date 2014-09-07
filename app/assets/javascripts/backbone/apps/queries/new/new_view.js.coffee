@@ -30,9 +30,11 @@
   class New.RestfulList extends App.Views.ItemView
     template: "queries/new/restful_list"
     class: "panel-group"
+
     onShow: ->
-      console.log "onShow"
+      console.log "ONSHOW EVENT HERE"
       console.log $(@.$el).find("form")
+      $(@.$el).find("form").unbind()
       $(@.$el).find("form").submit (e) ->
         e.preventDefault()
         App.vent.trigger "new:queries:query:clicked", e

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827181406) do
+ActiveRecord::Schema.define(version: 20140907175100) do
 
   create_table "environments", force: true do |t|
     t.text     "riskapi"

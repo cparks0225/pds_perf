@@ -3,7 +3,7 @@
   class New.Controller extends App.Controllers.Base
     
     initialize: ->
-      query = App.request "new:queries:entity"
+      # @query = App.request "new:queries:entity"
       pdsapis = App.request "pdsapi:entities"
 
       App.execute "when:fetched", [pdsapis], =>
@@ -21,13 +21,11 @@
     apiRestful: (restful) ->
       restfulView = @getRestfulView restful
 
-      App.vent.on "new:queries:query:clicked", (e) ->
-        console.log "create click"
+      # App.vent.on "new:queries:query:clicked", (e) =>
+      #   console.log "create click"
 
-        data = Backbone.Syphon.serialize e.target
-        console.log data
-        console.log e.target.dataset['method']
-        console.log e.target.dataset['url']
+        # query = @validateQuery( e.target )
+
         # console.log data
         # console.log restfulView.model
         # console.log restfulView.collection
