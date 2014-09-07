@@ -56,31 +56,45 @@ def FetchApi(api)
   api.models = api_obj.models
 end
 
+def StoreApis(apis)
+  File.open('stored_apis.yaml', 'w') {|f| f.write(YAML.dump(apis)) }
+end
+
+def LoadApis()
+  apis = YAML.load(File.read('stored_apis.yaml'))
+  return apis
+end
+
 class PdsapisController < ApplicationController
   respond_to :json
 
   def index
-    proxy = ENV['HTTP_PROXY']
-    clnt = HTTPClient.new(proxy)
-    clnt.set_cookie_store("cookie.dat")
+    if File.exists?('stored_apis.yaml')
+      @pds_apis = LoadApis()
+    else
+      proxy = ENV['HTTP_PROXY']
+      clnt = HTTPClient.new(proxy)
+      clnt.set_cookie_store("cookie.dat")
 
-    service_url = "http://pds-dev.debesys.net/api/1/api-docs"
-    result = clnt.get(service_url)
-    raw_json = JSON.parse(result.body)["apis"]
-    
-    api_url_base = "http://pds-dev.debesys.net/api/1/api-docs/1/"
+      service_url = "http://pds-dev.debesys.net/api/1/api-docs"
+      result = clnt.get(service_url)
+      raw_json = JSON.parse(result.body)["apis"]
+      
+      api_url_base = "http://pds-dev.debesys.net/api/1/api-docs/1/"
 
-    @pds_apis = []
-    for service in raw_json
-      Rails.logger.debug( service )
-      new_pds = PdsService.new
-      new_pds.from_json(JSON.generate(service))
+      @pds_apis = []
+      for service in raw_json
+        Rails.logger.debug( service )
+        new_pds = PdsService.new
+        new_pds.from_json(JSON.generate(service))
 
-      new_pds.path = new_pds.path.split("\/")[4]
-      # new_pds.apis = FetchApi(new_pds.path)
-      FetchApi(new_pds)
-      Rails.logger.debug( new_pds )
-      @pds_apis.push(new_pds)
+        new_pds.path = new_pds.path.split("\/")[4]
+        # new_pds.apis = FetchApi(new_pds.path)
+        FetchApi(new_pds)
+        Rails.logger.debug( new_pds )
+        @pds_apis.push(new_pds)
+      end
+      StoreApis(@pds_apis)
     end
   end
 

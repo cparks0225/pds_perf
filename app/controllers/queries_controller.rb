@@ -12,12 +12,9 @@ class QueriesController < ApplicationController
 
   def create
     @query = Query.new
-    Rails.logger.debug( "SAVING QUERY" )
-    Rails.logger.debug( params )
     @query.url = params[:url]
-    @query.method = params[:url]
+    @query.method = params[:method]
     @query.data = params[:data]
-#    if @query.update_attributes(params[:query].permit(:url, :method, :data) )
     if @query.save
       render "queries/show"
     else

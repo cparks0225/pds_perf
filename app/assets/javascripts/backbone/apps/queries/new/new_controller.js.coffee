@@ -3,7 +3,6 @@
   class New.Controller extends App.Controllers.Base
     
     initialize: ->
-      # @query = App.request "new:queries:entity"
       pdsapis = App.request "pdsapi:entities"
 
       App.execute "when:fetched", [pdsapis], =>
@@ -20,18 +19,6 @@
 
     apiRestful: (restful) ->
       restfulView = @getRestfulView restful
-
-      # App.vent.on "new:queries:query:clicked", (e) =>
-      #   console.log "create click"
-
-        # query = @validateQuery( e.target )
-
-        # console.log data
-        # console.log restfulView.model
-        # console.log restfulView.collection
-        # restfulView.model.save data,
-          # collection: restfulView.collection
-
       @layout.restfulsRegion.show restfulView
 
     apiListRegion: (pdsapis) ->

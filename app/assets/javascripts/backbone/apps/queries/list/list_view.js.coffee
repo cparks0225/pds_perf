@@ -18,7 +18,13 @@
   class List.Query extends App.Views.ItemView
     template: "queries/list/_query"
     tagName: "li"
-    className: "list-group-item"
+    className: "list-group-item" # restful-operation-" + @model.get("method")
+
+    onRender: ->
+      console.log "Query Rendered"
+      display_class = "restful-operation-" + @model.get("method").toLowerCase()
+      console.log $(@.$el).addClass( display_class )
+
     events:
       "click" : -> @trigger "queries:query:clicked", @model
 
