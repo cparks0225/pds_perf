@@ -13,7 +13,7 @@ class SuitesController < ApplicationController
   def update
     @suite = Suite.find params[:id]
     @suite.name = params[:name]
-    @suite.queries = params[:queries]
+    @suite.tests = params[:tests]
     if @suite.save()
       render "suites/show"
     else
@@ -24,7 +24,7 @@ class SuitesController < ApplicationController
   def create
     @suite = Suite.new
     @suite.name = params[:name]
-    @suite.queries = params[:queries]
+    @suite.tests = params[:tests]
     if @suite.save()
       render "suites/show"
     else

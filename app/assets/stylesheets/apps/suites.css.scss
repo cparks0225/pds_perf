@@ -5,9 +5,18 @@
   #new-suite {
     margin-bottom: 20px;
   }
-/*
-  .form-group {
-    margin-left: -15px;
+  #suite-region {
+    margin-bottom: 20px;
+    form .col-md-4 {
+      padding-left: 0px;
+    }
   }
-*/
+  #added-tests {
+    .panel {
+      margin-bottom: 0px;
+    }
+    .panel-body {
+      padding: 0px;
+    }
+  }
 }

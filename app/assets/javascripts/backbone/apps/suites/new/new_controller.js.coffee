@@ -4,10 +4,11 @@
 
     initialize: =>
       tests = App.request "tests:entities"
+      @server_suites = App.request "suites:entities"
       @new_suite = App.request "new:suites:entity"
       @suite_tests = App.request "new:tests:entities"
 
-      App.execute "when:fetched", [tests], =>
+      App.execute "when:fetched", [tests, @server_suites], =>
         @layout = @getSuiteBuilder()
 
         @listenTo @layout, "show", =>
@@ -26,22 +27,23 @@
       @listenTo v, "childview:remove:suite:test", (e) =>
         @suite_tests.remove e.model
 
-    #   @listenTo v, "test:create:button:clicked", (e) =>
-    #     data = Backbone.Syphon.serialize v
-    #     queries_list = []
-    #     for q in e.collection.models
-    #       iter_key = "iterations-" + q.get("id")
-    #       int_key = "interval-" + q.get("id")
-    #       q.set "iterations", data[iter_key]
-    #       q.set "interval", data[int_key]
-    #       queries_list.push _.omit(q.toJSON(), 'data', 'method', 'url')
+      @listenTo v, "suite:create:button:clicked", (e) =>
+        data = Backbone.Syphon.serialize v
+        tests_list = []
+        for t in e.collection.models
+          iter_key = "iterations-" + t.get("id")
+          int_key = "interval-" + t.get("id")
+          t.set "iterations", data[iter_key]
+          t.set "interval", data[int_key]
+          tests_list.push _.omit(t.toJSON(), 'name')
 
-    #     new_test_data =
-    #       name: data.name.replace(/\s/g, "_")
-    #       queries: queries_list
+        new_suite_data =
+          name: data.name.replace(/\s/g, "_")
+          tests: tests_list
 
-    #     console.log "Saving new test"
-    #     console.log new_test_data
+        console.log "Saving new suite"
+        console.log new_suite_data
+        @server_suites.create new_suite_data
     #     @new_test.save new_test_data
 
       @layout.suiteRegion.show v

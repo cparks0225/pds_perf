@@ -4,7 +4,7 @@
     template: "tests/list/_test_for_suites"
 
     triggers:
-      "click button" : "tests:delete:clicked"
+      "click button" : "suites:tests:add:clicked"
 
   class List.TestsForSuites extends App.Views.CompositeView
     template: "tests/list/tests_list"

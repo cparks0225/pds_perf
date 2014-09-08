@@ -24,11 +24,17 @@
     newTest: ->
       new Entities.Test
 
+    newTests: ->
+      new Entities.TestsCollection
+
   App.reqres.setHandler "tests:entities", ->
     API.getTests()
 
   App.reqres.setHandler "tests:entity", (id) ->
     API.getTest id
-  
+ 
+  App.reqres.setHandler "new:tests:entities", ->
+    API.newTests() 
+
   App.reqres.setHandler "new:tests:entity", ->
     API.newTest()
