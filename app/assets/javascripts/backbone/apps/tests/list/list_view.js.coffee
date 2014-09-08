@@ -18,6 +18,9 @@
   class List.Test extends App.Views.ItemView
     template: "tests/list/_test"
 
+    triggers:
+      "click button" : "tests:delete:clicked"
+
   class List.Tests extends App.Views.CompositeView
     template: "tests/list/tests_list"
     childView: List.Test

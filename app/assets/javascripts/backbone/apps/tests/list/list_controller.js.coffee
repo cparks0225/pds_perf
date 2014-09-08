@@ -34,6 +34,12 @@
 
     showTests: ->
       testsView = @getTestsView()
+
+      @listenTo testsView, "childview:tests:delete:clicked", (child) ->
+        console.log "delete clicked"
+        console.log child.model
+        child.model.destroy()
+
       @layout.testsRegion.show testsView
 
     getLayoutView: ->
