@@ -2,8 +2,7 @@
 
   class List.QueryForTests extends App.Views.ItemView
     template: "queries/list/_query_for_tests"
-    tagName: "li"
-    className: "list-group-item"
+    tagName: "tr"
 
     onRender: ->
       display_class = "restful-operation-" + @model.get("method").toLowerCase()
@@ -13,7 +12,7 @@
       "click button" : "tests:queries:add:clicked"
 
   class List.QueriesForTests extends App.Views.CompositeView
-    template: "queries/list/_queries"
+    template: "queries/list/_queries_for_tests"
     childView: List.QueryForTests
     emptyView: List.Emtpy
-    childViewContainer: "ul"
+    childViewContainer: "tbody"

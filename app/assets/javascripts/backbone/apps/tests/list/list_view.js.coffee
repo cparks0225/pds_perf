@@ -26,6 +26,3 @@
     childView: List.Test
     childViewContainer: "div"
     className: "panel-group"
-
-    # triggers:
-      # "submit" : "test:create:button:clicked"

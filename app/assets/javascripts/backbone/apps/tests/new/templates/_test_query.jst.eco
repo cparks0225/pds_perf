@@ -3,13 +3,7 @@
   <div class="row restful-operation-<%= @.method.toLowerCase() %>">
     <div class="col-md-1"><%= @.method %></div>
     <div class="col-md-4"><%= @.url %></div>
-    <% new_data = [] %>
-    <% for val, idx in @data: %>
-      <% new_obj = {} %>
-      <% new_obj[val.name] = val.value %>
-      <% new_data.push( new_obj ) %>
-    <% end %>
-    <div class="col-md-6"><%= ( JSON.stringify(new_data)) %></div>
+    <div class="col-md-6"><%- @stringifyQueryData(@data) %></div>
     <div class="col-md-1"><button type="button" class="btn btn-xs btn-danger">Remove</button></div>
   </div>
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140908055837) do
+ActiveRecord::Schema.define(version: 20140908100942) do
 
   create_table "environments", force: true do |t|
     t.text     "riskapi"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20140908055837) do
     t.string   "method"
     t.text     "url"
     t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "suites", force: true do |t|
+    t.text     "name"
+    t.text     "tests"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

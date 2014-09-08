@@ -8,12 +8,19 @@
     listTests: ->
       new TestsApp.List.Controller
 
+    listTestsForSuites: (tests) ->
+      new TestsApp.List.TestsForSuites
+        collection: tests
+
     newTestView: (region) ->
       new TestsApp.New.Controller
         region: region
 
   App.commands.setHandler "new:tests:test", (region) ->
     API.newTestView region
+
+  App.reqres.setHandler "suites:tests:view", (tests) ->
+    API.listTestsForSuites tests
 
   App.addInitializer ->
     new TestsApp.Router

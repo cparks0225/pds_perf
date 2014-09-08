@@ -143,10 +143,11 @@
 
   App.reqres.setHandler "queries:query:data:stringify", (obj) ->
     new_data = []
-    for val, idx in obj
-      new_obj = {}
-      new_obj[val.name] = val.value
-      new_data.push new_obj
+    if obj?
+      for val, idx in obj
+        new_obj = {}
+        new_obj[val.name] = val.value
+        new_data.push new_obj
 
     return JSON.stringify new_data
 

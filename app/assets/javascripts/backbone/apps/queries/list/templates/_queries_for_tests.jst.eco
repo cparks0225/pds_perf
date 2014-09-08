@@ -1,0 +1,11 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Url</th>
+      <th>Data</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>

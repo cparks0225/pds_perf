@@ -3,20 +3,8 @@
         <h3 class="panel-title">Test Builder</h3>
     </div>
     <div class="panel-body" id="test_builder">
-      <div class="panel panel-default">
-
-        <div class="panel-body">
-          <div id="test-region"></div>
-        </div>
-
-        <div class="panel-heading">
-          <h5 class="panel-title">Existing Queries</h5>
-        </div>
-        <div class="panel-body">
-          <div id="queries-region"></div>
-        </div>
-
-      </div>
+      <div id="test-region"></div>
+      <div id="queries-region"></div>
     </div>
     <div class="panel-footer">
       <button class="btn btn-danger" id="cancel-new-test">Cancel</button>
