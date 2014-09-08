@@ -17,3 +17,6 @@
         url = "#" + url unless options.external
 
         "<a href='#{url}'>#{@escape(name)}</a>"
+
+      stringifyQueryData: (obj) ->
+        App.request "queries:query:data:stringify", obj

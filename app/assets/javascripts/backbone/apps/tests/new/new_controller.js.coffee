@@ -26,6 +26,24 @@
       @listenTo v, "childview:remove:test:query", (e) =>
         @test_queries.remove e.model
 
+      @listenTo v, "test:create:button:clicked", (e) =>
+        data = Backbone.Syphon.serialize v
+        queries_list = []
+        for q in e.collection.models
+          iter_key = "iterations-" + q.get("id")
+          int_key = "interval-" + q.get("id")
+          q.set "iterations", data[iter_key]
+          q.set "interval", data[int_key]
+          queries_list.push _.omit(q.toJSON(), 'data', 'method', 'url')
+
+        new_test_data =
+          name: data.name
+          queries: queries_list
+
+        console.log "Saving new test"
+        console.log new_test_data
+        @new_test.save new_test_data
+
       @layout.testRegion.show v
 
     showQueries: (queries) =>

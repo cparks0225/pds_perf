@@ -7,10 +7,22 @@
     regions:
       panelRegion: "#panel-region"
       newRegion: "#new-region"
-      queriesRegion: "#queries-region"
+      testsRegion: "#tests-region"
 
   class List.Panel extends App.Views.ItemView
     template: "tests/list/_panel"
 
     triggers:
       "click #new-test" : "new:tests:button:clicked"
+
+  class List.Test extends App.Views.ItemView
+    template: "tests/list/_test"
+
+  class List.Tests extends App.Views.CompositeView
+    template: "tests/list/tests_list"
+    childView: List.Test
+    childViewContainer: "div"
+    className: "panel-group"
+
+    # triggers:
+      # "submit" : "test:create:button:clicked"

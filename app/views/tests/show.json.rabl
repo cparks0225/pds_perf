@@ -1,3 +1,3 @@
 object @test
 
-extends "test/_base"
+extends "tests/_base"

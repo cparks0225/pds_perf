@@ -6,13 +6,7 @@
     <td><%= @url %></td>
   </div>
   <div class="col-md-6">
-    <% new_data = [] %>
-    <% for val, idx in @data: %>
-      <% new_obj = {} %>
-      <% new_obj[val.name] = val.value %>
-      <% new_data.push( new_obj ) %>
-    <% end %>
-    <td> <%- ( JSON.stringify(new_data)) %> </td>
+    <td> <%- @stringifyQueryData(@data) %> </td>
   </div>
   <div class="col-md-1">
     <button type="button" class="btn btn-xs btn-primary">Add</button>
