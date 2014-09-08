@@ -9,9 +9,6 @@
       display_class = "restful-operation-" + @model.get("method").toLowerCase()
       $(@.$el).addClass( display_class )
 
-    events:
-      "click" : -> @trigger "queries:query:clicked", @model
-
     triggers:
       "click button" : "tests:queries:add:clicked"
 

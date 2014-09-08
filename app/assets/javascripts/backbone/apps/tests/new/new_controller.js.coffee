@@ -2,17 +2,17 @@
   
   class New.Controller extends App.Controllers.Base
 
-    initialize: ->
+    initialize: =>
       queries = App.request "queries:entities"
+      @new_test = App.request "new:tests:entity"
+      @test_queries = App.request "new:queries:entities"
 
       App.execute "when:fetched", [queries], =>
-        console.log "queries loaded in new Test controller"
-        console.log queries
-
         @layout = @getTestBuilder()
 
         @listenTo @layout, "show", =>
-          @showQueries(queries)
+          @showNewTest()
+          @showQueries queries
 
         @listenTo @layout, "cancel:new:test:button:clicked", =>
           @region.reset()
@@ -20,21 +20,25 @@
 
         @show @layout
 
-    showQueries: (queries) ->
+    showNewTest: =>
+      v = @getNewTestView()
+
+      @listenTo v, "childview:remove:test:query", (e) =>
+        @test_queries.remove e.model
+
+      @layout.testRegion.show v
+
+    showQueries: (queries) =>
       v = App.request "tests:queries:view", queries
+
+      @listenTo v, "childview:tests:queries:add:clicked", (e) =>
+        @test_queries.add e.model
+
       @layout.queriesRegion.show v
-
-    #   @listenTo panelView, "new:tests:button:clicked", =>
-    #     console.log "new test"
-    #     @newRegion()
-
-    #   @layout.panelRegion.show panelView
-
-    # getPanelView: ->
-      # new New.Panel
 
     getTestBuilder: ->
       new New.TestBuilder
 
-    # newRegion: ->
-    #   App.execute "new:tests:test", @layout.newRegion
+    getNewTestView: =>
+      new New.Test
+        collection: @test_queries

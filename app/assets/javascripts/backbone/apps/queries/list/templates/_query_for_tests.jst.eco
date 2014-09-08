@@ -15,6 +15,6 @@
     <td> <%- ( JSON.stringify(new_data)) %> </td>
   </div>
   <div class="col-md-1">
-    <button type="button" class="btn btn-xs btn-danger">Add</button>
+    <button type="button" class="btn btn-xs btn-primary">Add</button>
   </div>
 </div>

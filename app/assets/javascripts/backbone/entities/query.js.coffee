@@ -24,11 +24,17 @@
     newQuery: ->
       new Entities.Query
 
-  App.reqres.setHandler "queries:entities", ->
-    API.getQueries()
+    newQueries: ->
+      new Entities.QueriesCollection
 
   App.reqres.setHandler "queries:entity", (id) ->
     API.getQuery id
+
+  App.reqres.setHandler "queries:entities", ->
+    API.getQueries()
   
   App.reqres.setHandler "new:queries:entity", ->
     API.newQuery()
+
+  App.reqres.setHandler "new:queries:entities", ->
+    API.newQueries()
