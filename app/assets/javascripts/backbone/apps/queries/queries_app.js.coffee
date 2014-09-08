@@ -8,8 +8,9 @@
     listQueries: ->
       new QueriesApp.List.Controller
 
-    # listRestfuls: (api) ->
-      # console.log "list restfuls for", api
+    listQueriesForTests: (queries) ->
+      new QueriesApp.List.QueriesForTests
+        collection: queries
 
     deleteQuery: (query) ->
       query.destroy()
@@ -131,8 +132,8 @@
   App.vent.on "new:queries:query:clicked", (e) =>
     API.validateAddedQuery(e)
 
-  # App.vent.on "queries:api:clicked", (query) ->
-    # API.listRestfuls query
+  App.reqres.setHandler "tests:queries:view", (queries) ->
+    API.listQueriesForTests queries
 
   App.commands.setHandler "new:queries:query:view", (region) ->
     API.newQueryView region 

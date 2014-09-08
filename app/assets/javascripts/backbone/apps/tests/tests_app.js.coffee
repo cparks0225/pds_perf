@@ -6,7 +6,14 @@
 
   API =
     listTests: ->
-      TestsApp.List.Controller.listTests()
+      new TestsApp.List.Controller
+
+    newTestView: (region) ->
+      new TestsApp.New.Controller
+        region: region
+
+  App.commands.setHandler "new:tests:test", (region) ->
+    API.newTestView region
 
   App.addInitializer ->
     new TestsApp.Router
