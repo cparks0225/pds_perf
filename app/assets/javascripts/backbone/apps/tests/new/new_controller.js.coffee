@@ -37,7 +37,7 @@
           queries_list.push _.omit(q.toJSON(), 'data', 'method', 'url')
 
         new_test_data =
-          name: data.name
+          name: data.name.replace(/\s/g, "_")
           queries: queries_list
 
         console.log "Saving new test"
