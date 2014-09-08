@@ -11,7 +11,7 @@
         @layout = @getSuiteBuilder()
 
         @listenTo @layout, "show", =>
-          # @showNewTest()
+          @showNewSuite()
           @showTests tests
 
         @listenTo @layout, "cancel:new:suite:button:clicked", =>
@@ -20,11 +20,11 @@
 
         @show @layout
 
-    # showNewTest: =>
-    #   v = @getNewTestView()
+    showNewSuite: =>
+      v = @getNewTestSuiteView()
 
-    #   @listenTo v, "childview:remove:test:query", (e) =>
-    #     @test_queries.remove e.model
+      @listenTo v, "childview:remove:suite:test", (e) =>
+        @suite_tests.remove e.model
 
     #   @listenTo v, "test:create:button:clicked", (e) =>
     #     data = Backbone.Syphon.serialize v
@@ -44,19 +44,19 @@
     #     console.log new_test_data
     #     @new_test.save new_test_data
 
-    #   @layout.testRegion.show v
+      @layout.suiteRegion.show v
 
     showTests: (tests) =>
       v = App.request "suites:tests:view", tests
 
-      # @listenTo v, "childview:suites:tests:add:clicked", (e) =>
-      #   @suite_tests.add e.model
+      @listenTo v, "childview:suites:tests:add:clicked", (e) =>
+        @suite_tests.add e.model
 
       @layout.testsRegion.show v
 
     getSuiteBuilder: ->
       new New.SuiteBuilder
 
-    # getNewTestView: =>
-    #   new New.Test
-    #     collection: @test_queries
+    getNewTestSuiteView: =>
+      new New.Suite
+        collection: @suite_tests

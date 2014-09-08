@@ -11,17 +11,17 @@
     triggers:
       "click #cancel-new-suite" : "cancel:new:suite:button:clicked"
 
-  # class New.TestQuery extends App.Views.ItemView
-  #   template: "tests/new/_test_query"
-  #   class: "form-group"
+  class New.SuiteTest extends App.Views.ItemView
+    template: "suites/new/_suite_test"
+    class: "form-group"
 
-  #   triggers:
-  #     "click button" : "remove:test:query"
+    triggers:
+      "click button" : "remove:suite:test"
 
-  # class New.Test extends App.Views.CompositeView
-  #   template: "tests/new/new_test"
-  #   childView: New.TestQuery
-  #   childViewContainer: "#added-queries"
+  class New.Suite extends App.Views.CompositeView
+    template: "suites/new/new_suite"
+    childView: New.SuiteTest
+    childViewContainer: "#added-tests"
 
-  #   triggers:
-  #     "submit" : "test:create:button:clicked"
+    triggers:
+      "submit" : "suite:create:button:clicked"

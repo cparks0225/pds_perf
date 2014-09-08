@@ -1,0 +1,12 @@
+<% console.log @ %>
+<form class="form" role="form">
+  <div class="col-md-4 form-group">
+    <label class="sr-only" for="newTest">Test Name</label>
+    <input type="text" class="form-control" id="newTest" name="name" placeholder="Test Name">
+  </div>
+  <button type="submit" class="btn btn-default">Create</button>
+  <div class="col-md-1 pull-right"><h5><u>Interval</u></h5></div>
+  <div class="col-md-1 pull-right"><h5><u>Iterations</u></h5></div>
+  <div id="added-tests" class="row"></div>
+</form>
+
