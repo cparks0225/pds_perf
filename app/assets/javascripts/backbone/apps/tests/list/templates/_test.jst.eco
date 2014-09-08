@@ -8,27 +8,26 @@
       </a>
     </h4>
   </div>
-    <div class="panel-collapse collapse" id="collapseId-<%- @name %>">
-      <div class="panel-body">
-        <table class="table">
-          <tr>
-            <th>Method</th>
-            <th>Url</th>
-            <th>Data</th>
-            <th>Iterations</th>
-            <th>Interval</th>
-          </tr>
-          <% for val, idx in @queries: %>
-            <tr>
-              <td><%- val.method %></td>
-              <td><%- val.url %></td>
-              <td><%- @stringifyQueryData(val.data) %></td>
-              <td><%- val.iterations %></td>
-              <td><%- val.interval %></td>
-            </tr>
-          <% end %>
-        </table>
-        <button class="btn btn-xs btn-danger pull-right">Delete</button>
-      </div>
-    </div>
+  <div class="panel-collapse collapse" id="collapseId-<%- @name %>">
+    <div class="panel-body"><button class="btn btn-xs btn-danger pull-right">Delete</button></div>
+    <table class="table">
+      <tr>
+        <th>Method</th>
+        <th>Url</th>
+        <th>Data</th>
+        <th>Iterations</th>
+        <th>Interval</th>
+      </tr>
+      <% for val, idx in @queries: %>
+        <tr>
+          <td><%- val.method %></td>
+          <td><%- val.url %></td>
+          <td><%- @stringifyQueryData(val.data) %></td>
+          <td><%- val.iterations %></td>
+          <td><%- val.interval %></td>
+        </tr>
+      <% end %>
+    </table>
+    
+  </div>
 </div>
