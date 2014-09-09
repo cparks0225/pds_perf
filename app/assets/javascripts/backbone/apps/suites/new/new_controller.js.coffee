@@ -41,10 +41,7 @@
           name: data.name.replace(/\s/g, "_")
           tests: tests_list
 
-        console.log "Saving new suite"
-        console.log new_suite_data
         @server_suites.create new_suite_data
-    #     @new_test.save new_test_data
 
       @layout.suiteRegion.show v
 

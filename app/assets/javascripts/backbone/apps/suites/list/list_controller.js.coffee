@@ -23,7 +23,7 @@
 
         @listenTo @layout, "show", =>
           @showPanel()
-    #       @showTests()
+          @showSuites()
 
         @show @layout
 
@@ -36,15 +36,15 @@
 
       @layout.panelRegion.show panelView
 
-    # showTests: ->
-    #   testsView = @getTestsView()
+    showSuites: ->
+      suitesView = @getSuitesView()
 
-    #   @listenTo testsView, "childview:tests:delete:clicked", (child) ->
-    #     console.log "delete clicked"
-    #     console.log child.model
-    #     child.model.destroy()
+      @listenTo suitesView, "childview:suites:delete:clicked", (child) ->
+        console.log "delete clicked"
+        console.log child.model
+        child.model.destroy()
 
-    #   @layout.testsRegion.show testsView
+      @layout.suitesRegion.show suitesView
 
     getLayoutView: ->
       new List.LayoutView
@@ -52,11 +52,11 @@
     getPanelView: ->
       new List.Panel
 
-    # getTestsView: ->
-    #   console.log "show tests"
-    #   console.log @tests
-    #   new List.Tests
-    #     collection: @tests
+    getSuitesView: ->
+      console.log "getSuitesView"
+      console.log @suites
+      new List.Suites
+        collection: @suites
 
     newRegion: ->
       App.execute "new:suites:suite", @layout.newRegion

@@ -1,0 +1,31 @@
+<% console.log @ %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" href="#collapseId-<%- @name %>">
+        <button class="btn btn-xs btn-danger pull-right">Delete</button>
+        <span class="badge pull-right">Tests: <%- @tests.length %></span>
+        <%- @name %>
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="collapseId-<%- @name %>">
+    <% console.log @name %>
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Iterations</th>
+        <th>Interval</th>
+      </tr>
+      <% for val, idx in @tests: %>
+        <% console.log val %>
+        <tr>
+          <td><%- val.id %></td>
+          <td><%- val.iterations %></td>
+          <td><%- val.interval %></td>
+        </tr>
+      <% end %>
+    </table>
+    
+  </div>
+</div>
