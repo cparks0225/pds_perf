@@ -56,3 +56,4 @@
 
     newRegion: ->
       App.execute "new:tests:test", @layout.newRegion
+      

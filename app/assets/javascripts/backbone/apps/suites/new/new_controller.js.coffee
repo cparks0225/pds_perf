@@ -3,17 +3,25 @@
   class New.Controller extends App.Controllers.Base
 
     initialize: =>
-      tests = App.request "tests:entities"
+      @tests = App.request "tests:entities"
+      @queries = App.request "queries:entities"
       @server_suites = App.request "suites:entities"
       @new_suite = App.request "new:suites:entity"
       @suite_tests = App.request "new:tests:entities"
 
-      App.execute "when:fetched", [tests, @server_suites], =>
+      App.execute "when:fetched", [@queries, @tests, @server_suites], =>
         @layout = @getSuiteBuilder()
+
+        for t in @tests.models
+          extended_queries = []
+          for q in t.get("queries")
+            tq = @queries.get(q.id)
+            extended_queries.push _.extend(q, tq.toJSON())
+          t.set("queries", extended_queries)
 
         @listenTo @layout, "show", =>
           @showNewSuite()
-          @showTests tests
+          @showTests @tests
 
         @listenTo @layout, "cancel:new:suite:button:clicked", =>
           @region.reset()

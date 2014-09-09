@@ -8,17 +8,14 @@
 
       App.execute "when:fetched", [@tests, @suites], =>
         console.log "Suites collections fetched"
-        console.log @tests
-        console.log @suites
 
-    #     for t in @tests.models
-    #       extended_queries = []
-    #       for q in t.get("queries")
-    #         tq = @queries.get(q.id)
-    #         extended_queries.push _.extend(q, tq.toJSON())
-    #       t.set("queries", extended_queries)
+        for s in @suites.models
+          extended_tests = []
+          for t in s.get("tests")
+            st = @tests.get(t.id)
+            extended_tests.push _.extend(t, st.toJSON())
+          s.set("tests", extended_tests)
 
-    #     console.log @tests
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
