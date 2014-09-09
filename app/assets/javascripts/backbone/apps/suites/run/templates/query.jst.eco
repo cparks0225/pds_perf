@@ -1,0 +1,3 @@
+<% console.log "query.jst.eco" %>
+<% console.log @ %>
+query.jst.eco

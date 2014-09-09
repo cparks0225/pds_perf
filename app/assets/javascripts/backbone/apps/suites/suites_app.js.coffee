@@ -3,10 +3,14 @@
   class SuitesApp.Router extends Marionette.AppRouter
     appRoutes:
       "suites" : "listSuites"
+      "suites/run/:id" : "newRunView"
 
   API =
     listSuites: ->
       new SuitesApp.List.Controller
+
+    newRunView: (suite) ->
+      new SuitesApp.Run.Controller suite
 
     newSuiteView: (region) ->
       new SuitesApp.New.Controller

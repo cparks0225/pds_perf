@@ -37,6 +37,12 @@
       @listenTo suitesView, "childview:suites:delete:clicked", (child) ->
         child.model.destroy()
 
+      @listenTo suitesView, "childview:suites:run:clicked", (suite) ->
+        console.log "RUN SUITE"
+        console.log suite
+        # App.execute "run:suite", suite
+        App.navigate "/suites/run/" + suite.model.get("id"), trigger:true
+
       @layout.suitesRegion.show suitesView
 
     getLayoutView: ->

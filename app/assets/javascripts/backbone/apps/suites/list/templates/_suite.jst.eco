@@ -2,6 +2,7 @@
   <div class="panel-heading">
     <h4 class="panel-title">
       <a data-toggle="collapse" href="#collapseId-<%- @name %>">
+        <button class="btn btn-xs btn-primary pull-right">Run</button>
         <span class="badge pull-right">Tests: <%- @tests.length %></span>
         <%- @name %>
       </a>

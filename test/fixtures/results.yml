@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  environment_id: 
+  suite_id: 
+  results: MyText
+
+two:
+  environment_id: 
+  suite_id: 
+  results: MyText

@@ -19,7 +19,8 @@
     template: "suites/list/_suite"
 
     triggers:
-      "click button" : "suites:delete:clicked"
+      "click .btn-danger" : "suites:delete:clicked"
+      "click .btn-primary" : "suites:run:clicked"
 
   class List.Suites extends App.Views.CompositeView
     template: "suites/list/suites_list"
