@@ -7,7 +7,6 @@
       @suites = App.request "suites:entities"
 
       App.execute "when:fetched", [@tests, @suites], =>
-        console.log "Suites collections fetched"
 
         for s in @suites.models
           extended_tests = []
@@ -28,7 +27,6 @@
       panelView = @getPanelView()
 
       @listenTo panelView, "new:suites:button:clicked", =>
-        console.log "new suite"
         @newRegion()
 
       @layout.panelRegion.show panelView
@@ -37,8 +35,6 @@
       suitesView = @getSuitesView()
 
       @listenTo suitesView, "childview:suites:delete:clicked", (child) ->
-        console.log "delete clicked"
-        console.log child.model
         child.model.destroy()
 
       @layout.suitesRegion.show suitesView
@@ -50,8 +46,6 @@
       new List.Panel
 
     getSuitesView: ->
-      console.log "getSuitesView"
-      console.log @suites
       new List.Suites
         collection: @suites
 

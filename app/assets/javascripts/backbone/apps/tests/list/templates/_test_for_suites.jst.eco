@@ -1,5 +1,3 @@
-<% console.log "_test_for_suites.jst.eco" %>
-<% console.log @ %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">

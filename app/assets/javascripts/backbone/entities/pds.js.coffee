@@ -34,5 +34,4 @@
     API.getPdsApi id
   
   App.reqres.setHandler "new:pdsapi:entity", ->
-    console.log "new pdsapi"
     API.newPdsApi()

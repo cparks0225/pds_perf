@@ -118,13 +118,9 @@
     validateAddedQuery: (e) ->
       query = API.validateQuery( e.target )
       if "url" of query
-        console.log "Query was successfully submitted"
-        console.log query
         new_query = App.request "new:queries:entity"
         new_query.save query
         API.listQueries()
-      else
-        console.log "Errors during query validation"
         
   App.vent.on "queries:delete:clicked", (query) ->
     API.deleteQuery query

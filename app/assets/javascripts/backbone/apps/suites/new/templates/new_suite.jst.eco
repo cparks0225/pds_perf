@@ -1,4 +1,3 @@
-<% console.log @ %>
 <form class="form" role="form">
   <div class="col-md-4 form-group">
     <label class="sr-only" for="newTest">Test Name</label>

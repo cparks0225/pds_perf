@@ -14,7 +14,6 @@
             extended_queries.push _.extend(q, tq.toJSON())
           t.set("queries", extended_queries)
 
-        console.log @tests
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
@@ -27,7 +26,6 @@
       panelView = @getPanelView()
 
       @listenTo panelView, "new:tests:button:clicked", =>
-        console.log "new test"
         @newRegion()
 
       @layout.panelRegion.show panelView
@@ -36,8 +34,6 @@
       testsView = @getTestsView()
 
       @listenTo testsView, "childview:tests:delete:clicked", (child) ->
-        console.log "delete clicked"
-        console.log child.model
         child.model.destroy()
 
       @layout.testsRegion.show testsView
@@ -49,8 +45,6 @@
       new List.Panel
 
     getTestsView: ->
-      console.log "show tests"
-      console.log @tests
       new List.Tests
         collection: @tests
 

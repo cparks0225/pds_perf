@@ -11,12 +11,7 @@
       newView = @getNewEnvironmentView environment
 
       @listenTo newView, "new:environment:button:clicked", ->
-        console.log "add clicked"
-
         data = Backbone.Syphon.serialize newView
-        console.log data
-        console.log newView.model
-        console.log newView.collection
         newView.model.save data,
           collection: newView.collection
 

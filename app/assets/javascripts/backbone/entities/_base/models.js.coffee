@@ -13,11 +13,8 @@
       @get "_destroy"
     
     save: (data, options = {}) ->
-      console.log "entities:_base:models:save"
       isNew = @isNew()
 
-      console.log @
-      
       _.defaults options,
         wait: true
         success:  _.bind(@saveSuccess, @, isNew, options.collection)
@@ -27,7 +24,6 @@
       super data, options
     
     saveSuccess: (isNew, collection) =>
-      console.log "entities:_base:models:saveSuccess"
       if isNew ## model is being created
         collection.add @ if collection
         collection.trigger "model:created", @ if collection
@@ -38,6 +34,5 @@
         @trigger "updated", @
     
     saveError: (model, xhr, options) =>
-      console.log "entities:_base:models:saveError"
       ## set errors directly on the model unless status returned was 500 or 404
       @set _errors: $.parseJSON(xhr.responseText)?.errors unless xhr.status is 500 or xhr.status is 404

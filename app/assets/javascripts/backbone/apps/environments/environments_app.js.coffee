@@ -19,9 +19,7 @@
       @selectedEnvironment = environment
 
     login: (username, password, environment) ->
-      console.log "logging into environment"
       data_string = "grant_type=password&username=" + username + "&password=" + password
-      console.log data_string
       $.ajax
         type: "POST"
         url: environment.get('risklogin')

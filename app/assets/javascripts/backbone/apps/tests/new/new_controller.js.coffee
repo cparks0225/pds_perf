@@ -40,8 +40,6 @@
           name: data.name.replace(/\s/g, "_")
           queries: queries_list
 
-        console.log "Saving new test"
-        console.log new_test_data
         @new_test.save new_test_data
 
       @layout.testRegion.show v

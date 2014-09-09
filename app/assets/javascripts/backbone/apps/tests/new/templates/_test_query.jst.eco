@@ -1,4 +1,3 @@
-<% console.log( @ ) %>
 <div class="col-md-10">
   <div class="row restful-operation-<%= @.method.toLowerCase() %>">
     <div class="col-md-1"><%= @.method %></div>
