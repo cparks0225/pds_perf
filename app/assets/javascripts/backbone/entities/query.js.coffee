@@ -12,7 +12,7 @@
       full_url
 
     runQuery: ->
-      API.deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (query) ->
+      @deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (query) ->
         query_start_time = new Date().getTime()
 
         console.log "run query"
@@ -54,14 +54,6 @@
     url: -> Routes.queries_path()
 
   API =
-    deferAction: (a, i) ->
-      deferred = $.Deferred()
-      setTimeout (->
-        deferred.resolve(a)
-        return
-      ), i
-      deferred.promise()
-
     getQueries: ->
       queries = new Entities.QueriesCollection
       queries.fetch

@@ -23,6 +23,14 @@
       @unset "_errors"
       super data, options
     
+    deferAction: (a, i) ->
+      deferred = $.Deferred()
+      setTimeout (->
+        deferred.resolve(a)
+        return
+      ), i
+      deferred.promise()
+
     saveSuccess: (isNew, collection) =>
       if isNew ## model is being created
         collection.add @ if collection
