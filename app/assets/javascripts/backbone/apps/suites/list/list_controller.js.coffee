@@ -10,13 +10,9 @@
 
         for s in @suites.models
           extended_tests = []
-          console.log "HERE"
-          console.log s
           for t in s.get("tests")
             console.log t.id
             st = @tests.get(t.id)
-            console.log "st::Test"
-            console.log st
             extended_tests.push _.extend(t, st.toJSON())
           s.set("tests", extended_tests)
 

@@ -5,9 +5,13 @@
     id: "environments-list"
 
     regions:
+      panelRegion: "#panel-region"
       loginRegion: "#login-region"
       environmentsRegion: "#environments-region"
       newEnvironmentRegion: "#add-environment-region"
+
+  class List.Panel extends App.Views.ItemView
+    template: "environments/list/_panel"
 
   class List.Login extends App.Views.ItemView
     template: "environments/list/_login"

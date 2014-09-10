@@ -10,12 +10,17 @@
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
+          @showPanel()
           @loginRegion()
           @environmentsRegion environments
           @newEnvironmentRegion()
 
         @show @layout
     
+    showPanel: ->
+      panelView = @getPanelView()
+      @layout.panelRegion.show panelView
+
     loginRegion: ->
       loginView = @getLoginView()
 
@@ -46,6 +51,9 @@
 
     newEnvironmentRegion: ->
       newEnvironmentView = App.execute "new:environments:environment:view", @layout.newEnvironmentRegion
+
+    getPanelView: ->
+      new List.Panel
 
     getLoginView: ->
       new List.Login
