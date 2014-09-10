@@ -21,28 +21,22 @@
           type: query.get("method")
           url: query.testUrl()
         ).done((data, textStatus, jqXHR) ->
-          console.log "QUERY RESULT"
-          console.log data
-          console.log textStatus
-          console.log jqXHR
-
+          query_end_time = new Date().getTime()
           query.set
-            "resultStatus": "success"
-            "ajax": 0
+            "runTime": query_start_time
+            "endTime": query_end_time 
+            "resultStatus": textStatus
+            "ajax": Math.abs(query_end_time - query_start_time)
             "con": data.result.time.con
             "parse": data.result.time.parse
             "q": data.result.time.q
             "qc": data.result.time.qc
 
         ).fail (jqXHR, textStatus, errorThrown) ->
-          console.log "QUERY ERROR"
-          console.log jqXHR
-          console.log textStatus
-          console.log errorThrown
-
+          query_end_time = new Date().getTime()
           query.set
-            "restulStatus": "error"
-            "ajax": 0
+            "restulStatus": textStatus
+            "ajax": Math.abs(query_end_time - query_start_time)
             "con": 0
             "parse": 0
             "q": 0
