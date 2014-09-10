@@ -60,18 +60,13 @@
                 iteration: qiter + 1
                 interval: parseInt query.interval
                 resultStatus: "pending"
-                # ajax: 0
-                # con: 0
-                # parse: 0
-                # q: 0
-                # qc: 0
-
-              new_query.runQuery()
 
               suite_test_queries_collection.add new_query
 
           new_test.set
             queries: suite_test_queries_collection
+
+          new_test.runTest()
 
           suite_tests_collection.add new_test
 

@@ -3,6 +3,10 @@
   class Entities.Test extends Entities.Model
     urlRoot: -> Routes.tests_path()
 
+    runTest: ->
+      @deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (test) ->
+        q.runQuery() for q in test.get("queries").models
+
   class Entities.TestsCollection extends Entities.Collection
     model: Entities.Test
 
