@@ -1,3 +1,10 @@
-<% console.log "query.jst.eco" %>
 <% console.log @ %>
-query.jst.eco
+<td><%= @method %></td>
+<td><%= @url %></td>
+<td><%= @stringifyQueryData(@data) %></td>
+<td><%= @resultStatus %></td>
+<td><%= @ajax %></td>
+<td><%= @con %></td>
+<td><%= @parse %></td>
+<td><%= @q %></td>
+<td><%= @qc %></td>

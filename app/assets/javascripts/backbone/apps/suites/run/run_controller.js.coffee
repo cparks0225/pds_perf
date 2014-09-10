@@ -41,9 +41,7 @@
     fetchSuiteTestsData: ->
       suite_tests_collection = App.request "new:tests:entities"
 
-      console.log "______"
       for test in @suite.get("tests")
-        console.log test
         new_test_data = @tests.get test.id
         for iter in [0...test.iterations]
           new_test = App.request "new:tests:entity"
@@ -61,6 +59,15 @@
               new_query.set
                 iteration: qiter + 1
                 interval: parseInt query.interval
+                result: 
+                  status: "running"
+                  ajax: 0
+                  con: 0
+                  parse: 0
+                  q: 0
+                  qc: 0
+
+              new_query.runQuery()
 
               suite_test_queries_collection.add new_query
 
@@ -69,7 +76,5 @@
 
           suite_tests_collection.add new_test
 
-      console.log "______"
-
-      @suite.set("tests", suite_tests_collection)
+        @suite.set("tests", suite_tests_collection)
       console.log @suite

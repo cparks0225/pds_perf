@@ -1,4 +1,18 @@
 <% console.log "test.jst.eco" %>
-<% console.log @ %>
-
 <div class="panel-heading"><%- @name %></div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Url</th>
+      <th>Data</th>
+      <th>Status</th>
+      <th>ajax</th>
+      <th>con</th>
+      <th>parse</th>
+      <th>q</th>
+      <th>qc</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>

@@ -13,6 +13,10 @@
 
   class Run.Query extends App.Views.ItemView
     template: "suites/run/query"
+    tagName: "tr"
+
+    modelEvents:
+      "change": -> @render()
 
   class Run.Test extends App.Views.CompositeView
     template: "suites/run/test"
@@ -22,6 +26,7 @@
       @collection = @model.get("queries")
 
     childView: Run.Query
+    childViewContainer: "table"
 
   class Run.Tests extends App.Views.CompositeView
     template: "suites/run/tests"
