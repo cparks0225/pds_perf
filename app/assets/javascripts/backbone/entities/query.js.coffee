@@ -14,16 +14,17 @@
     runQuery: ->
       @deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (query) ->
         query_start_time = new Date().getTime()
+        query.set
+          "resultStatus": "running"
+          "runTime": query_start_time
 
-        console.log "run query"
-        console.log query
         $.ajax(
           type: query.get("method")
           url: query.testUrl()
+          
         ).done((data, textStatus, jqXHR) ->
           query_end_time = new Date().getTime()
           query.set
-            "runTime": query_start_time
             "endTime": query_end_time 
             "resultStatus": textStatus
             "ajax": Math.abs(query_end_time - query_start_time)
@@ -35,6 +36,7 @@
         ).fail (jqXHR, textStatus, errorThrown) ->
           query_end_time = new Date().getTime()
           query.set
+            "endTime": query_end_time 
             "restulStatus": textStatus
             "ajax": Math.abs(query_end_time - query_start_time)
             "con": 0

@@ -59,13 +59,12 @@
               new_query.set
                 iteration: qiter + 1
                 interval: parseInt query.interval
-                result: 
-                  status: "running"
-                  ajax: 0
-                  con: 0
-                  parse: 0
-                  q: 0
-                  qc: 0
+                resultStatus: "pending"
+                # ajax: 0
+                # con: 0
+                # parse: 0
+                # q: 0
+                # qc: 0
 
               new_query.runQuery()
 
