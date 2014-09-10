@@ -51,6 +51,8 @@
 
         @server_suites.create new_suite_data
 
+        App.navigate "/suites", trigger:true
+
       @layout.suiteRegion.show v
 
     showTests: (tests) =>

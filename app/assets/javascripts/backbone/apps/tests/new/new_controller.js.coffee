@@ -42,6 +42,8 @@
 
         @new_test.save new_test_data
 
+        App.navigate "/tests", trigger:true
+
       @layout.testRegion.show v
 
     showQueries: (queries) =>
