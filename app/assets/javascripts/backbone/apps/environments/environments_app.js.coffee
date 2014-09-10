@@ -7,16 +7,24 @@
   API =
     listEnvironments: ->
       new EnvironmentsApp.List.Controller
+      se = @getSelectedEnvironment()
+      App.execute "when:fetched", [se], =>
+        @highlightSelectedEnvironment( se.get("id") )
 
     newEnvironment: (region) ->
       new EnvironmentsApp.New.Controller
         region: region
 
+    highlightSelectedEnvironment: (id) ->
+      $("div").find("[data-id='env-" + id + "']").closest(".list-group").children(".list-group-item-info").removeClass("list-group-item-info");
+      $("div").find("[data-id='env-" + id + "']").parent().addClass("list-group-item-info")
+
     getSelectedEnvironment: ->
-      @selectedEnvironment
+      App.request "environments:entity", localStorage.getItem("pdsSelectedEnvironment")
 
     setSelectedEnvironment: (environment) ->
-      @selectedEnvironment = environment
+      localStorage.setItem("pdsSelectedEnvironment", environment.get("id"))
+      @highlightSelectedEnvironment environment.get("id")
 
     login: (username, password, environment) ->
       data_string = "grant_type=password&username=" + username + "&password=" + password

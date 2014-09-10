@@ -1,0 +1,13 @@
+Environment login needs to stick around after refresh.
+
+Have to pass in authentication token with queries
+
+Query Builder is currently reading from a hard-coded api and isn't updating
+
+Deleting queries/tests when they're associated with test suites is a problem.
+
+creating new tests/suites without adding any queries/tests
+
+Storing and displaying results
+
+Deploying this thing.
