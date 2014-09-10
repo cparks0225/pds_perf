@@ -35,10 +35,10 @@
         success: (msg) ->
           console.log "SUCCESS"
           console.log msg
+          localStorage.setItem("auth_token", "SUCCESS")
           return
         error: (XMLHttpRequest, textStatus, errorThrown) ->
-          environment.set "token", "HI"
-          console.log environment
+          localStorage.setItem("auth_token", "ERR")
           alert "Failed to Login: " + errorThrown
           return
 

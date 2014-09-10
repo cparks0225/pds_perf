@@ -26,11 +26,12 @@
 
       loginView.on "login:submit", ->
         env = App.request "get:selected:environment"
-        data = Backbone.Syphon.serialize loginView
-        if env != undefined
-          App.commands.execute "login", data['username'], data['password'], env
-        else
-          alert "Select an Environment to login to"
+        App.execute "when:fetched", [env], =>
+          data = Backbone.Syphon.serialize loginView
+          if env != undefined
+            App.commands.execute "login", data['username'], data['password'], env
+          else
+            alert "Select an Environment to login to"
       @layout.loginRegion.show loginView
 
     environmentsRegion: (environments) ->

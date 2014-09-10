@@ -16,9 +16,15 @@
             "runTime": query_start_time
             "environment": run_env.get("pds")
 
+          console.log run_env
+          # headers_obj =
+          #   'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
+          # console.log headers_obj
+
           $.ajax(
             type: query.get("method")
             url: full_url
+            # headers: headers_obj
             
           ).done((data, textStatus, jqXHR) ->
             query_end_time = new Date().getTime()

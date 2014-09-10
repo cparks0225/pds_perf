@@ -16,7 +16,14 @@
     tagName: "tr"
 
     modelEvents:
-      "change": -> @render()
+      "change": ->
+        $(@el).removeClass()
+        switch @model.get("resultStatus")
+          when "pending" then $(@el).addClass("")
+          when "running" then $(@el).addClass("active")
+          when "success" then $(@el).addClass("success")
+          when "error" then $(@el).addClass("danger")
+        @render()
 
   class Run.Test extends App.Views.CompositeView
     template: "suites/run/test"
