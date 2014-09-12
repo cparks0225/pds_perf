@@ -1,9 +1,10 @@
 @PdsPerf.module "HeaderApp", (HeaderApp, App, Backbone, Marionette, $, _) ->
   @startWithParent = false
 
-  API = 
+  API =
     listHeader: ->
-      HeaderApp.List.Controller.listHeader()
+      console.log "listHeader"
+      new HeaderApp.List.Controller()
 
-  HeaderApp.on "start", ->
+  App.addInitializer ->
     API.listHeader()

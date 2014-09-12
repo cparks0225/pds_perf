@@ -1,12 +1,34 @@
 @PdsPerf.module "HeaderApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-  List.Controller =
+  class List.Controller extends App.Controllers.Base
 
-    listHeader: ->
-      links = App.request "header:entities"
-      headerView = @getHeaderView links
-      App.headerRegion.show headerView
+    initialize: ->
+      @pages_links = App.request "page:entities"
+      @system_links = App.request "systems:entities"
 
-    getHeaderView: (links) ->
-      new List.Headers
-        collection: links
+      App.execute "when:fetched", [@pages_links, @system_links], =>
+
+        @layout = @getListLayout()
+
+        App.headerRegion.listenTo @layout, "show", =>
+          @showSystemsView()
+          # @showEnvironmentsView()
+          @showPagesView()
+
+        console.log "show layout"
+        App.headerRegion.show @layout
+        console.log "layout shown"
+
+    showPagesView: ->
+      pagesView = @getPagesView()
+      @layout.pagesRegion.show pagesView
+
+    getListLayout: ->
+      new List.LayoutView
+
+    getPagesView: ->
+      new List.Pages
+        collection: @pages_links
+
+    showSystemsView: ->
+      App.execute "get:header:systems", @layout.systemsRegion, @system_links

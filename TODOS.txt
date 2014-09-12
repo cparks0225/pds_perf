@@ -6,12 +6,13 @@ Deleting queries/tests when they're associated with test suites is a problem.
 
 Storing and displaying results
 
-contextual colors for query run status
-
 Show something when attempting to run a test with no environment selected
 
 Deployment
 
+
+COSMETIC:
+  When navigating to suites/tests/queries, set "active" class to currently navigated page.
 
 
 

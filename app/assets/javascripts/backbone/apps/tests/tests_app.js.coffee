@@ -2,7 +2,7 @@
 
   class TestsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "tests" : "listTests"
+      "tests/:system" : "listTests"
 
   API =
     listTests: ->

@@ -2,10 +2,11 @@
 
   class QueriesApp.Router extends Marionette.AppRouter
     appRoutes:
-      "queries" : "listQueries"
+      "queries/:system" : "listQueries"
 
   API =
-    listQueries: ->
+    listQueries: (system)->
+      console.log "listQueries: " + system
       new QueriesApp.List.Controller
 
     listQueriesForTests: (queries) ->
