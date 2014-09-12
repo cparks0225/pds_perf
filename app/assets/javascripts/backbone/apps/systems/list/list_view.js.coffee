@@ -30,6 +30,13 @@
     template: "systems/list/_system_for_header"
     tagName: "li"
 
+    events:
+      "click" : (e) ->
+        h = e.target.hash.split("/")
+        o = App.getCurrentRoute().split("/")
+        e.target.hash = h[0] + "/" + o[0] + "/" + h[h.length - 1]
+        @trigger "system:selected", @model
+
   class List.SystemsForHeader extends App.Views.CompositeView
     template: "systems/list/_systems_for_header"
     tagName: "ul"
@@ -39,6 +46,8 @@
     childViewContainer: "#systems-list"
 
     onRender: ->
-      console.log "ONRENDER"
-      console.log $(@el).find("#systems-list")
       $(@el).find("#systems-list").append '<li class="divider"></li><li><a href="#/systems">Manage</a></li>'
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], =>
+        if current_system.has("name")
+          $(@el).find("#system-selected-name").html current_system.get("name") + '<span class="caret"></span>'

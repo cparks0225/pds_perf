@@ -1,1 +1,3 @@
-<a href="#/<%- @slug %>"><%- @name %></a>
+<% console.log "Rendering system selector" %>
+<% console.log @ %>
+<%- @linkTo @name, @slug %>

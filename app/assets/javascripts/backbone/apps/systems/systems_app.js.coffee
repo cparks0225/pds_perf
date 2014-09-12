@@ -5,6 +5,9 @@
       "systems" : "listSystems"
 
   API =
+    setSelectedSystem: (system) ->
+      localStorage.setItem("swaggernaughtSystem", system.get("id"))
+
     listSystems: ->
       new SystemsApp.List.Controller
 
@@ -13,11 +16,14 @@
         region: region
 
     newHeaderSystemsView: (region, systems) ->
-      console.log "new header systems view"
       v = new SystemsApp.List.SystemsForHeader
         collection: systems
 
-      console.log v
+      v.on "childview:system:selected", (child, system) ->
+        App.vent.trigger "system:selected", system
+        $(v.el).find("#system-selected-name").html system.get("name") + '<span class="caret"></span>'
+
+
       region.show(v)
 
   App.commands.setHandler "new:systems:view", (region) ->
@@ -28,6 +34,9 @@
 
   App.vent.on "systems:created", ->
     API.listSystems()
+
+  App.vent.on "system:selected", (system) ->
+    API.setSelectedSystem system
 
   App.addInitializer ->
     new SystemsApp.Router

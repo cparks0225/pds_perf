@@ -15,9 +15,7 @@
           # @showEnvironmentsView()
           @showPagesView()
 
-        console.log "show layout"
         App.headerRegion.show @layout
-        console.log "layout shown"
 
     showPagesView: ->
       pagesView = @getPagesView()

@@ -2,9 +2,16 @@
 
   class TestsApp.Router extends Marionette.AppRouter
     appRoutes:
+      "tests" : "adjustUrl"
+      "tests/" : "adjustUrl"
       "tests/:system" : "listTests"
 
   API =
+    adjustUrl: ->
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], ->
+        App.navigate "/tests" + current_system.get("slug"), trigger:true
+        
     listTests: ->
       new TestsApp.List.Controller
 

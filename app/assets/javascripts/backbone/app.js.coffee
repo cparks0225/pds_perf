@@ -22,6 +22,10 @@
   App.commands.setHandler "unregister:instance", (instance, id) ->
     App.unregister instance, id if App.environment is "development"
 
+  App.reqres.setHandler "get:system:selected", ->
+    console.log "app.js.coffee:: get:system:selected"
+    App.request "systems:entity", localStorage.getItem("swaggernaughtSystem")
+
   App.on "start", (options) ->
     @startHistory()
     @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is null

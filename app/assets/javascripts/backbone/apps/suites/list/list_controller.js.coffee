@@ -11,7 +11,6 @@
         for s in @suites.models
           extended_tests = []
           for t in s.get("tests")
-            console.log t.id
             st = @tests.get(t.id)
             extended_tests.push _.extend(t, st.toJSON())
           s.set("tests", extended_tests)
@@ -39,8 +38,6 @@
         child.model.destroy()
 
       @listenTo suitesView, "childview:suites:run:clicked", (suite) ->
-        console.log "RUN SUITE"
-        console.log suite
         # App.execute "run:suite", suite
         App.navigate "/suites/run/" + suite.model.get("id"), trigger:true
 

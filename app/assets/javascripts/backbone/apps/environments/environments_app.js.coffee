@@ -67,7 +67,5 @@
     API.listEnvironments()
 
   App.addInitializer ->
-    console.log "environments_app.js.coffee::App.addInitializer:: Enter"
     new EnvironmentsApp.Router
       controller: API
-    console.log "environments_app.js.coffee::App.addInitializer:: Leave"

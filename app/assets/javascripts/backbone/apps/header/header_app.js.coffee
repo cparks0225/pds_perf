@@ -3,7 +3,6 @@
 
   API =
     listHeader: ->
-      console.log "listHeader"
       new HeaderApp.List.Controller()
 
   App.addInitializer ->

@@ -2,9 +2,16 @@
 
   class QueriesApp.Router extends Marionette.AppRouter
     appRoutes:
+      "queries" : "adjustUrl"
+      "queries/" : "adjustUrl"
       "queries/:system" : "listQueries"
 
   API =
+    adjustUrl: ->
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], ->
+        App.navigate "/queries" + current_system.get("slug"), trigger:true
+        
     listQueries: (system)->
       console.log "listQueries: " + system
       new QueriesApp.List.Controller
