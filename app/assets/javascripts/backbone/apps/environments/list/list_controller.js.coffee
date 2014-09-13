@@ -11,34 +11,34 @@
 
         @listenTo @layout, "show", =>
           @showPanel()
-          @loginRegion()
           @environmentsRegion environments
-          @newEnvironmentRegion()
+          # @loginRegion()
 
         @show @layout
     
     showPanel: ->
       panelView = @getPanelView()
+
+      @listenTo panelView, "new:environments:button:clicked", =>
+        @newRegion()
+
       @layout.panelRegion.show panelView
 
-    loginRegion: ->
-      loginView = @getLoginView()
+    # loginRegion: ->
+    #   loginView = @getLoginView()
 
-      loginView.on "login:submit", ->
-        env = App.request "get:selected:environment"
-        App.execute "when:fetched", [env], =>
-          data = Backbone.Syphon.serialize loginView
-          if env != undefined
-            App.commands.execute "login", data['username'], data['password'], env
-          else
-            alert "Select an Environment to login to"
-      @layout.loginRegion.show loginView
+    #   loginView.on "login:submit", ->
+    #     env = App.request "get:environment:selected"
+    #     App.execute "when:fetched", [env], =>
+    #       data = Backbone.Syphon.serialize loginView
+    #       if env != undefined
+    #         App.commands.execute "login", data['username'], data['password'], env
+    #       else
+    #         alert "Select an Environment to login to"
+    #   @layout.loginRegion.show loginView
 
     environmentsRegion: (environments) ->
       environmentsView = @getEnvironmentsView environments
-
-      environmentsView.on "childview:environments:environment:clicked", (child, environment) ->
-        App.vent.trigger "environments:environment:clicked", environment
 
       environmentsView.on "childview:environments:delete:clicked", (child) ->
         App.vent.trigger "environments:delete:clicked", child.model
@@ -51,8 +51,8 @@
     getPanelView: ->
       new List.Panel
 
-    getLoginView: ->
-      new List.Login
+    # getLoginView: ->
+    #   new List.Login
 
     getEnvironmentsView: (environments) ->
       new List.Environments
@@ -60,3 +60,6 @@
 
     getLayoutView: ->
       new List.LayoutView
+
+    newRegion: ->
+      App.execute "new:environments:environment", @layout.newEnvironmentRegion

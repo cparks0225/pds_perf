@@ -5,3 +5,4 @@
 
     triggers:
       "click #new-environment" : "new:environment:button:clicked"
+      "click #cancel-new-environment" : "cancel:new:environment:button:clicked"

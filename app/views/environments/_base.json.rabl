@@ -1,7 +1,6 @@
-attributes :id, :riskapi, :pds, :token, :created_at, :updated_at
+attributes :id, :name, :riskapi, :pds, :token
 
-node do |query|
-  {
-    :risklogin => query.riskapi + "/login"
-  }
+node do |env|
+  { :risklogin => env.riskapi + "/login" }
+  { :slug => "/" + env.name.gsub(" ", "-").downcase() }
 end

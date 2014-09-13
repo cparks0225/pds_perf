@@ -23,8 +23,24 @@
     App.unregister instance, id if App.environment is "development"
 
   App.reqres.setHandler "get:system:selected", ->
-    console.log "app.js.coffee:: get:system:selected"
-    App.request "systems:entity", localStorage.getItem("swaggernaughtSystem")
+    App.request "systems:entity", localStorage.getItem("swaggernautSystem")
+
+  App.reqres.setHandler "get:environment:selected", ->
+    App.request "environments:entity", localStorage.getItem("swaggernautEnvironment")
+
+  App.reqres.setHandler "get:page:selected", ->
+    localStorage.getItem("swaggernautPage")
+
+  App.commands.setHandler "navigate", ->
+    sys = App.request "get:system:selected"
+    env = App.request "get:environment:selected"
+    pag = App.request "get:page:selected"
+    App.execute "when:fetched", [sys, env, pag], =>
+      url = pag 
+      url += sys.get("slug") if sys.get("slug")?
+      url += env.get("slug") if env.get("slug")?
+      console.log "NAVIGATE TO " + url
+      App.navigate(url, trigger: true)
 
   App.on "start", (options) ->
     @startHistory()

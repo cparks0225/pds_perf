@@ -18,7 +18,6 @@
       panelView = @getPanelView()
 
       @listenTo panelView, "new:systems:button:clicked", =>
-        console.log "Add New System Region"
         @newSystemView()
 
       @layout.panelRegion.show panelView

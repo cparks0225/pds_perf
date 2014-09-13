@@ -6,12 +6,14 @@
 
     regions:
       panelRegion: "#panel-region"
-      loginRegion: "#login-region"
-      environmentsRegion: "#environments-region"
       newEnvironmentRegion: "#add-environment-region"
+      environmentsRegion: "#environments-region"
 
   class List.Panel extends App.Views.ItemView
     template: "environments/list/_panel"
+
+    triggers:
+      "click #new-environment" : "new:environments:button:clicked"
 
   class List.Login extends App.Views.ItemView
     template: "environments/list/_login"
@@ -23,9 +25,6 @@
     template: "environments/list/_environment"
     tagName: "li"
     className: "list-group-item"
-
-    events:
-      "click" : -> @trigger "environments:environment:clicked", @model
 
     triggers:
       "click button" : "environments:delete:clicked"
@@ -40,3 +39,30 @@
     childView: List.Environment
     childViewContainer: "ul"
     emptyView: List.Empty
+
+  class List.EnvironmentForHeader extends App.Views.ItemView
+    template: "environments/list/_environment_for_header"
+    tagName: "li"
+
+    events:
+      "click" : (e) ->
+        e.preventDefault()
+        console.log @model
+        if @model.has "id"
+          @trigger "environment:selected", @model
+        else
+          App.vent.trigger "page:selected", @model
+
+  class List.EnvironmentsForHeader extends App.Views.CompositeView
+    template: "environments/list/_environments_for_header"
+    tagName: "ul"
+    className: "nav navbar-nav"
+
+    childView: List.EnvironmentForHeader
+    childViewContainer: "#environments-list"
+
+    onRender: ->
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], =>
+        if current_system.has("name")
+          $(@el).find("#system-selected-name").html current_system.get("name") + '<span class="caret"></span>'

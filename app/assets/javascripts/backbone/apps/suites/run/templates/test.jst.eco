@@ -1,4 +1,3 @@
-<% console.log "test.jst.eco" %>
 <div class="panel-heading"><%- @name %></div>
 <table class="table">
   <thead>

@@ -5,21 +5,18 @@
 
     runQuery: ->
       @deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (query) ->
-        run_env = App.request "get:selected:environment"
+        run_env = App.request "get:environment:selected"
         App.execute "when:fetched", [run_env], =>
           query_start_time = new Date().getTime()
           full_url = run_env.get("pds") + "/api" + query.get("url")
-          console.log full_url
 
           query.set
             "resultStatus": "running"
             "runTime": query_start_time
             "environment": run_env.get("pds")
 
-          console.log run_env
           # headers_obj =
           #   'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
-          # console.log headers_obj
 
           $.ajax(
             type: query.get("method")

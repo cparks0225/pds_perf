@@ -3,10 +3,16 @@
   class SystemsApp.Router extends Marionette.AppRouter
     appRoutes:
       "systems" : "listSystems"
+      "systems/" : "listSystems"
+      "systems/:system" : "adjustUrl"
+      "systems/:system/:environment" : "adjustUrl"
 
   API =
+    adjustUrl: ->
+      App.navigate "/systems", trigger:true
+
     setSelectedSystem: (system) ->
-      localStorage.setItem("swaggernaughtSystem", system.get("id"))
+      localStorage.setItem("swaggernautSystem", system.get("id"))
 
     listSystems: ->
       new SystemsApp.List.Controller
@@ -23,7 +29,6 @@
         App.vent.trigger "system:selected", system
         $(v.el).find("#system-selected-name").html system.get("name") + '<span class="caret"></span>'
 
-
       region.show(v)
 
   App.commands.setHandler "new:systems:view", (region) ->
@@ -37,6 +42,7 @@
 
   App.vent.on "system:selected", (system) ->
     API.setSelectedSystem system
+    App.execute "navigate"
 
   App.addInitializer ->
     new SystemsApp.Router

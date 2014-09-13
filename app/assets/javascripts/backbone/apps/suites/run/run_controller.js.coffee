@@ -71,4 +71,3 @@
           suite_tests_collection.add new_test
 
         @suite.set("tests", suite_tests_collection)
-      console.log @suite

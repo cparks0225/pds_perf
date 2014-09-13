@@ -10,10 +10,10 @@
     adjustUrl: ->
       current_system = App.request "get:system:selected"
       App.execute "when:fetched", [current_system], ->
-        App.navigate "/queries" + current_system.get("slug"), trigger:true
+        if current_system.has("name")
+          App.navigate "/queries" + current_system.get("slug"), trigger:true
         
     listQueries: (system)->
-      console.log "listQueries: " + system
       new QueriesApp.List.Controller
 
     listQueriesForTests: (queries) ->
@@ -105,7 +105,7 @@
       # Verify that the submitted parameters match the regex pattern
       query_data = {}
       if API.verifyParamRegex(url_values, url_params)
-        env = App.request "get:selected:environment"
+        env = App.request "get:environment:selected"
         constructed_url = api_pre
         constructed_url += API.serializeUrlPaths(url_values, url_params)
         constructed_url += api_post

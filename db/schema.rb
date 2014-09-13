@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912055753) do
+ActiveRecord::Schema.define(version: 20140912123701) do
 
   create_table "environments", force: true do |t|
     t.text     "riskapi"
     t.text     "pds"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "queries", force: true do |t|

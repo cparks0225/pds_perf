@@ -8,10 +8,10 @@
   API =
     getPages: ->
       new Entities.PagesCollection [
-        # { name: "Results", url: Routes.results_path() }
-        { name: "Suites", url: Routes.suites_path() }
-        { name: "Tests", url: Routes.tests_path() }
-        { name: "Queries", url: Routes.queries_path() }
+        # { name: "Results", slug: Routes.results_path() }
+        { name: "Suites", slug: Routes.suites_path() }
+        { name: "Tests", slug: Routes.tests_path() }
+        { name: "Queries", slug: Routes.queries_path() }
       ]
 
   App.reqres.setHandler "page:entities", ->

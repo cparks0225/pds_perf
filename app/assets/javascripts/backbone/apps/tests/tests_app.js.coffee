@@ -10,7 +10,8 @@
     adjustUrl: ->
       current_system = App.request "get:system:selected"
       App.execute "when:fetched", [current_system], ->
-        App.navigate "/tests" + current_system.get("slug"), trigger:true
+        if current_system.has("name")
+          App.navigate "/tests" + current_system.get("slug"), trigger:true
         
     listTests: ->
       new TestsApp.List.Controller

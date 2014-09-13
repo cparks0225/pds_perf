@@ -21,6 +21,9 @@
       environment.fetch()
       environment
 
+    newEnvironments: ->
+      new Entities.EnvironmentsCollection
+
     newEnvironment: ->
       new Entities.Environment
 
@@ -30,6 +33,9 @@
   App.reqres.setHandler "environments:entity", (id) ->
     API.getEnvironment id
   
+  App.reqres.setHandler "new:environments:entities", ->
+    API.newEnvironments()
+
   App.reqres.setHandler "new:environments:entity", ->
     API.newEnvironment()
     

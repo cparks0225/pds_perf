@@ -15,6 +15,10 @@
         newView.model.save data,
           collection: newView.collection
 
+      @listenTo newView, "cancel:new:environment:button:clicked", =>
+        @region.reset()
+        @destroy() 
+
       @show newView
 
     getNewEnvironmentView: (env) ->
