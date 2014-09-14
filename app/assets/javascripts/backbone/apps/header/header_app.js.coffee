@@ -10,7 +10,7 @@
 
   App.vent.on "page:selected", (page) ->
     API.setSelectedPage page
-    App.execute "navigate", page.get("slug")
+    App.navigate page.get("slug"), trigger:true
 
   App.addInitializer ->
     API.listHeader()

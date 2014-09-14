@@ -3,8 +3,6 @@ do (Backbone) ->
   _.extend Backbone.Marionette.Application::, 
 
     navigate: (route, options = {}) ->
-      console.log "NAVIGATE"
-      console.log route
       route = "#" + route if route.charAt(0) is "/"
       Backbone.history.navigate route, options
 

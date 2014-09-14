@@ -31,16 +31,6 @@
   App.reqres.setHandler "get:page:selected", ->
     localStorage.getItem("Page")
 
-  App.commands.setHandler "navigate", (url) ->
-    # sys = App.request "get:system:selected"
-    # env = App.request "get:environment:selected"
-    # pag = App.request "get:page:selected"
-
-    # url = pag 
-    # url += sys.get("slug") if sys["slug"]?
-    # url += env.get("slug") if env["slug"]?
-    App.navigate(url, trigger: true)
-
   App.on "start", (options) ->
     @startHistory()
     @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is null
