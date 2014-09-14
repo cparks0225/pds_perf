@@ -6,11 +6,11 @@
       new HeaderApp.List.Controller()
 
     setSelectedPage: (page) ->
-      localStorage.setItem("swaggernautPage", page.get("slug"))
+      localStorage.setItem("Page", page.get("slug"))
 
   App.vent.on "page:selected", (page) ->
     API.setSelectedPage page
-    App.execute "navigate"
+    App.execute "navigate", page.get("slug")
 
   App.addInitializer ->
     API.listHeader()

@@ -2,17 +2,10 @@
 
   class QueriesApp.Router extends Marionette.AppRouter
     appRoutes:
-      "queries" : "adjustUrl"
-      "queries/" : "adjustUrl"
-      "queries/:system" : "listQueries"
+      "queries" : "listQueries"
+      "queries/" : "listQueries"
 
   API =
-    adjustUrl: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], ->
-        if current_system.has("name")
-          App.navigate "/queries" + current_system.get("slug"), trigger:true
-        
     listQueries: (system)->
       new QueriesApp.List.Controller
 
@@ -105,7 +98,7 @@
       # Verify that the submitted parameters match the regex pattern
       query_data = {}
       if API.verifyParamRegex(url_values, url_params)
-        env = App.request "get:environment:selected"
+        # env = App.request "get:environment:selected"
         constructed_url = api_pre
         constructed_url += API.serializeUrlPaths(url_values, url_params)
         constructed_url += api_post
@@ -154,6 +147,10 @@
         new_data.push new_obj
 
     return JSON.stringify new_data
+
+  App.vent.on "system:selected", (system) ->
+    if not ((Routes.queries_path().indexOf(App.getCurrentRoute())) == -1)
+      API.listQueries()
 
   App.addInitializer ->
     new QueriesApp.Router

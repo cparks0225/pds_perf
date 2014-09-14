@@ -84,14 +84,11 @@ class PdsapisController < ApplicationController
 
       @pds_apis = []
       for service in raw_json
-        Rails.logger.debug( service )
         new_pds = PdsService.new
         new_pds.from_json(JSON.generate(service))
 
         new_pds.path = new_pds.path.split("\/")[4]
-        # new_pds.apis = FetchApi(new_pds.path)
         FetchApi(new_pds)
-        Rails.logger.debug( new_pds )
         @pds_apis.push(new_pds)
       end
       StoreApis(@pds_apis)

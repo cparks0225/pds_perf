@@ -33,10 +33,17 @@
   class List.Empty extends App.Views.ItemView
     template: "queries/list/_empty"
     tagName: "li"
-    className: "list-group-item"
+    className: "list-group-item text-center list-group-item-warning"
 
   class List.Queries extends App.Views.CompositeView
     template: "queries/list/_queries"
     childView: List.Query
-    emptyView: List.Emtpy
+    emptyView: List.Empty
     childViewContainer: "ul"
+
+    onRender: ->
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], =>
+        if not current_system.has("name")
+          $(@el).find("li").addClass "list-group-item-danger"
+          $(@el).find("h4").html "No System Selected"

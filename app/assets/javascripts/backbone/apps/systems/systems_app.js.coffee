@@ -1,18 +1,18 @@
+
 @PdsPerf.module "SystemsApp", (SystemsApp, App, Backbone, Marionette, $, _) ->
 
   class SystemsApp.Router extends Marionette.AppRouter
     appRoutes:
       "systems" : "listSystems"
       "systems/" : "listSystems"
-      "systems/:system" : "adjustUrl"
-      "systems/:system/:environment" : "adjustUrl"
 
   API =
-    adjustUrl: ->
-      App.navigate "/systems", trigger:true
-
     setSelectedSystem: (system) ->
-      localStorage.setItem("swaggernautSystem", system.get("id"))
+      localStorage.setItem("System", system.get("id"))
+
+      sess = App.request "sessions:entity"
+      sess.set("system", system.get("id"))
+      sess.save()
 
     listSystems: ->
       new SystemsApp.List.Controller
@@ -42,7 +42,6 @@
 
   App.vent.on "system:selected", (system) ->
     API.setSelectedSystem system
-    App.execute "navigate"
 
   App.addInitializer ->
     new SystemsApp.Router

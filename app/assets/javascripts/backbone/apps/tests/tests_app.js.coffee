@@ -2,17 +2,10 @@
 
   class TestsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "tests" : "adjustUrl"
-      "tests/" : "adjustUrl"
-      "tests/:system" : "listTests"
+      "tests" : "listTests"
+      "tests/" : "listTests"
 
   API =
-    adjustUrl: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], ->
-        if current_system.has("name")
-          App.navigate "/tests" + current_system.get("slug"), trigger:true
-        
     listTests: ->
       new TestsApp.List.Controller
 
@@ -29,6 +22,10 @@
 
   App.reqres.setHandler "suites:tests:view", (tests) ->
     API.listTestsForSuites tests
+
+  App.vent.on "system:selected", (system) ->
+    if not ((Routes.tests_path().indexOf(App.getCurrentRoute())) == -1)
+      API.listTests()
 
   App.addInitializer ->
     new TestsApp.Router

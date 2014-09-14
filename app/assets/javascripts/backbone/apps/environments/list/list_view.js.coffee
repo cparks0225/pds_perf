@@ -40,6 +40,13 @@
     childViewContainer: "ul"
     emptyView: List.Empty
 
+    onRender: ->
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], =>
+        if not current_system.has("name")
+          $(@el).find("li").addClass "list-group-item-danger"
+          $(@el).find("h4").html "No System Selected"
+
   class List.EnvironmentForHeader extends App.Views.ItemView
     template: "environments/list/_environment_for_header"
     tagName: "li"
@@ -47,7 +54,6 @@
     events:
       "click" : (e) ->
         e.preventDefault()
-        console.log @model
         if @model.has "id"
           @trigger "environment:selected", @model
         else
@@ -62,7 +68,7 @@
     childViewContainer: "#environments-list"
 
     onRender: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], =>
-        if current_system.has("name")
-          $(@el).find("#system-selected-name").html current_system.get("name") + '<span class="caret"></span>'
+      current_env = App.request "get:environment:selected"
+      App.execute "when:fetched", [current_env], =>
+        if current_env.has("name")
+          $(@el).find("#environment-selected-name").html current_env.get("name") + '<span class="caret"></span>'

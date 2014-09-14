@@ -32,7 +32,7 @@
 
     events:
       "click" : (e) ->
-        console.log @model
+        e.preventDefault()
         if @model.has "id"
           @trigger "system:selected", @model
         else

@@ -21,8 +21,21 @@
     triggers:
       "click button" : "tests:delete:clicked"
 
+  class List.Empty extends App.Views.ItemView
+    template: "tests/list/_empty"
+    tagName: "li"
+    className: "list-group-item text-center list-group-item-warning"
+
   class List.Tests extends App.Views.CompositeView
     template: "tests/list/tests_list"
     childView: List.Test
+    emptyView: List.Empty
     childViewContainer: "div"
     className: "panel-group"
+
+    onRender: ->
+      current_system = App.request "get:system:selected"
+      App.execute "when:fetched", [current_system], =>
+        if not current_system.has("name")
+          $(@el).find("li").addClass "list-group-item-danger"
+          $(@el).find("h4").html "No System Selected"

@@ -9,8 +9,7 @@
   API =
     adjustUrl: ->
       current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], ->
-        App.navigate "/results/" + current_system.get("slug"), trigger:true
+      App.navigate "/results/" + current_system["slug"], trigger:true
         
     listResults: ->
       ResultsApp.List.Controller.listResults()

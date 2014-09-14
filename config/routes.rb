@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :suites
   resources :tests
   resources :queries
+  resources :sessions
 
   get '/pdsapis', to: 'pdsapis#index'
   # get '/pdsapis/restful/:id', to: 'pdsapis#show'

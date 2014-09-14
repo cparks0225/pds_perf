@@ -23,24 +23,23 @@
     App.unregister instance, id if App.environment is "development"
 
   App.reqres.setHandler "get:system:selected", ->
-    App.request "systems:entity", localStorage.getItem("swaggernautSystem")
+    App.request "systems:entity", localStorage.getItem("System")
 
   App.reqres.setHandler "get:environment:selected", ->
-    App.request "environments:entity", localStorage.getItem("swaggernautEnvironment")
+    App.request "environments:entity", localStorage.getItem("Environment")
 
   App.reqres.setHandler "get:page:selected", ->
-    localStorage.getItem("swaggernautPage")
+    localStorage.getItem("Page")
 
-  App.commands.setHandler "navigate", ->
-    sys = App.request "get:system:selected"
-    env = App.request "get:environment:selected"
-    pag = App.request "get:page:selected"
-    App.execute "when:fetched", [sys, env, pag], =>
-      url = pag 
-      url += sys.get("slug") if sys.get("slug")?
-      url += env.get("slug") if env.get("slug")?
-      console.log "NAVIGATE TO " + url
-      App.navigate(url, trigger: true)
+  App.commands.setHandler "navigate", (url) ->
+    # sys = App.request "get:system:selected"
+    # env = App.request "get:environment:selected"
+    # pag = App.request "get:page:selected"
+
+    # url = pag 
+    # url += sys.get("slug") if sys["slug"]?
+    # url += env.get("slug") if env["slug"]?
+    App.navigate(url, trigger: true)
 
   App.on "start", (options) ->
     @startHistory()

@@ -2,18 +2,10 @@
 
   class SuitesApp.Router extends Marionette.AppRouter
     appRoutes:
-      "suites" : "adjustUrl"
-      "suites/" : "adjustUrl"
-      "suites/:system" : "listSuites"
-      "suites/:system/run/:id" : "newRunView"
+      "suites" : "listSuites"
+      "suites/" : "listSuites"
 
   API =
-    adjustUrl: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], ->
-        if current_system.has("name")
-          App.navigate "/suites" + current_system.get("slug"), trigger:true
-
     listSuites: ->
       new SuitesApp.List.Controller
 
@@ -26,6 +18,11 @@
 
   App.commands.setHandler "new:suites:suite", (region) ->
     API.newSuiteView region
+
+  App.vent.on "system:selected", (system) ->
+    console.log "Suites System Selected"
+    if not ((Routes.suites_path().indexOf(App.getCurrentRoute())) == -1)
+      API.listSuites()
 
   App.addInitializer ->
     new SuitesApp.Router

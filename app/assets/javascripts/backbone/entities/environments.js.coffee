@@ -6,7 +6,8 @@
   class Entities.EnvironmentsCollection extends Entities.Collection
     model: Entities.Environment
 
-    url: -> Routes.environments_path()
+    url: -> 
+      Routes.environments_path()
 
   API =
     getEnvironments: ->

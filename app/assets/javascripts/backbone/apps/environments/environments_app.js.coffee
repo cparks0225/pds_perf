@@ -2,20 +2,10 @@
 
   class EnvironmentsApp.Router extends Marionette.AppRouter
     appRoutes:
-      "environments" : "adjustUrl"
-      "environments/" : "adjustUrl"
-      "environments/:system" : "listEnvironments"
-      "environments/:system/:environment" : "adjustUrl"
+      "environments" : "listEnvironments"
+      "environments/" : "listEnvironments"
 
   API =
-    adjustUrl: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], ->
-        if current_system.has("name")
-          App.navigate "/environments" + current_system.get("slug"), trigger:true
-        else
-          console.log "Navigating to env with no System selected"
-
     listEnvironments: ->
       new EnvironmentsApp.List.Controller
 
@@ -37,7 +27,11 @@
       App.request "environments:entity", localStorage.getItem("swaggernautEnvironment")
 
     setSelectedEnvironment: (environment) ->
-      localStorage.setItem("swaggernautEnvironment", environment.get("id"))
+      localStorage.setItem("Environment", environment.get("id"))
+
+      sess = App.request "sessions:entity"
+      sess.set("environment", environment.get("id"))
+      sess.save()
 
     # login: (username, password, environment) ->
     #   data_string = "grant_type=password&username=" + username + "&password=" + password
@@ -81,7 +75,10 @@
 
   App.vent.on "environment:selected", (environment) ->
     API.setSelectedEnvironment environment
-    App.execute "navigate"
+
+  App.vent.on "system:selected", (system) ->
+    if not ((Routes.environments_path().indexOf(App.getCurrentRoute())) == -1)
+      API.listEnvironments()
 
   App.addInitializer ->
     new EnvironmentsApp.Router
