@@ -12,6 +12,9 @@ class SystemsController < ApplicationController
   
   def update
     @system = System.find params[:id]
+    if params[:system][:active]
+      cookies[:system] = params[:system][:id]
+    end
     if @system.update_attributes(params[:system].permit(:name) )
       render "systems/show"
     else

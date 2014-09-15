@@ -9,10 +9,7 @@
   API =
     setSelectedSystem: (system) ->
       localStorage.setItem("System", system.get("id"))
-
-      sess = App.request "sessions:entity"
-      sess.set("system", system.get("id"))
-      sess.save()
+      system.collection.setActive system
 
     listSystems: ->
       new SystemsApp.List.Controller

@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  def current_system
+    @_current_system ||= cookies[:system] &&
+      System.find_by(id: cookies[:system])
+  end
+
   def index
-    # @queries = Query.all
-    # gon.rabl :template => "app/views/queries/index.json.rabl"
-    gon.rabl
-    @query = Query.first
-    gon.rabl "app/views/queries/show.json", as: "query"
   end
 end

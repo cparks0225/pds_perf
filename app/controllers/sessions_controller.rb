@@ -4,8 +4,6 @@ class SessionSerializer
   include ActiveModel::Serializers::JSON
 
   def attributes=(hash)
-    Rails.logger.debug ("HASH FUNCTION" )
-    Rails.logger.debug( hash )
     hash.each do |key, value|
       send("#{key}=", value)
     end
@@ -39,6 +37,8 @@ class SessionsController < ApplicationController
   end
 
   def update
+    Rails.logger.debug( "SESSION UPDATE" )
+    Rails.logger.debug( session[:system] )
     session[:id] = session["session_id"]
     params[:session].each do |key, val|
       if not val == nil
@@ -48,10 +48,15 @@ class SessionsController < ApplicationController
       end
     end
     @session_var = ConvertSessionData()
+    Rails.logger.debug( "@session_var" )
+    Rails.logger.debug( @session_var )
+    Rails.logger.debug( "session" )
+    Rails.logger.debug( session.to_hash )
     render "sessions/show"
   end
 
   def create
+    Rails.logger.debug( "SESSION CREATE" )
     session[:id] = session["session_id"]
     params[:session].each do |key, val|
       if not val == nil
@@ -61,6 +66,10 @@ class SessionsController < ApplicationController
       end
     end
     @session_var = ConvertSessionData()
+    Rails.logger.debug( "@session_var" )
+    Rails.logger.debug( @session_var )
+    Rails.logger.debug( "session" )
+    Rails.logger.debug( session.to_hash )
     render "sessions/show"
   end
 end

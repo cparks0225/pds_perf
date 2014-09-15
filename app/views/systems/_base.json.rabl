@@ -1,4 +1,4 @@
-attributes :id, :name
+attributes :id, :name, :active
 
 node do |system|
   {

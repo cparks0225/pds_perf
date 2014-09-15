@@ -6,7 +6,8 @@
       environments = App.request "environments:entities"
 
       App.execute "when:fetched", [environments], =>
-
+        environments.pop()
+        environments.pop()
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>

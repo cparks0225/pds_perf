@@ -3,7 +3,11 @@ class SuitesController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
   def index
-    @suites = Suite.all
+    if current_system().nil?
+      @suites = []
+    else
+      @suites = Suite.where("system=?", current_system().id )
+    end
   end
 
   def show

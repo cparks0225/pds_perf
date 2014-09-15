@@ -3,7 +3,11 @@ class QueriesController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
   def index
-    @queries = Query.all
+    if current_system().nil?
+      @queries = []
+    else
+      @queries = Query.where("system=?", current_system().id )
+    end
   end
 
   def show

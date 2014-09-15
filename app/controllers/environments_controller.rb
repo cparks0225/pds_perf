@@ -3,7 +3,11 @@ class EnvironmentsController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
   def index
-    @environments = Environment.all
+    if current_system().nil?
+      @environments = []
+    else
+      @environments = Environment.where("system=?", current_system().id )
+    end
   end
 
   def show
@@ -12,7 +16,7 @@ class EnvironmentsController < ApplicationController
   
   def update
     @environment = Environment.find params[:id]
-    if @environment.update_attributes(params[:environment].permit(:name, :riskapi, :pds) )
+    if @environment.update_attributes(params[:environment].permit(:name, :riskapi, :pds, :system) )
       render "environments/show"
     else
       respond_with @environment
@@ -21,7 +25,7 @@ class EnvironmentsController < ApplicationController
   
   def create
     @environment = Environment.new
-    if @environment.update_attributes(params[:environment].permit(:name, :riskapi, :pds) )
+    if @environment.update_attributes(params[:environment].permit(:name, :riskapi, :pds, :system) )
       render "environments/show"
     else
       respond_with @environment

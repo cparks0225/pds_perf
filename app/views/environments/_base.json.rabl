@@ -1,4 +1,4 @@
-attributes :id, :name, :riskapi, :pds, :token
+attributes :id, :name, :riskapi, :pds, :token, :system
 
 node do |env|
   { :risklogin => env.riskapi + "/login" }

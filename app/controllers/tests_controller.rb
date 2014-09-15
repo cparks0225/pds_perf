@@ -3,7 +3,11 @@ class TestsController < ApplicationController
   skip_before_filter  :verify_authenticity_token
 
   def index
-    @tests = Test.all
+    if current_system().nil?
+      @tests = []
+    else
+      @tests = Test.where("system=?", current_system().id )
+    end
   end
 
   def show

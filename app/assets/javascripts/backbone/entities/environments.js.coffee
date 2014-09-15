@@ -3,11 +3,33 @@
   class Entities.Environment extends Entities.Model
     urlRoot: -> Routes.environments_path()
 
-  class Entities.EnvironmentsCollection extends Entities.Collection
+  class Entities.EnvironmentsCollection extends Entities.MenuCollection
     model: Entities.Environment
 
     url: -> 
       Routes.environments_path()
+
+    collectionReset: ->
+      @collectionLoaded = true  unless @collectionLoaded
+
+      div = new Entities.Environment
+      div.set
+        name: "Divider"
+        riskapi: ""
+        pds: ""
+        slug: ""
+      @add div
+
+      manage_item = new Entities.Environment
+      manage_item.set
+        name: "Manage"
+        riskapi: ""
+        pds: ""
+        slug: "/environments"
+      @add manage_item
+
+      @fireResetCallbacks()
+      return
 
   API =
     getEnvironments: ->

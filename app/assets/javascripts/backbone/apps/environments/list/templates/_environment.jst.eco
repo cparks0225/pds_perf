@@ -1,14 +1,14 @@
-<div class="container" data-id="env-<%= @id %>">
-  <div class="col-md-3">
-    <%= @name %>
+  <div class="container" data-id="env-<%= @id %>">
+    <div class="col-md-3">
+      <%= @name %>
+    </div>
+    <div class="col-md-4">
+      <%= @riskapi %>
+    </div>
+    <div class="col-md-4">
+      <%= @pds %>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-xs btn-danger">Delete</button>
+    </div>
   </div>
-  <div class="col-md-4">
-    <%= @riskapi %>
-  </div>
-  <div class="col-md-4">
-    <%= @pds %>
-  </div>
-  <div class="col-md-1">
-    <button type="button" class="btn btn-xs btn-danger">Delete</button>
-  </div>
-</div>

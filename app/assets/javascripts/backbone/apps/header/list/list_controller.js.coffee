@@ -8,39 +8,6 @@
       @environments_links = App.request "environments:entities"
 
       App.execute "when:fetched", [@pages_links, @system_links, @environments_links], =>
-
-        manage_item = App.request "new:environments:entity"
-        manage_item.set
-          name: "Divider"
-          riskapi: ""
-          pds: ""
-          slug: ""
-        @environments_links.add manage_item
-
-        manage_item = App.request "new:environments:entity"
-        manage_item.set
-          name: "Manage"
-          riskapi: ""
-          pds: ""
-          slug: "/environments"
-        @environments_links.add manage_item
-
-        manage_item = App.request "new:systems:entity"
-        manage_item.set
-          name: "Divider"
-          riskapi: ""
-          pds: ""
-          slug: ""
-        @system_links.add manage_item
-
-        manage_item = App.request "new:systems:entity"
-        manage_item.set
-          name: "Manage"
-          riskapi: ""
-          pds: ""
-          slug: "/systems"
-        @system_links.add manage_item
-
         @layout = @getListLayout()
 
         App.headerRegion.listenTo @layout, "show", =>

@@ -3,10 +3,32 @@
   class Entities.System extends Entities.Model
     urlRoot: -> Routes.systems_path()
 
-  class Entities.SystemsCollection extends Entities.Collection
+  class Entities.SystemsCollection extends Entities.MenuCollection
     model: Entities.System
     
     url: -> Routes.systems_path()
+
+    collectionReset: ->
+      @collectionLoaded = true  unless @collectionLoaded
+
+      div = new Entities.System
+      div.set
+        name: "Divider"
+        riskapi: ""
+        pds: ""
+        slug: ""
+      @add div
+
+      manage_item = new Entities.System
+      manage_item.set
+        name: "Manage"
+        riskapi: ""
+        pds: ""
+        slug: "/systems"
+      @add manage_item
+
+      @fireResetCallbacks()
+      return
 
   API =
     getSystems: ->

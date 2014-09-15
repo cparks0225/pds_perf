@@ -6,6 +6,8 @@
       @systems = App.request "systems:entities"
 
       App.execute "when:fetched", [@systems], =>
+        @systems.pop()
+        @systems.pop()
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
