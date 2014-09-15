@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915065833) do
+ActiveRecord::Schema.define(version: 20140914082430) do
 
   create_table "environments", force: true do |t|
     t.text     "riskapi"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140915065833) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "environment"
+    t.integer  "system"
   end
 
   create_table "results", force: true do |t|
@@ -44,14 +44,13 @@ ActiveRecord::Schema.define(version: 20140915065833) do
     t.text     "tests"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "environment"
+    t.integer  "system"
   end
 
   create_table "systems", force: true do |t|
     t.text     "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active"
   end
 
   create_table "tests", force: true do |t|
@@ -59,7 +58,7 @@ ActiveRecord::Schema.define(version: 20140915065833) do
     t.text     "queries"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "environment"
+    t.integer  "system"
   end
 
 end
