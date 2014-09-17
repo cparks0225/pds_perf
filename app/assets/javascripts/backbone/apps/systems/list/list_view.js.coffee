@@ -51,6 +51,8 @@
         ret = @collection.activeModel
         if @collection.activeModel == undefined
           ret = "System"
+        else
+          ret = ret.get("name")
         ret
     # onRender: ->
     #   current_system = App.request "get:system:selected"

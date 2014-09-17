@@ -72,6 +72,8 @@
         ret = @collection.activeModel
         if @collection.activeModel == undefined
           ret = "Environment"
+        else
+          ret = ret.get("name")
         ret
     # onRender: ->
     #   current_env = App.request "get:environment:selected"

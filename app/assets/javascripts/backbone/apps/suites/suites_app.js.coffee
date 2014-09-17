@@ -4,6 +4,7 @@
     appRoutes:
       "suites" : "listSuites"
       "suites/" : "listSuites"
+      # "suites/run/:id" : 
 
   API =
     listSuites: ->
@@ -18,6 +19,10 @@
 
   App.commands.setHandler "new:suites:suite", (region) ->
     API.newSuiteView region
+
+  App.commands.setHandler "run:suite", (suite) ->
+    console.log "RUN ME"
+    API.newRunView suite
 
   App.vent.on "model:set:active", (system) ->
     if not ((Routes.suites_path().indexOf(App.getCurrentRoute())) == -1)

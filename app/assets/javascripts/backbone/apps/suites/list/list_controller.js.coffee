@@ -38,8 +38,8 @@
         child.model.destroy()
 
       @listenTo suitesView, "childview:suites:run:clicked", (suite) ->
-        # App.execute "run:suite", suite
-        App.navigate "/suites/run/" + suite.model.get("id"), trigger:true
+        App.execute "run:suite", suite.model.get("id")
+        # App.navigate "/suites/run/" + suite.model.get("id"), trigger:true
 
       @layout.suitesRegion.show suitesView
 

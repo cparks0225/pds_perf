@@ -18,7 +18,7 @@
     fireResetCallbacks: ->
       _.each @models, (m) =>
         if m.get("active")
-          @activeModel = m.get("name")
+          @activeModel = m
 
       callback = @onResetCallbacks.pop()
       if callback
@@ -35,7 +35,7 @@
               active: true
             ,
               success: (m) =>
-                @activeModel = m.get("name")
+                @activeModel = m
                 App.vent.trigger "model:set:active", m
               error: ->
                 console.log "SET ACTIVE SYSTEM ERROR!!!!!"
