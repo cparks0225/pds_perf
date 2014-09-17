@@ -29,6 +29,7 @@ class SuitesController < ApplicationController
     @suite = Suite.new
     @suite.name = params[:name]
     @suite.tests = params[:tests]
+    @suite.system = current_system().id
     if @suite.save()
       render "suites/show"
     else

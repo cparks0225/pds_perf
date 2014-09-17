@@ -23,7 +23,7 @@
   App.reqres.setHandler "suites:tests:view", (tests) ->
     API.listTestsForSuites tests
 
-  App.vent.on "system:selected", (system) ->
+  App.vent.on "model:set:active", (system) ->
     if not ((Routes.tests_path().indexOf(App.getCurrentRoute())) == -1)
       API.listTests()
 

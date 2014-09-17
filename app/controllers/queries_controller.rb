@@ -19,6 +19,7 @@ class QueriesController < ApplicationController
     @query.url = params[:url]
     @query.method = params[:method]
     @query.data = params[:data]
+    @query.system = current_system().id
     if @query.save
       render "queries/show"
     else

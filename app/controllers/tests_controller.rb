@@ -29,6 +29,7 @@ class TestsController < ApplicationController
     @test = Test.new
     @test.name = params[:name]
     @test.queries = params[:queries]
+    @test.system = current_system().id
     if @test.save()
       render "tests/show"
     else

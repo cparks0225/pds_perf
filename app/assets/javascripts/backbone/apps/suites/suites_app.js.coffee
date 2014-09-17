@@ -19,8 +19,7 @@
   App.commands.setHandler "new:suites:suite", (region) ->
     API.newSuiteView region
 
-  App.vent.on "system:selected", (system) ->
-    console.log "Suites System Selected"
+  App.vent.on "model:set:active", (system) ->
     if not ((Routes.suites_path().indexOf(App.getCurrentRoute())) == -1)
       API.listSuites()
 

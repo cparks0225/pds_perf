@@ -118,6 +118,8 @@
 
     validateAddedQuery: (e) ->
       query = API.validateQuery( e.target )
+      console.log "query"
+      console.log query
       if "url" of query
         new_query = App.request "new:queries:entity"
         new_query.save query
@@ -127,6 +129,8 @@
     API.deleteQuery query
 
   App.vent.on "new:queries:query:clicked", (e) =>
+    console.log "new:queries:query:clicked"
+    console.log e
     API.validateAddedQuery(e)
 
   App.reqres.setHandler "tests:queries:view", (queries) ->
@@ -148,7 +152,7 @@
 
     return JSON.stringify new_data
 
-  App.vent.on "system:selected", (system) ->
+  App.vent.on "model:set:active", (system) ->
     if not ((Routes.queries_path().indexOf(App.getCurrentRoute())) == -1)
       API.listQueries()
 

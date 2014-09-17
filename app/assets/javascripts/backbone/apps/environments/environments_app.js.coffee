@@ -73,13 +73,6 @@
     if not ((Routes.environments_path().indexOf(App.getCurrentRoute())) == -1)
       API.listEnvironments()
 
-  # App.vent.on "system:selected", (system) ->
-  #   if not ((Routes.environments_path().indexOf(App.getCurrentRoute())) == -1)
-  #     API.listEnvironments()
-
-  # App.reqres.setHandler "get:environment:selected", =>
-  #   App.request "environments:entity", App.getCookie "environment"
-
   App.addInitializer ->
     new EnvironmentsApp.Router
       controller: API
