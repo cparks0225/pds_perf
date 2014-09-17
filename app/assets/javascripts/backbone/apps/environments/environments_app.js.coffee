@@ -24,14 +24,10 @@
       region.show(v)
 
     getSelectedEnvironment: ->
-      App.request "environments:entity", localStorage.getItem("swaggernautEnvironment")
+      App.request "environments:entity", App.getCookie "environment"
 
     setSelectedEnvironment: (environment) ->
-      localStorage.setItem("Environment", environment.get("id"))
-
-      sess = App.request "sessions:entity"
-      sess.set("environment", environment.get("id"))
-      sess.save()
+      environment.collection.setActive(environment)
 
     # login: (username, password, environment) ->
     #   data_string = "grant_type=password&username=" + username + "&password=" + password
@@ -55,9 +51,6 @@
   App.commands.setHandler "new:environments:environment:view", (env) ->
     API.newEnvironment env
 
-  # App.vent.on "environments:environment:clicked", (environment) ->
-  #   API.setSelectedEnvironment environment
-
   App.vent.on "environments:delete:clicked", (environment) ->
     API.deleteEnvironment environment
 
@@ -65,7 +58,7 @@
   #   API.login username, password, environment
 
   App.commands.setHandler "get:header:environments", (region, environments) ->
-    API.newHeaderEnvironmentsView region, environments
+    v = API.newHeaderEnvironmentsView region, environments
 
   App.vent.on "environments:created", (environment) ->
     API.listEnvironments()
@@ -76,9 +69,16 @@
   App.vent.on "environment:selected", (environment) ->
     API.setSelectedEnvironment environment
 
-  App.vent.on "system:selected", (system) ->
+  App.vent.on "model:set:active", (m) =>
     if not ((Routes.environments_path().indexOf(App.getCurrentRoute())) == -1)
       API.listEnvironments()
+
+  # App.vent.on "system:selected", (system) ->
+  #   if not ((Routes.environments_path().indexOf(App.getCurrentRoute())) == -1)
+  #     API.listEnvironments()
+
+  # App.reqres.setHandler "get:environment:selected", =>
+  #   App.request "environments:entity", App.getCookie "environment"
 
   App.addInitializer ->
     new EnvironmentsApp.Router

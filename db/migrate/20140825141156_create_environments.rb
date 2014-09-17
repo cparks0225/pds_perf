@@ -1,8 +1,11 @@
 class CreateEnvironments < ActiveRecord::Migration
   def change
     create_table :environments do |t|
-      t.text :riskapi
-      t.text :pds
+      t.string :name
+      t.string :riskapi
+      t.string :pds
+      t.integer :system
+      t.boolean :active
 
       t.timestamps
     end

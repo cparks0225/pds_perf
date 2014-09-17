@@ -5,44 +5,45 @@
 
     runQuery: ->
       @deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (query) ->
-        run_env = App.request "get:environment:selected"
-        query_start_time = new Date().getTime()
-        full_url = run_env.get("pds") + "/api" + query.get("url")
+        console.log "runQuery!"
+        # run_env = App.request "get:environment:selected"
+        # query_start_time = new Date().getTime()
+        # full_url = run_env.get("pds") + "/api" + query.get("url")
 
-        query.set
-          "resultStatus": "running"
-          "runTime": query_start_time
-          "environment": run_env.get("pds")
+        # query.set
+        #   "resultStatus": "running"
+        #   "runTime": query_start_time
+        #   "environment": run_env.get("pds")
 
-        # headers_obj =
-        #   'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
+        # # headers_obj =
+        # #   'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
 
-        $.ajax(
-          type: query.get("method")
-          url: full_url
-          # headers: headers_obj
+        # $.ajax(
+        #   type: query.get("method")
+        #   url: full_url
+        #   # headers: headers_obj
           
-        ).done((data, textStatus, jqXHR) ->
-          query_end_time = new Date().getTime()
-          query.set
-            "endTime": query_end_time 
-            "resultStatus": textStatus
-            "ajax": Math.abs(query_end_time - query_start_time)
-            "con": data.result.time.con
-            "parse": data.result.time.parse
-            "q": data.result.time.q
-            "qc": data.result.time.qc
+        # ).done((data, textStatus, jqXHR) ->
+        #   query_end_time = new Date().getTime()
+        #   query.set
+        #     "endTime": query_end_time 
+        #     "resultStatus": textStatus
+        #     "ajax": Math.abs(query_end_time - query_start_time)
+        #     "con": data.result.time.con
+        #     "parse": data.result.time.parse
+        #     "q": data.result.time.q
+        #     "qc": data.result.time.qc
 
-        ).fail (jqXHR, textStatus, errorThrown) ->
-          query_end_time = new Date().getTime()
-          query.set
-            "endTime": query_end_time 
-            "resultStatus": textStatus
-            "ajax": Math.abs(query_end_time - query_start_time)
-            "con": 0
-            "parse": 0
-            "q": 0
-            "qc": 0
+        # ).fail (jqXHR, textStatus, errorThrown) ->
+        #   query_end_time = new Date().getTime()
+        #   query.set
+        #     "endTime": query_end_time 
+        #     "resultStatus": textStatus
+        #     "ajax": Math.abs(query_end_time - query_start_time)
+        #     "con": 0
+        #     "parse": 0
+        #     "q": 0
+        #     "qc": 0
 
   class Entities.QueriesCollection extends Entities.Collection
     model: Entities.Query

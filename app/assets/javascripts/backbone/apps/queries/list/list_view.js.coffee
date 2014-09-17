@@ -41,9 +41,9 @@
     emptyView: List.Empty
     childViewContainer: "ul"
 
-    onRender: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], =>
-        if not current_system.has("name")
-          $(@el).find("li").addClass "list-group-item-danger"
-          $(@el).find("h4").html "No System Selected"
+    # onRender: ->
+    #   current_system = App.request "get:system:selected"
+    #   App.execute "when:fetched", [current_system], =>
+    #     if not current_system.has("name")
+    #       $(@el).find("li").addClass "list-group-item-danger"
+    #       $(@el).find("h4").html "No System Selected"

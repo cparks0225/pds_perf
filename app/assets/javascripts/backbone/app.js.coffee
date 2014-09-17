@@ -22,15 +22,6 @@
   App.commands.setHandler "unregister:instance", (instance, id) ->
     App.unregister instance, id if App.environment is "development"
 
-  App.reqres.setHandler "get:system:selected", ->
-    App.request "systems:entity", localStorage.getItem("System")
-
-  App.reqres.setHandler "get:environment:selected", ->
-    App.request "environments:entity", localStorage.getItem("Environment")
-
-  App.reqres.setHandler "get:page:selected", ->
-    localStorage.getItem("Page")
-
   App.on "start", (options) ->
     @startHistory()
     @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is null

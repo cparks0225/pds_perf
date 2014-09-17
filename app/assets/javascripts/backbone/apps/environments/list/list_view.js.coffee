@@ -40,12 +40,12 @@
     childViewContainer: "ul"
     emptyView: List.Empty
 
-    onRender: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], =>
-        if not current_system.has("name")
-          $(@el).find("li").addClass "list-group-item-danger"
-          $(@el).find("h4").html "No System Selected"
+    # onRender: ->
+    #   current_system = App.request "get:system:selected"
+    #   App.execute "when:fetched", [current_system], =>
+    #     if not current_system.has("name")
+    #       $(@el).find("li").addClass "list-group-item-danger"
+    #       $(@el).find("h4").html "No System Selected"
 
   class List.EnvironmentForHeader extends App.Views.ItemView
     template: "environments/list/_environment_for_header"
@@ -67,8 +67,14 @@
     childView: List.EnvironmentForHeader
     childViewContainer: "#environments-list"
 
-    onRender: ->
-      current_env = App.request "get:environment:selected"
-      App.execute "when:fetched", [current_env], =>
-        if current_env.has("name")
-          $(@el).find("#environment-selected-name").html current_env.get("name") + '<span class="caret"></span>'
+    templateHelpers: =>
+      getTitle: =>
+        ret = @collection.activeModel
+        if @collection.activeModel == undefined
+          ret = "Environment"
+        ret
+    # onRender: ->
+    #   current_env = App.request "get:environment:selected"
+    #   App.execute "when:fetched", [current_env], =>
+    #     if current_env.has("name")
+    #       $(@el).find("#environment-selected-name").html current_env.get("name") + '<span class="caret"></span>'

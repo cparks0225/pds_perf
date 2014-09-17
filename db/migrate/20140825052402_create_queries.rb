@@ -4,6 +4,7 @@ class CreateQueries < ActiveRecord::Migration
       t.string :method
       t.text :url
       t.text :data
+      t.integer :system
 
       t.timestamps
     end

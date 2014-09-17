@@ -3,6 +3,7 @@ class CreateSuites < ActiveRecord::Migration
     create_table :suites do |t|
       t.text :name
       t.text :tests
+      t.integer :system
 
       t.timestamps
     end

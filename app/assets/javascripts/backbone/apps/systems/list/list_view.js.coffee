@@ -46,8 +46,14 @@
     childView: List.SystemForHeader
     childViewContainer: "#systems-list"
 
-    onRender: ->
-      current_system = App.request "get:system:selected"
-      App.execute "when:fetched", [current_system], =>
-        if current_system.has("name")
-          $(@el).find("#system-selected-name").html current_system.get("name") + '<span class="caret"></span>'
+    templateHelpers: =>
+      getTitle: =>
+        ret = @collection.activeModel
+        if @collection.activeModel == undefined
+          ret = "System"
+        ret
+    # onRender: ->
+    #   current_system = App.request "get:system:selected"
+    #   App.execute "when:fetched", [current_system], =>
+    #     if current_system.has("name")
+    #       $(@el).find("#system-selected-name").html current_system.get("name") + '<span class="caret"></span>'

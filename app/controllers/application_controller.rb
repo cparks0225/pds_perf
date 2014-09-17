@@ -8,6 +8,11 @@ class ApplicationController < ActionController::Base
       System.find_by(id: cookies[:system])
   end
 
+  def current_environment
+    @_current_environment ||= cookies[:environment] &&
+      Environment.find_by(id: cookies[:environment])
+  end
+
   def index
   end
 end

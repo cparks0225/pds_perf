@@ -3,6 +3,7 @@ class CreateTests < ActiveRecord::Migration
     create_table :tests do |t|
       t.text :name
       t.text :queries
+      t.integer :system
 
       t.timestamps
     end

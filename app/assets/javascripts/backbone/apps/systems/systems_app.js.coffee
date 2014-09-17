@@ -8,8 +8,7 @@
 
   API =
     setSelectedSystem: (system) ->
-      localStorage.setItem("System", system.get("id"))
-      system.collection.setActive system
+      system.collection.setActive(system)
 
     listSystems: ->
       new SystemsApp.List.Controller
@@ -39,7 +38,7 @@
 
   App.vent.on "system:selected", (system) ->
     API.setSelectedSystem system
-
+    
   App.addInitializer ->
     new SystemsApp.Router
       controller: API

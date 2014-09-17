@@ -3,16 +3,16 @@
   class List.Controller extends App.Controllers.Base
     
     initialize: ->
-      environments = App.request "environments:entities"
+      @environments = App.request "environments:entities"
 
-      App.execute "when:fetched", [environments], =>
-        environments.pop()
-        environments.pop()
+      App.execute "when:fetched", [@environments], =>
+        @environments.pop()
+        @environments.pop()
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
           @showPanel()
-          @environmentsRegion environments
+          @environmentsRegion()
           # @loginRegion()
 
         @show @layout
@@ -38,8 +38,8 @@
     #         alert "Select an Environment to login to"
     #   @layout.loginRegion.show loginView
 
-    environmentsRegion: (environments) ->
-      environmentsView = @getEnvironmentsView environments
+    environmentsRegion:  ->
+      environmentsView = @getEnvironmentsView @environments
 
       environmentsView.on "childview:environments:delete:clicked", (child) ->
         App.vent.trigger "environments:delete:clicked", child.model
@@ -55,9 +55,9 @@
     # getLoginView: ->
     #   new List.Login
 
-    getEnvironmentsView: (environments) ->
+    getEnvironmentsView: ->
       new List.Environments
-        collection: environments
+        collection: @environments
 
     getLayoutView: ->
       new List.LayoutView
