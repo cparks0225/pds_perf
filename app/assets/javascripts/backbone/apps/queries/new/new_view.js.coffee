@@ -53,6 +53,9 @@
               param['inputType'] = param.dataType
               if not param['name']?
                 param['name'] = param['dataType']
+
+              param['dataModel'] = param.name
+              param['paramType'] = param.paramType
               param['unique_id'] = param['name'] + "-" + unique_id
               switch param.dataType
                 when "boolean" then param['inputType'] = "checkbox"
@@ -64,13 +67,18 @@
               return_val += r
             else
               if param.dataType of models
-                return_val += "<div class='page-header'><h5>"
-                return_val += param.dataType + "</h5></div>"
+                return_val += "<hr><div><h4>"
+                if param.name == null
+                  param.name = param.dataType
+
+                return_val += param.name + "</h4></div>"
                 for sub_param_key of models[param.dataType]["properties"]
                   sub_param = models[param.dataType]["properties"][sub_param_key]
                   sub_param['name'] = sub_param_key
                   sub_param['unique_id'] = sub_param['name'] + "-" + unique_id
                   sub_param['dataType'] = sub_param['type']
+                  sub_param['dataModel'] = param.name
+                  sub_param['paramType'] = param.paramType
                   r = ""
                   if $.inArray(sub_param.dataType, primitives) != -1
                     sub_param['inputType'] = sub_param.dataType
