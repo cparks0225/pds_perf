@@ -32,6 +32,8 @@
     class: "panel-group"
 
     onShow: ->
+      console.log "ONSHOW::QUERY"
+      console.log $(@.$el).find("form")
       $(@.$el).find("form").unbind()
       $(@.$el).find("form").submit (e) ->
         e.preventDefault()

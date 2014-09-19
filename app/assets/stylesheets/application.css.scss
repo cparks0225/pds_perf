@@ -11,10 +11,15 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require font-awesome
  *= require_self
  */
 
 @import "twitter/bootstrap";
+
+@import "font-awesome-sprockets";
+
+@import "font-awesome";
 
 @import "apps/base";
 

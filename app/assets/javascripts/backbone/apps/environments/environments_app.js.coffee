@@ -29,22 +29,6 @@
     setSelectedEnvironment: (environment) ->
       environment.collection.setActive(environment)
 
-    # login: (username, password, environment) ->
-    #   data_string = "grant_type=password&username=" + username + "&password=" + password
-    #   $.ajax
-    #     type: "POST"
-    #     url: environment.get('risklogin')
-    #     data: data_string
-    #     success: (msg) ->
-    #       console.log "SUCCESS"
-    #       console.log msg
-    #       localStorage.setItem("auth_token", "SUCCESS")
-    #       return
-    #     error: (XMLHttpRequest, textStatus, errorThrown) ->
-    #       localStorage.setItem("auth_token", "ERR")
-    #       alert "Failed to Login: " + errorThrown
-    #       return
-
     deleteEnvironment: (environment) ->
       environment.destroy()
 
@@ -53,9 +37,6 @@
 
   App.vent.on "environments:delete:clicked", (environment) ->
     API.deleteEnvironment environment
-
-  # App.commands.setHandler "login", (username, password, environment) ->
-  #   API.login username, password, environment
 
   App.commands.setHandler "get:header:environments", (region, environments) ->
     v = API.newHeaderEnvironmentsView region, environments

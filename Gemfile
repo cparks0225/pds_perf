@@ -22,7 +22,12 @@ gem 'js-routes'
 
 gem 'httpclient'
 
+gem 'font-awesome-sass'
+
 gem 'capistrano', '~> 3.2.0'
+
+gem 'execjs'
+gem 'therubyracer'
 
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 4.0.3'

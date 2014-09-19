@@ -6,6 +6,7 @@
     regions:
       systemsRegion: "#systems-region"
       environmentsRegion: "#environments-region"
+      loginRegion: "#login-region"
       pagesRegion: "#pages-region"
 
   class List.Page extends App.Views.ItemView

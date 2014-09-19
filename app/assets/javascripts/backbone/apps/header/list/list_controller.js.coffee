@@ -13,6 +13,7 @@
         App.headerRegion.listenTo @layout, "show", =>
           @showSystemsView()
           @showEnvironmentsView()
+          @showLoginView()
           @showPagesView()
 
         App.headerRegion.show @layout
@@ -31,6 +32,9 @@
     getPagesView: ->
       new List.Pages
         collection: @pages_links
+
+    showLoginView: ->
+      App.execute "get:login:view", @layout.loginRegion
 
     showSystemsView: ->
       App.execute "get:header:systems", @layout.systemsRegion, @system_links

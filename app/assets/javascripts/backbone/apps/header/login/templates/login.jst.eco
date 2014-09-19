@@ -1,0 +1,9 @@
+<form class="navbar-form navbar-left" role="form">
+  <div class="form-group">
+    <input type="text" class="form-control" name="username" placeholder="User Name">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in fa-2x"></i></button>
+</form>
