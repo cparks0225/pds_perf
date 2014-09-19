@@ -65,17 +65,38 @@
               ret_val = false
             else
               v['regex_match'] = "has-success"
-      return ret_val;
+      ret_val
+
+    # verifyRequireds: ( params, body, req_list ) ->
+    verifyRequireds: (url_params, params, body, req_list) ->
+      ret_val = true
+      $.each url_params, (i, v) ->
+        v["regex_match"] = "has-success"
+        if v.value is "" and req_list[v.name]
+          v["regex_match"] = "has-error"
+          ret_val = false
+        return
+
+      $.each body, (i, v) ->
+        v["regex_match"] = "has-success"
+        if v.value is "" and req_list[v.name]
+          v["regex_match"] = "has-error"
+          ret_val = false
+        return
+
+      $.each body, (i, v) ->
+        v["regex_match"] = "has-success"
+        if v.value is "" and req_list[v.name]
+          v["regex_match"] = "has-error"
+          ret_val = false
+        return
+
+      ret_val
 
     validateQuery: (query_form) =>
       data = Backbone.Syphon.serialize query_form
       method = query_form.dataset['method']
       url = query_form.dataset['url']
-
-      console.log "validateQuery"
-      console.log query_form
-      console.log data
-
 
       # Parse out any parameters that belong in the url path
       lmb = url.indexOf("{")      # Left Most Bracket
@@ -101,21 +122,22 @@
 
         url_param_keys.push full_str.substr(0, colon_pos)
 
-
-
-
       # Distinguish the url values from request data objects
       data_objects = []       # Input values associated with each request input for data submission
       param_objects = []      # Input values associated with each request input for url serialization
       url_values = []         # Input values associated with each url path in brackets, i.e. {id}
       input_to_model_map = {} # Map of each primitive to it's parameter name
       input_to_type_map = {}  # Map of each primitive to it's paramType (path/body)
+      input_to_req_map = {}   # Map of required fields
+
+      console.log "data"
+      console.log data
 
       $.each data, (i, v) ->
         input_to_model_map[i] = $(query_form).find("input[name='" + i + "']").data("model")
         input_to_type_map[i] = $(query_form).find("input[name='" + i + "']").data("paramtype")
+        input_to_req_map[i] = $(query_form).find("input[name='" + i + "']").data("required")
 
-        console.log "SWITCH: " + input_to_type_map[i]
         switch input_to_type_map[i]
           when "path"
             url_values.push 
@@ -130,40 +152,39 @@
               name: i
               value: v
 
-      console.log "input_to_model_map"
-      console.log input_to_model_map
-
-      console.log "input_to_type_map"
-      console.log input_to_type_map
-
-      console.log "param_objects"
-      console.log param_objects
-
-      console.log "data_objects"
-      console.log data_objects
-
-      console.log "url_values"
-      console.log url_values
-
       # Remove any existing validation classes on input fields
       $(query_form).find(".form-group").removeClass("has-error");
       $(query_form).find(".form-group").removeClass("has-success");
 
       # Verify that the submitted parameters match the regex pattern
       query_data = {}
-      if API.verifyParamRegex(url_values, url_params)
-        constructed_url = api_pre
-        constructed_url += API.serializeUrlPaths(url_values, url_params, input_to_model_map)
-        constructed_url += api_post
-        constructed_url += API.serializeUrlParams(param_objects)
-        constructed_url = constructed_url.replace("//", "/").replace("../", "")
+      if API.verifyParamRegex( url_values, url_params )
+        if API.verifyRequireds( url_values, param_objects, data_objects, input_to_req_map )
+          constructed_url = api_pre
+          constructed_url += API.serializeUrlPaths(url_values, url_params, input_to_model_map)
+          constructed_url += api_post
+          constructed_url += API.serializeUrlParams(param_objects)
+          constructed_url = constructed_url.replace("//", "/").replace("../", "")
 
-        query_data.url = constructed_url
-        query_data.method = method
-        query_data.data = data_objects
+          query_data.url = constructed_url
+          query_data.method = method
+          query_data.data = data_objects
 
       # update the form with validation classes
+      console.log "ERROR CLASSES"
+      console.log url_values
+      console.log param_objects
+      console.log data_objects
+
       $.each url_values, (i, v) =>
+        form_group_element = $(query_form).find("input[name='" + v["name"] + "']").parent().parent()
+        form_group_element.addClass v["regex_match"]
+
+      $.each param_objects, (i, v) =>
+        form_group_element = $(query_form).find("input[name='" + v["name"] + "']").parent().parent()
+        form_group_element.addClass v["regex_match"]
+
+      $.each data_objects, (i, v) =>
         form_group_element = $(query_form).find("input[name='" + v["name"] + "']").parent().parent()
         form_group_element.addClass v["regex_match"]
 

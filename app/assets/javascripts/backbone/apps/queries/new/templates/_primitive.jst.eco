@@ -1,12 +1,18 @@
+<% console.log @ %>
 <div class="form-group">
-  <label for="<%= @unique_id %>" class="col-sm-2 control-label"><%= @name %></label>
+  <% if @required: %>
+    <% req_class = "required" %>
+  <% else: %>
+    <% req_class = "" %>
+  <% end %>
+  <label for="<%= @unique_id %>" class="col-sm-2 control-label <%= req_class %>"><%= @name %></label>
   <div class="col-sm-4">
-    <input type="<%= @inputType %>" class="form-control" id="<%= @unique_id %>" name="<%= @name %>" data-model="<%= @dataModel %>" data-paramtype="<%= @paramType %>" placeholder="<%= @name %>">
+    <input type="<%= @inputType %>" class="form-control" id="<%= @unique_id %>" name="<%= @name %>" data-required="<%= @required %>" data-model="<%= @dataModel %>" data-paramtype="<%= @paramType %>" placeholder="<%= @name %>">
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-4 <%= req_class %>">
     <p><%= @description %></p>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-2 <%= req_class %>">
     <p><%= @dataType %></p>
   </div>
 </div>

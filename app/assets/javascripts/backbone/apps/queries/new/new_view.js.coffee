@@ -32,8 +32,6 @@
     class: "panel-group"
 
     onShow: ->
-      console.log "ONSHOW::QUERY"
-      console.log $(@.$el).find("form")
       $(@.$el).find("form").unbind()
       $(@.$el).find("form").submit (e) ->
         e.preventDefault()
@@ -81,6 +79,7 @@
                   sub_param['dataType'] = sub_param['type']
                   sub_param['dataModel'] = param.name
                   sub_param['paramType'] = param.paramType
+                  sub_param['required'] = param.required
                   r = ""
                   if $.inArray(sub_param.dataType, primitives) != -1
                     sub_param['inputType'] = sub_param.dataType
