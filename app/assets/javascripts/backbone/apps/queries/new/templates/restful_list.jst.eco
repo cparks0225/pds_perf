@@ -1,3 +1,4 @@
+<% console.log @apis %>
 <% for val, idx in @apis: %>
   <% for operation, odx in val.operations: %>
     <% collapse_id = "collapseId" + idx + "-" + odx %>
@@ -5,7 +6,17 @@
       <div class="panel-heading restful-operation-<%= operation.httpMethod.toLowerCase() %>">
         <h4 class="panel-title">
           <a data-toggle="collapse" data-parent="#restfuls" href="#<%= collapse_id %>">
-            <%= val.path %>
+            <div class="row">
+              <div class="col-md-2">
+                <%= operation.httpMethod %>
+              </div>
+              <div class="col-md-5">
+                <%= val.path %>
+              </div>
+              <div class="col-md-5">
+                <%= operation.summary %>
+              </div>
+            </div>
           </a>
         </h4>
       </div>

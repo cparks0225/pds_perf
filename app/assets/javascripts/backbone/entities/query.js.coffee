@@ -27,8 +27,6 @@
             url: full_url
             beforeSend: (xhr) =>
               xhr.setRequestHeader "Authorization", "Bearer " + auth.get("access_token")
-
-            # headers: headers_obj
             
           ).done((data, textStatus, jqXHR) ->
             query_end_time = new Date().getTime()
