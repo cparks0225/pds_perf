@@ -7,7 +7,6 @@
       @existing_token = App.request "auth:entity", 1
 
       App.execute "when:fetched", [@existing_token], =>
-        console.log @existing_token.get "access_token"
         if (@existing_token.get "access_token") == ""
           @showLoginView()
         else

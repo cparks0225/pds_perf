@@ -5,8 +5,9 @@
 
     runQuery: ->
       envs = App.request "environments:entities"
+      auth = App.request "auth:entity", 1
 
-      App.execute "when:fetched", [envs], =>
+      App.execute "when:fetched", [envs, auth], =>
         console.log "envs fetched"
         console.log envs
         @deferAction(@, (@get("interval") * @get("iteration") * 1000)).done (query) ->
@@ -19,12 +20,14 @@
             "runTime": query_start_time
             "environment": envs.activeModel.get("pds")
 
-          # headers_obj =
-          #   'Authorization': 'Bearer ' + localStorage.getItem("auth_token")
+          console.log auth
 
           $.ajax(
             type: query.get("method")
             url: full_url
+            beforeSend: (xhr) =>
+              xhr.setRequestHeader "Authorization", "Bearer " + auth.get("access_token")
+
             # headers: headers_obj
             
           ).done((data, textStatus, jqXHR) ->

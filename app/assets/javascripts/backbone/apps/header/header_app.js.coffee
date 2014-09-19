@@ -18,7 +18,6 @@
     API.listHeader()
 
   App.vent.on "model:set:active", (m) =>
-    console.log "header draw"
     API.listHeader()
 
   App.commands.setHandler "get:login:view", (region) ->
