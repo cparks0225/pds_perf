@@ -5,6 +5,7 @@ class CreateQueries < ActiveRecord::Migration
       t.text :url
       t.text :data
       t.integer :system
+      t.boolean :can_delete
 
       t.timestamps
     end

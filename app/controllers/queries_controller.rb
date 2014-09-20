@@ -6,7 +6,7 @@ class QueriesController < ApplicationController
     if current_system().nil?
       @queries = []
     else
-      @queries = Query.where("system=?", current_system().id )
+      @queries = Query.where( "system=?", current_system().id )
     end
   end
 
@@ -19,6 +19,7 @@ class QueriesController < ApplicationController
     @query.url = params[:url]
     @query.method = params[:method]
     @query.data = params[:data]
+    @query.can_delete = true
     @query.system = current_system().id
     if @query.save
       render "queries/show"

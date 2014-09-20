@@ -9,6 +9,8 @@
     <td> <%- @stringifyQueryData(@data) %> </td>
   </div>
   <div class="col-md-1">
-    <button type="button" class="btn btn-xs btn-danger">Delete</button>
+    <% if @can_delete: %>
+      <button type="button" class="btn btn-xs btn-danger">Delete</button>
+    <% end %>
   </div>
 </div>

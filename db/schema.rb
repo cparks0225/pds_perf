@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140912055753) do
     t.text     "url"
     t.text     "data"
     t.integer  "system"
+    t.boolean  "can_delete"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140912055753) do
     t.text     "name"
     t.text     "queries"
     t.integer  "system"
+    t.boolean  "can_delete"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

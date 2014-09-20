@@ -4,6 +4,7 @@ class CreateTests < ActiveRecord::Migration
       t.text :name
       t.text :queries
       t.integer :system
+      t.boolean :can_delete
 
       t.timestamps
     end

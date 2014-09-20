@@ -1,1 +1,1 @@
-attributes :id, :method, :url, :data
+attributes :id, :method, :url, :data, :can_delete

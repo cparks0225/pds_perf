@@ -1,1 +1,1 @@
-attributes :id, :name, :queries
+attributes :id, :name, :queries, :can_delete

@@ -34,7 +34,7 @@
           int_key = "interval-" + q.get("id")
           q.set "iterations", data[iter_key]
           q.set "interval", data[int_key]
-          queries_list.push _.omit(q.toJSON(), 'data', 'method', 'url')
+          queries_list.push _.omit(q.toJSON(), 'data', 'method', 'url', 'can_delete')
 
         new_test_data =
           name: data.name.replace(/\s/g, "_")
