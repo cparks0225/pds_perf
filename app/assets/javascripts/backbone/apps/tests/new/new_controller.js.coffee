@@ -36,13 +36,18 @@
           q.set "interval", data[int_key]
           queries_list.push _.omit(q.toJSON(), 'data', 'method', 'url', 'can_delete')
 
-        new_test_data =
-          name: data.name.replace(/\s/g, "_")
-          queries: queries_list
+        if queries_list.length <= 0
+          alert("Must add some Queries first")
+        else if data.name == ""
+          alert("Please supply a test name")
+        else
+          new_test_data =
+            name: data.name.replace(/\s/g, "_")
+            queries: queries_list
 
-        @new_test.save new_test_data
+          @new_test.save new_test_data
 
-        App.navigate "/tests", trigger:true
+          App.navigate "/tests", trigger:true
 
       @layout.testRegion.show v
 

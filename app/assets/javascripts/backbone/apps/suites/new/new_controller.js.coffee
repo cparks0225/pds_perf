@@ -45,13 +45,18 @@
           t.set "interval", data[int_key]
           tests_list.push _.omit(t.toJSON(), 'name')
 
-        new_suite_data =
-          name: data.name.replace(/\s/g, "_")
-          tests: tests_list
+        if tests_list.length <= 0
+          alert("Must add some Tests first")
+        else if data.name == ""
+          alert("Please supply a Suite name")
+        else
+          new_suite_data =
+            name: data.name.replace(/\s/g, "_")
+            tests: tests_list
 
-        @server_suites.create new_suite_data
+          @server_suites.create new_suite_data
 
-        App.navigate "/suites", trigger:true
+          App.navigate "/suites", trigger:true
 
       @layout.suiteRegion.show v
 
