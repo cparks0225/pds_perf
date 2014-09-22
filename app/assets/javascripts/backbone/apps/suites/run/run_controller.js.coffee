@@ -22,8 +22,58 @@
     getRunLayout: =>
       new Run.LayoutView
 
+    pad: (a, b) ->
+      (1e15 + a + "").slice -b
+
     showSuiteView: ->
       suite_view = @getSuiteView()
+
+      @listenTo suite_view, "suite:download:button:clicked", =>
+        utcSeconds = (new Date).getTime() / 1000
+        d = new Date(0)
+        d.setUTCSeconds utcSeconds
+        d_str = @pad(d.getMonth(), 2)
+        d_str += @pad(d.getDate(), 2)
+        d_str += @pad(d.getYear(), 2)
+        d_str += "T"
+        d_str += @pad(d.getHours(), 2)
+        d_str += @pad(d.getMinutes(), 2)
+        d_str += @pad(d.getSeconds(), 2)
+        file_name = @suite.get("name") + d_str + ".csv"
+
+        headers = []
+        _.each $('table:first').find('th'), (th) ->
+          headers.push(th.innerHTML)
+          return
+
+        rows = []
+        rows.push( headers )
+        _.each $('table').find('tr'), (tr) ->
+          row = []
+          _.each $(tr).find('td'), (td) ->
+            row.push(td.innerHTML)
+            return
+
+          if row.length > 0
+            rows.push(row)
+            return
+
+        # Rows object is reader with headers and every query data
+        console.log rows
+        csvContent = "data:text/csv;charset=utf-8,"
+        rows.forEach (infoArray, index) ->
+          dataString = infoArray.join(",")
+          csvContent += (if index < rows.length then dataString + "\n" else dataString)
+          return
+
+
+        encodedUri = encodeURI(csvContent)
+        link = document.createElement("a")
+        link.setAttribute "href", encodedUri
+        link.setAttribute "download", file_name
+        link.click()
+
+
       @layout.suiteRegion.show suite_view
 
     showTestsView: ->

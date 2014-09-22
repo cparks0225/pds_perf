@@ -1,4 +1,4 @@
     <td><%= @method %></td>
     <td><%= @url %></td>
     <td> <%- @stringifyQueryData(@data) %> </td>
-    <td><button type="button" class="btn btn-xs btn-primary">Add</button></td>
+    <td><button type="button" class="btn btn-xs btn-primary pull-right">Add</button></td>

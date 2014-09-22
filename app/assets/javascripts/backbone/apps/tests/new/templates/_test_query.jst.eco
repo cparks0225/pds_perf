@@ -3,7 +3,7 @@
     <div class="col-md-1"><%= @.method %></div>
     <div class="col-md-4"><%= @.url %></div>
     <div class="col-md-6"><%- @stringifyQueryData(@data) %></div>
-    <div class="col-md-1"><button type="button" class="btn btn-xs btn-danger">Remove</button></div>
+    <div class="col-md-1"><button type="button" class="btn btn-xs btn-danger pull-right">Remove</button></div>
   </div>
 </div>
 <div class="col-md-1">

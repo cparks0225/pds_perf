@@ -11,6 +11,9 @@
   class Run.Suite extends App.Views.ItemView
     template: "suites/run/suite"
 
+    triggers:
+      "click button" : "suite:download:button:clicked"
+
   class Run.Query extends App.Views.ItemView
     template: "suites/run/query"
     tagName: "tr"
