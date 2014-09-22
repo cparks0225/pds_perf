@@ -3,9 +3,13 @@
     <h4 class="panel-title">
       <a data-toggle="collapse" href="#collapseId-<%- @name %>">
       <% if @can_delete: %>
-        <button type="button" class="btn btn-xs btn-danger pull-right">Delete</button>
+        <button type="button" class="btn btn-xs btn-danger pull-right">
+          <i class="fa fa-minus fa-lg"></i>
+        </button>
       <% else: %>
-        <button type="button" class="btn btn-xs btn-danger pull-right" disabled="disabled">Delete</button>
+        <button type="button" class="btn btn-xs btn-danger pull-right" disabled="disabled">
+          <i class="fa fa-minus fa-lg"></i>
+        </button>
       <% end %>
         <span class="badge pull-right">Queries: <%- @queries.length %></span>
         <%- @name %>

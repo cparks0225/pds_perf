@@ -1,5 +1,5 @@
 <div class="page-header">
   <h1><small>Queries</small>  <button id="new-query" class="btn btn-sm btn-primary pull-right">
-    <i class="glyphicon glyphicon-plus-sign"></i> Add
+    <i class="fa fa-plus fa-lg"></i>
   </button></h1>
 </div>
