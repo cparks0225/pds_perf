@@ -1,6 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Query Builder</h3>
+        <h3 class="panel-title">Query Builder
+        <button class="btn btn-xs btn-success pull-right">
+            <i class="fa fa-refresh fa-lg"></i>
+        </button></h3>
     </div>
     <div class="panel-body">
         <div class="row" id="query_builder">

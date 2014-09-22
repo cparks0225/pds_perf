@@ -1,3 +1,3 @@
 object @pds_api
 
-attributes :apis
+attributes :path, :apis, :models

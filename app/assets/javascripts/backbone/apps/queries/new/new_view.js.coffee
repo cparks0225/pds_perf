@@ -10,6 +10,7 @@
 
     triggers:
       "click #cancel-new-query" : "cancel:new:query:button:clicked"
+      "click .btn-success" : "button:refresh:swagger:clicked"
 
   class New.Query extends App.Views.ItemView
     template: "queries/new/_api"

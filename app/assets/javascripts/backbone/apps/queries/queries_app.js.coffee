@@ -226,6 +226,13 @@
     if not ((Routes.queries_path().indexOf(App.getCurrentRoute())) == -1)
       API.listQueries()
 
+  App.commands.setHandler "enable:add:environment", (region) ->
+    $('#new-query').prop("disabled",false);
+    $('#new-query').trigger("click");
+
+  App.commands.setHandler "disable:add:environment", (region) ->
+    $('#new-query').prop("disabled",true);
+
   App.addInitializer ->
     new QueriesApp.Router
       controller: API

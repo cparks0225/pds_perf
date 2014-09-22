@@ -2,7 +2,7 @@
   
   class New.Controller extends App.Controllers.Base
     
-    initialize: ->
+    initialize: =>
       pdsapis = App.request "pdsapi:entities"
 
       App.execute "when:fetched", [pdsapis], =>
@@ -14,6 +14,14 @@
         @listenTo @layout, "cancel:new:query:button:clicked", =>
           @region.reset()
           @destroy()
+
+        @listenTo @layout, "button:refresh:swagger:clicked", =>
+          @region.reset()
+          @destroy()
+          App.execute "disable:add:environment"
+          $.get( "/pdsapis.json?refresh=true" )
+            .done (data) => 
+              App.execute "enable:add:environment"
 
         @show @layout
 

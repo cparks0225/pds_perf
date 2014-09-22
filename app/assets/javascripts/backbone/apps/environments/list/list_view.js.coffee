@@ -27,7 +27,7 @@
     className: "list-group-item"
 
     triggers:
-      "click button" : "environments:delete:clicked"
+      "click .btn-danger" : "environments:delete:clicked"
 
   class List.Empty extends App.Views.CompositeView
     template: "environments/list/_empty"
