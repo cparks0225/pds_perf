@@ -15,16 +15,18 @@
     login: (e) =>
       data = Backbone.Syphon.serialize e.view
 
-      data["username"] = "robert.spiegel@tradingtechnologies.com"
-      data["password"] = "Tt12345678"
-
       @showLoggingInView()
 
       new_auth = App.request "new:auth:entity"
       new_auth.save data,
         success: (m) =>
           @existing_token = m
-          @showLogoutView()
+          if m.get("access_token")?
+            @showLogoutView()
+          else
+            @showLoginView()
+        error: (m) =>
+          @showLoginView()
 
     logout: =>
       logged_in_token = App.request "auth:entity", 1

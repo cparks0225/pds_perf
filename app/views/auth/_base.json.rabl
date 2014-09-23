@@ -1,1 +1,1 @@
-attributes :id, :access_token
+attributes :id, :access_token, :err_message

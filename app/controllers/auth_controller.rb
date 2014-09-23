@@ -21,7 +21,7 @@ class AuthSerializer
 end
 
 class AuthService < AuthSerializer
-  attr_accessor :id, :access_token #, :token_type, :expires_in, :refresh_token, :user_id, :person_id
+  attr_accessor :id, :access_token, :err_message #, :token_type, :expires_in, :refresh_token, :user_id, :person_id
 end
 
 def FetchAuthToken(username, password)
@@ -46,14 +46,8 @@ def FetchAuthToken(username, password)
   }
 
   resp = http.post(url.path, data, headers)
+  return resp
 
-  if resp.msg == "OK"
-    access_token = JSON.parse(resp.body)["access_token"]
-    cookies[:auth_token] = access_token
-  else
-    err = JSON.parse(resp.body)["error_description"]
-  end
-  return access_token 
 end
 
 class AuthController < ApplicationController
@@ -75,11 +69,29 @@ class AuthController < ApplicationController
   end
 
   def create
-    new_token = FetchAuthToken( params[:username], params[:password] )
+    resp = FetchAuthToken( params[:username], params[:password] )
+
+
+    new_token = nil
+    err = nil
+
+    if resp.msg == "OK"
+      new_token = JSON.parse(resp.body)["access_token"]
+      cookies[:auth_token] = new_token
+    else
+      err = JSON.parse(resp.body)["error_description"]
+    end
+
     ret = AuthService.new
-    ret.from_json(JSON.generate({"id" => 1, "access_token" => new_token}))
+    ret.from_json(JSON.generate({"id" => 1, "access_token" => new_token, "err_message" => err}))
     @auth = ret
+    # if new_token.nil?
+      # Rails.logger.debug( "ERROR")
+      # raise "error"
+    # else
+    Rails.logger.debug( "auto/show")
     render "auth/show"
+    # end
   end
 
   def destroy
