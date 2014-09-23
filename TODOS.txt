@@ -17,18 +17,15 @@ COSMETIC:
 
 
 
-DONE BUT NEEDS TESTING
-
-Have to pass in authentication token with queries
 
 
-
-
-
-PDS Dev 
-https://riskapi-int-dev.debesys.net/api 
+pds-dev
+https://riskapi-int-dev.debesys.net/api
 https://pds-dev.debesys.net
 
+
+# App.execute "show:modal", "T", "M"
+# App.execute "show:error", "E", 3000
 
 
 FONT AWESOME ICONS

@@ -85,13 +85,8 @@ class AuthController < ApplicationController
     ret = AuthService.new
     ret.from_json(JSON.generate({"id" => 1, "access_token" => new_token, "err_message" => err}))
     @auth = ret
-    # if new_token.nil?
-      # Rails.logger.debug( "ERROR")
-      # raise "error"
-    # else
     Rails.logger.debug( "auto/show")
     render "auth/show"
-    # end
   end
 
   def destroy

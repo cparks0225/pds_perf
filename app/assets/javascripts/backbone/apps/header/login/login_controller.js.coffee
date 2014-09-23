@@ -25,6 +25,7 @@
             @showLogoutView()
           else
             @showLoginView()
+            App.execute "show:error", m.get("err_message"), 3500
         error: (m) =>
           @showLoginView()
 
