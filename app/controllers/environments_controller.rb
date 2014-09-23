@@ -1,3 +1,5 @@
+require "pdsapis_controller.rb"
+
 class EnvironmentsController < ApplicationController
   respond_to :json
   skip_before_filter  :verify_authenticity_token
@@ -54,6 +56,11 @@ class EnvironmentsController < ApplicationController
       cookies[:environment] = params[:environment][:id]
     end
     if @environment.update_attributes(params[:environment].permit(:name, :riskapi, :pds, :active) )
+
+      file_name = @environment.pds.gsub(/[^0-9A-Za-z]/, '') + ".yaml"
+      Thread.new{
+        StoreApis(file_name)
+      }
       render "environments/show"
     else
       respond_with @environment

@@ -28,7 +28,10 @@
     $('#modal_id').modal('show')
 
   App.commands.setHandler "show:error", (message, timeout) ->
-    html = '<div class="container"><div class="alert alert-danger" role="alert"><center><div id="error_msg">'
+    html = '<div class="container">'
+    html += '<div class="alert alert-danger" role="alert">'
+    html += '<center>'
+    html += '<div id="error_msg">'
     html += message
     html += '</div></center></div></div>'
     $('#error_div').html(html)

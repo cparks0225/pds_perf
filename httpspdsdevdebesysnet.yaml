@@ -1,23 +1,23 @@
 ---
 - !ruby/object:PdsService
-  path: products
+  path: instrumentsearch
   description: ''
   apis:
-  - path: "/1/products/{key:[0-9]+:[0-9]+}"
-    description: Operations on products
+  - path: "/1/instrumentsearch"
+    description: Instrument search
     operations:
     - httpMethod: GET
-      summary: Get one product by Key
-      notes: Product Key is a string representation of product Id and product version
-        separated by colon ':'
+      summary: Search for instruments matching passed in query
+      notes: Query terms are used in lexigraphical search against instrumentnames,
+        product type names, market names, dates, etc.
       deprecated: 
       responseClass: void
-      nickname: getProductByKey
+      nickname: searchInstruments
       parameters:
-      - name: key
-        description: Product Key
+      - name: query
+        description: Text to search for
         notes: 
-        paramType: path
+        paramType: query
         defaultValue: 
         allowableValues: 
         required: true
@@ -26,43 +26,9 @@
         internalDescription: 
         wrapperName: 
         dataType: string
-      - name: ss
-        description: Symbol source for alias information
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-      - name: slim
-        description: Request slim version of data; default value = false
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-  - path: "/1/products"
-    description: Operations on products
-    operations:
-    - httpMethod: GET
-      summary: Get one or more products with one of the provided filters
-      notes: 'Only one filter (of the set: marketIds, productIds, familyIds, productKeys,
-        symbols) can be used at a time'
-      deprecated: 
-      responseClass: void
-      nickname: getProducts
-      parameters:
       - name: marketIds
-        description: Coma separated list of market Ids (or one market Id)
+        description: Coma separated list of market Ids (or one market Id) to filter
+          search results
         notes: 
         paramType: query
         defaultValue: 
@@ -73,8 +39,9 @@
         internalDescription: 
         wrapperName: 
         dataType: string
-      - name: productIds
-        description: Coma separated list of product Ids (or one product Id)
+      - name: startIdx
+        description: Start at this position in the return set (used for paging results);
+          default value = 0
         notes: 
         paramType: query
         defaultValue: 
@@ -84,10 +51,10 @@
         paramAccess: 
         internalDescription: 
         wrapperName: 
-        dataType: string
-      - name: familyIds
-        description: Coma separated list of product family Ids (or one product family
-          Id)
+        dataType: int
+      - name: endIdx
+        description: End at this position in the return set (used for paging results);
+          default value = 20
         notes: 
         paramType: query
         defaultValue: 
@@ -97,69 +64,18 @@
         paramAccess: 
         internalDescription: 
         wrapperName: 
-        dataType: string
-      - name: productKeys
-        description: Coma separated list of product Keys (or one product Key)
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: symbols
-        description: Coma separated list of product symbols
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: ss
-        description: Symbol source for alias information
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-      - name: slim
-        description: Request slim version of data; default value = true
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-  - path: "/1/products/{id:[0-9]+}"
-    description: Operations on products
-    operations:
-    - httpMethod: GET
-      summary: Get one product by Id
-      notes: Product Id is a string representation of an unsigned 64 bit number
+        dataType: int
+    - httpMethod: POST
+      summary: Sync search domain with the active instruments in a given market
+      notes: 
       deprecated: 
       responseClass: void
-      nickname: getProductById
+      nickname: syncInstruments
       parameters:
-      - name: id
-        description: Product Id
+      - name: marketId
+        description: Market Id to operate on
         notes: 
-        paramType: path
+        paramType: query
         defaultValue: 
         allowableValues: 
         required: true
@@ -167,77 +83,7 @@
         paramAccess: 
         internalDescription: 
         wrapperName: 
-        dataType: string
-      - name: ss
-        description: Symbol source for alias information
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-      - name: slim
-        description: Request slim version of data; default value = false
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-  - path: "/1/products/{id:[0-9]+}/productpairs"
-    description: Operations on products
-    operations:
-    - httpMethod: GET
-      summary: Get the product pair based off of the product supplied
-      notes: Product Id is a string representation of an unsigned 64 bit number
-      deprecated: 
-      responseClass: void
-      nickname: getProductPairById
-      parameters:
-      - name: id
-        description: Product Id
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: ss
-        description: Symbol source for alias information
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-      - name: slim
-        description: Request slim version of data; default value = false
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
+        dataType: int
   models: 
 - !ruby/object:PdsService
   path: productchecksum
@@ -328,59 +174,6 @@
           - debug
           valueType: LIST
         required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-  models: 
-- !ruby/object:PdsService
-  path: syntheticspreadsearch
-  description: ''
-  apis:
-  - path: "/1/syntheticspreadsearch"
-    description: Synthetic spreads search
-    operations:
-    - httpMethod: GET
-      summary: Search for synthetic spreads matching passed in query
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: searchSpreads
-      parameters:
-      - name: startIdx
-        description: Start at this position in the return set (used for paging results);
-          default value = 0
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-      - name: endIdx
-        description: End at this position in the return set (used for paging results);
-          default value = 20
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-      - name: query
-        description: Text to search for
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
         allowMultiple: false
         paramAccess: 
         internalDescription: 
@@ -568,6 +361,233 @@
       uniqueItems: false
       type: any
 - !ruby/object:PdsService
+  path: instrumentchecksum
+  description: ''
+  apis:
+  - path: "/1/instrumentchecksum"
+    description: Instruments checksum
+    operations:
+    - httpMethod: GET
+      summary: Get instrument checksums for the given market(s)
+      notes: Instrument checksums are used by product collectors in order to filter
+        data upload only to those entities that have changed.
+      deprecated: 
+      responseClass: void
+      nickname: getInstrumentChecksum
+      parameters:
+      - name: marketIds
+        description: Coma separated list of market Ids (or one market Id)
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: sourceType
+        description: Download checksums corresponding to this collector/source type
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+      - name: count
+        description: Limit the size of the return set (used for paging results); default
+          value = 2000
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+      - name: lastId
+        description: Start from this instrument (used in conjuction with 'count' for
+          paging)
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: reqRev
+        description: Download only those instruments modified after this revision
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: fetchType
+        description: 'Fetch style for this request. Determines amount of data to return.
+          Options: norm, debug'
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues:
+          values:
+          - norm
+          - debug
+          valueType: LIST
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+  models: 
+- !ruby/object:PdsService
+  path: currencyrates
+  description: ''
+  apis:
+  - path: "/1/currencyrates/{fromTag:[A-Z][A-Z][A-Z]}:{toTag:[A-Z][A-Z][A-Z]}"
+    description: Operations on currency rates resources
+    operations:
+    - httpMethod: GET
+      summary: Fetch currency rates by ISO abbreviations
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCurencyRates
+      parameters:
+      - name: fromTag
+        description: Currency abbreviation for the rates to be fetched
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: toTag
+        description: Currency abbreviation for the rates to be fetched
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+  - path: "/1/currencyrates/{toTag:[A-Z][A-Z][A-Z]}"
+    description: Operations on currency rates resources
+    operations:
+    - httpMethod: GET
+      summary: Fetch currency rates by ISO abbreviation
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCurencyRates
+      parameters:
+      - name: toTag
+        description: Currency abbreviation for the rates to be fetched
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+  - path: "/1/currencyrates"
+    description: Operations on currency rates resources
+    operations:
+    - httpMethod: GET
+      summary: Fetch all currency rates
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCurencyRates
+    - httpMethod: POST
+      summary: Create or modify one or more currency conversion rate
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: upload
+  - path: "/1/currencyrates/{fromId:[0-9]+}:{toId:[0-9]+}"
+    description: Operations on currency rates resources
+    operations:
+    - httpMethod: GET
+      summary: Fetch currency rates
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCurencyRates
+      parameters:
+      - name: fromId
+        description: Currency Id for the rates to be fetched
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+      - name: toId
+        description: Currency Id for the rates to be fetched
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+  - path: "/1/currencyrates/{toId:[0-9]+}"
+    description: Operations on currency rates resources
+    operations:
+    - httpMethod: GET
+      summary: Fetch currency rates
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCurencyRates
+      parameters:
+      - name: toId
+        description: Currency Id for the rates to be fetched
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+  models: 
+- !ruby/object:PdsService
   path: pmerge
   description: ''
   apis:
@@ -699,19 +719,158 @@
       uniqueItems: false
       type: any
 - !ruby/object:PdsService
-  path: instrumentchecksum
+  path: products
   description: ''
   apis:
-  - path: "/1/instrumentchecksum"
-    description: Instruments checksum
+  - path: "/1/products/{key:[0-9]+:[0-9]+}"
+    description: Operations on products
     operations:
     - httpMethod: GET
-      summary: Get instrument checksums for the given market(s)
-      notes: Instrument checksums are used by product collectors in order to filter
-        data upload only to those entities that have changed.
+      summary: Get one product by Key
+      notes: Product Key is a string representation of product Id and product version
+        separated by colon ':'
       deprecated: 
       responseClass: void
-      nickname: getInstrumentChecksum
+      nickname: getProductByKey
+      parameters:
+      - name: key
+        description: Product Key
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: ss
+        description: Symbol source for alias information
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+      - name: slim
+        description: Request slim version of data; default value = false
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+  - path: "/1/products/{id:[0-9]+}"
+    description: Operations on products
+    operations:
+    - httpMethod: GET
+      summary: Get one product by Id
+      notes: Product Id is a string representation of an unsigned 64 bit number
+      deprecated: 
+      responseClass: void
+      nickname: getProductById
+      parameters:
+      - name: id
+        description: Product Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: ss
+        description: Symbol source for alias information
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+      - name: slim
+        description: Request slim version of data; default value = false
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+  - path: "/1/products/{id:[0-9]+}/productpairs"
+    description: Operations on products
+    operations:
+    - httpMethod: GET
+      summary: Get the product pair based off of the product supplied
+      notes: Product Id is a string representation of an unsigned 64 bit number
+      deprecated: 
+      responseClass: void
+      nickname: getProductPairById
+      parameters:
+      - name: id
+        description: Product Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: ss
+        description: Symbol source for alias information
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+      - name: slim
+        description: Request slim version of data; default value = false
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+  - path: "/1/products"
+    description: Operations on products
+    operations:
+    - httpMethod: GET
+      summary: Get one or more products with one of the provided filters
+      notes: 'Only one filter (of the set: marketIds, productIds, familyIds, productKeys,
+        symbols) can be used at a time'
+      deprecated: 
+      responseClass: void
+      nickname: getProducts
       parameters:
       - name: marketIds
         description: Coma separated list of market Ids (or one market Id)
@@ -719,40 +878,14 @@
         paramType: query
         defaultValue: 
         allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: sourceType
-        description: Download checksums corresponding to this collector/source type
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-      - name: count
-        description: Limit the size of the return set (used for paging results); default
-          value = 2000
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
         required: false
         allowMultiple: false
         paramAccess: 
         internalDescription: 
         wrapperName: 
-        dataType: int
-      - name: lastId
-        description: Start from this instrument (used in conjuction with 'count' for
-          paging)
+        dataType: string
+      - name: productIds
+        description: Coma separated list of product Ids (or one product Id)
         notes: 
         paramType: query
         defaultValue: 
@@ -763,8 +896,9 @@
         internalDescription: 
         wrapperName: 
         dataType: string
-      - name: reqRev
-        description: Download only those instruments modified after this revision
+      - name: familyIds
+        description: Coma separated list of product family Ids (or one product family
+          Id)
         notes: 
         paramType: query
         defaultValue: 
@@ -775,54 +909,8 @@
         internalDescription: 
         wrapperName: 
         dataType: string
-      - name: fetchType
-        description: 'Fetch style for this request. Determines amount of data to return.
-          Options: norm, debug'
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues:
-          values:
-          - norm
-          - debug
-          valueType: LIST
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-  models: 
-- !ruby/object:PdsService
-  path: productsearch
-  description: ''
-  apis:
-  - path: "/1/productsearch"
-    description: Product search
-    operations:
-    - httpMethod: GET
-      summary: Search for products matching passed in query
-      notes: Query terms are used in lexigraphical search against product names, product
-        type names, market names, etc.
-      deprecated: 
-      responseClass: void
-      nickname: searchProducts
-      parameters:
-      - name: query
-        description: Text to search for
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: marketIds
-        description: Coma separated list of market Ids (or one market Id) to filter
-          search results
+      - name: productKeys
+        description: Coma separated list of product Keys (or one product Key)
         notes: 
         paramType: query
         defaultValue: 
@@ -833,73 +921,13 @@
         internalDescription: 
         wrapperName: 
         dataType: string
-      - name: startIdx
-        description: Start at this position in the return set (used for paging results);
-          default value = 0
+      - name: symbols
+        description: Coma separated list of product symbols
         notes: 
         paramType: query
         defaultValue: 
         allowableValues: 
         required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-      - name: endIdx
-        description: End at this position in the return set (used for paging results);
-          default value = 20
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-    - httpMethod: POST
-      summary: Sync search domain with the active products in a given market
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: syncInstruments
-      parameters:
-      - name: marketId
-        description: Market Id to operate on
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-  models: 
-- !ruby/object:PdsService
-  path: instruments
-  description: ''
-  apis:
-  - path: "/1/instruments/{id:[0-9]+}/productpairs"
-    description: Operations on instruments
-    operations:
-    - httpMethod: GET
-      summary: Get one instrument by Id
-      notes: Instrument Id is a string representation of an unsigned 64 bit number
-      deprecated: 
-      responseClass: void
-      nickname: getProductPairsByInstrumentId
-      parameters:
-      - name: id
-        description: Instrument Id
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
         allowMultiple: false
         paramAccess: 
         internalDescription: 
@@ -929,6 +957,33 @@
         internalDescription: 
         wrapperName: 
         dataType: boolean
+  models: 
+- !ruby/object:PdsService
+  path: instruments
+  description: ''
+  apis:
+  - path: "/1/instruments/{id:[0-9]+}/ottif"
+    description: Operations on instruments
+    operations:
+    - httpMethod: GET
+      summary: Get instrument ottif
+      notes: Instrument ottif
+      deprecated: 
+      responseClass: void
+      nickname: getInstrumentByIdOrderParam
+      parameters:
+      - name: id
+        description: Instrument Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: BigInteger
   - path: "/1/instruments/{id:[0-9]+}"
     description: Operations on instruments
     operations:
@@ -994,28 +1049,6 @@
         internalDescription: 
         wrapperName: 
         dataType: boolean
-  - path: "/1/instruments/{id:[0-9]+}/ottif"
-    description: Operations on instruments
-    operations:
-    - httpMethod: GET
-      summary: Get instrument ottif
-      notes: Instrument ottif
-      deprecated: 
-      responseClass: void
-      nickname: getInstrumentByIdOrderParam
-      parameters:
-      - name: id
-        description: Instrument Id
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: BigInteger
   - path: "/1/instruments"
     description: Operations on instruments
     operations:
@@ -1193,6 +1226,52 @@
         internalDescription: 
         wrapperName: 
         dataType: boolean
+  - path: "/1/instruments/{id:[0-9]+}/productpairs"
+    description: Operations on instruments
+    operations:
+    - httpMethod: GET
+      summary: Get one instrument by Id
+      notes: Instrument Id is a string representation of an unsigned 64 bit number
+      deprecated: 
+      responseClass: void
+      nickname: getProductPairsByInstrumentId
+      parameters:
+      - name: id
+        description: Instrument Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: ss
+        description: Symbol source for alias information
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: Short
+      - name: slim
+        description: Request slim version of data; default value = true
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
   - path: "/1/instruments/{key:[0-9]+:[0-9]+}"
     description: Operations on instruments
     operations:
@@ -1312,182 +1391,43 @@
       uniqueItems: false
       type: any
 - !ruby/object:PdsService
-  path: search
+  path: markets
   description: ''
   apis:
-  - path: "/1/search"
-    description: Combined search for various resource types
+  - path: "/1/markets/{id:[0-9]+}/ottif"
+    description: Operations on markets
     operations:
     - httpMethod: GET
-      summary: Search for resources matching passed in query
-      notes: Query terms are used in lexigraphical search against instrumentnames,
-        product type names, market names, dates, etc.
+      summary: Get instrument ottif
+      notes: Instrument ottif
       deprecated: 
       responseClass: void
-      nickname: search
-      parameters:
-      - name: query
-        description: Text to search for
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: marketIds
-        description: Coma separated list of market Ids (or one market Id) to filter
-          search results
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: startIdx
-        description: Start at this position in the return set (used for paging results);
-          default value = 0
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-      - name: endIdx
-        description: End at this position in the return set (used for paging results);
-          default value = 20
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-      - name: all
-        description: Search for all supported resource types
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-      - name: products
-        description: Search for products
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-      - name: instruments
-        description: Search for instruments
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-      - name: syntheticSpreads
-        description: Search for visibile synthetic spreads
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-      - name: aggregatorSpreads
-        description: Search for visibile aggregator spreads
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-  models: 
-- !ruby/object:PdsService
-  path: syntheticspreads
-  description: ''
-  apis:
-  - path: "/1/syntheticspreads"
-    description: Operations on algo instruments
-    operations:
-    - httpMethod: POST
-      summary: Create or modify a synthetic spread
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: uploadContracts
-      parameters:
-      - name: noSearch
-        description: 
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-      - name: gcse
-        description: 
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: boolean
-  - path: "/1/syntheticspreads/{id}"
-    description: Operations on algo instruments
-    operations:
-    - httpMethod: DELETE
-      summary: Delete a synthetic spread
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: deleteSpread
+      nickname: getInstrumentByIdOrderParam
       parameters:
       - name: id
-        description: An Id of the synthetic spread to be deleted
+        description: Market Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+  - path: "/1/markets/{id:[0-9]+}"
+    description: Operations on markets
+    operations:
+    - httpMethod: DELETE
+      summary: Delete a market
+      notes: Must be a TT admin to execute
+      deprecated: 
+      responseClass: void
+      nickname: deleteMarket
+      parameters:
+      - name: id
+        description: An Id of the market to be deleted
         notes: 
         paramType: path
         defaultValue: 
@@ -1498,6 +1438,30 @@
         internalDescription: 
         wrapperName: 
         dataType: BigInteger
+      - name: type
+        description: Type of delete to perform
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: verificationTime
+        description: Verification timestamp for this request (YYYYMMDDHHMMSS format)
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
   models:
     BigInteger:
       required: false
@@ -1570,239 +1534,35 @@
       uniqueItems: false
       type: any
 - !ruby/object:PdsService
-  path: currencyrates
+  path: syntheticspreads
   description: ''
   apis:
-  - path: "/1/currencyrates/{fromTag:[A-Z][A-Z][A-Z]}:{toTag:[A-Z][A-Z][A-Z]}"
-    description: Operations on currency rates resources
+  - path: "/1/syntheticspreads"
+    description: Operations on algo instruments
     operations:
-    - httpMethod: GET
-      summary: Fetch currency rates by ISO abbreviations
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCurencyRates
-      parameters:
-      - name: fromTag
-        description: Currency abbreviation for the rates to be fetched
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: toTag
-        description: Currency abbreviation for the rates to be fetched
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-  - path: "/1/currencyrates/{toTag:[A-Z][A-Z][A-Z]}"
-    description: Operations on currency rates resources
-    operations:
-    - httpMethod: GET
-      summary: Fetch currency rates by ISO abbreviation
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCurencyRates
-      parameters:
-      - name: toTag
-        description: Currency abbreviation for the rates to be fetched
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-  - path: "/1/currencyrates"
-    description: Operations on currency rates resources
-    operations:
-    - httpMethod: GET
-      summary: Fetch all currency rates
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCurencyRates
     - httpMethod: POST
-      summary: Create or modify one or more currency conversion rate
+      summary: Create or modify a synthetic spread
       notes: 
       deprecated: 
       responseClass: void
-      nickname: upload
-  - path: "/1/currencyrates/{fromId:[0-9]+}:{toId:[0-9]+}"
-    description: Operations on currency rates resources
-    operations:
-    - httpMethod: GET
-      summary: Fetch currency rates
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCurencyRates
+      nickname: uploadContracts
       parameters:
-      - name: fromId
-        description: Currency Id for the rates to be fetched
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-      - name: toId
-        description: Currency Id for the rates to be fetched
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-  - path: "/1/currencyrates/{toId:[0-9]+}"
-    description: Operations on currency rates resources
-    operations:
-    - httpMethod: GET
-      summary: Fetch currency rates
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCurencyRates
-      parameters:
-      - name: toId
-        description: Currency Id for the rates to be fetched
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: Short
-  models: 
-- !ruby/object:PdsService
-  path: ottif
-  description: ''
-  apis:
-  - path: "/1/ottif/combos"
-    description: Operations on ottif information
-    operations:
-    - httpMethod: GET
-      summary: Get all combos
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCombos
-    - httpMethod: POST
-      summary: Upload combos
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: addCombos
-  - path: "/1/ottif/combos/{id:[0-9]+}"
-    description: Operations on ottif information
-    operations:
-    - httpMethod: GET
-      summary: Get a combo
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getCombo
-      parameters:
-      - name: id
-        description: Combo Id
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: BigInteger
-    - httpMethod: DELETE
-      summary: Remove a combo
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: removeCombo
-      parameters:
-      - name: id
-        description: Combo Id
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: BigInteger
-  - path: "/1/ottif"
-    description: Operations on ottif information
-    operations:
-    - httpMethod: GET
-      summary: Get all ottif rules
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getOTTIFRecords
-      parameters:
-      - name: marketId
-        description: Market Id
+      - name: noSearch
+        description: 
         notes: 
         paramType: query
         defaultValue: 
         allowableValues: 
-        required: false
+        required: true
         allowMultiple: false
         paramAccess: 
         internalDescription: 
         wrapperName: 
-        dataType: int
-    - httpMethod: POST
-      summary: Upload ottif rules
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: addOTTIFRecord
-  - path: "/1/ottif/{id:[0-9]+}"
-    description: Operations on ottif information
-    operations:
-    - httpMethod: GET
-      summary: Get an ottif rule
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: getOTTIFRecord
-      parameters:
-      - name: id
-        description: OTTIF Record Id
+        dataType: boolean
+      - name: gcse
+        description: 
         notes: 
-        paramType: path
+        paramType: query
         defaultValue: 
         allowableValues: 
         required: true
@@ -1810,16 +1570,19 @@
         paramAccess: 
         internalDescription: 
         wrapperName: 
-        dataType: BigInteger
+        dataType: boolean
+  - path: "/1/syntheticspreads/{id}"
+    description: Operations on algo instruments
+    operations:
     - httpMethod: DELETE
-      summary: Remove an ottif rule
+      summary: Delete a synthetic spread
       notes: 
       deprecated: 
       responseClass: void
-      nickname: removeOTTIFRecord
+      nickname: deleteSpread
       parameters:
       - name: id
-        description: OTTIF Record Id
+        description: An Id of the synthetic spread to be deleted
         notes: 
         paramType: path
         defaultValue: 
@@ -2014,265 +1777,6 @@
         internalDescription: 
         wrapperName: 
         dataType: BigInteger
-  models:
-    BigInteger:
-      required: false
-      name: 
-      id: BigInteger
-      properties:
-        signum:
-          required: false
-          name: 
-          id: 
-          properties: 
-          allowableValues: 
-          description: 
-          notes: 
-          access: 
-          default: 
-          additionalProperties: 
-          items: 
-          uniqueItems: false
-          type: int
-        bitCount:
-          required: false
-          name: 
-          id: 
-          properties: 
-          allowableValues: 
-          description: 
-          notes: 
-          access: 
-          default: 
-          additionalProperties: 
-          items: 
-          uniqueItems: false
-          type: int
-        lowestSetBit:
-          required: false
-          name: 
-          id: 
-          properties: 
-          allowableValues: 
-          description: 
-          notes: 
-          access: 
-          default: 
-          additionalProperties: 
-          items: 
-          uniqueItems: false
-          type: int
-        bitLength:
-          required: false
-          name: 
-          id: 
-          properties: 
-          allowableValues: 
-          description: 
-          notes: 
-          access: 
-          default: 
-          additionalProperties: 
-          items: 
-          uniqueItems: false
-          type: int
-      allowableValues: 
-      description: 
-      notes: 
-      access: 
-      default: 
-      additionalProperties: 
-      items: 
-      uniqueItems: false
-      type: any
-- !ruby/object:PdsService
-  path: instrumentsearch
-  description: ''
-  apis:
-  - path: "/1/instrumentsearch"
-    description: Instrument search
-    operations:
-    - httpMethod: GET
-      summary: Search for instruments matching passed in query
-      notes: Query terms are used in lexigraphical search against instrumentnames,
-        product type names, market names, dates, etc.
-      deprecated: 
-      responseClass: void
-      nickname: searchInstruments
-      parameters:
-      - name: query
-        description: Text to search for
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: marketIds
-        description: Coma separated list of market Ids (or one market Id) to filter
-          search results
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: startIdx
-        description: Start at this position in the return set (used for paging results);
-          default value = 0
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-      - name: endIdx
-        description: End at this position in the return set (used for paging results);
-          default value = 20
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-    - httpMethod: POST
-      summary: Sync search domain with the active instruments in a given market
-      notes: 
-      deprecated: 
-      responseClass: void
-      nickname: syncInstruments
-      parameters:
-      - name: marketId
-        description: Market Id to operate on
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-  models: 
-- !ruby/object:PdsService
-  path: systemdata
-  description: ''
-  apis:
-  - path: "/1/systemdata"
-    description: System settings operations
-    operations:
-    - httpMethod: GET
-      summary: Get system parameters
-      notes: Get various system parameters
-      deprecated: 
-      responseClass: void
-      nickname: getSystemData
-      parameters:
-      - name: type
-        description: 'Type of parameters to get. Valid values are: all, global, market,
-          allmarket, nativemarket, securityexchange, datacenter, symbolsource, product,
-          producttype, allproducttype, productgroup, currency, instrument, ticktable,
-          ordertype, timeinforce'
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-  models: 
-- !ruby/object:PdsService
-  path: markets
-  description: ''
-  apis:
-  - path: "/1/markets/{id:[0-9]+}/ottif"
-    description: Operations on markets
-    operations:
-    - httpMethod: GET
-      summary: Get instrument ottif
-      notes: Instrument ottif
-      deprecated: 
-      responseClass: void
-      nickname: getInstrumentByIdOrderParam
-      parameters:
-      - name: id
-        description: Market Id
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: int
-  - path: "/1/markets/{id:[0-9]+}"
-    description: Operations on markets
-    operations:
-    - httpMethod: DELETE
-      summary: Delete a market
-      notes: Must be a TT admin to execute
-      deprecated: 
-      responseClass: void
-      nickname: deleteMarket
-      parameters:
-      - name: id
-        description: An Id of the market to be deleted
-        notes: 
-        paramType: path
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: BigInteger
-      - name: type
-        description: Type of delete to perform
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: true
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
-      - name: verificationTime
-        description: Verification timestamp for this request (YYYYMMDDHHMMSS format)
-        notes: 
-        paramType: query
-        defaultValue: 
-        allowableValues: 
-        required: false
-        allowMultiple: false
-        paramAccess: 
-        internalDescription: 
-        wrapperName: 
-        dataType: string
   models:
     BigInteger:
       required: false
@@ -2754,3 +2258,499 @@
       items: 
       uniqueItems: false
       type: any
+- !ruby/object:PdsService
+  path: ottif
+  description: ''
+  apis:
+  - path: "/1/ottif/combos"
+    description: Operations on ottif information
+    operations:
+    - httpMethod: GET
+      summary: Get all combos
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCombos
+    - httpMethod: POST
+      summary: Upload combos
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: addCombos
+  - path: "/1/ottif/combos/{id:[0-9]+}"
+    description: Operations on ottif information
+    operations:
+    - httpMethod: GET
+      summary: Get a combo
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getCombo
+      parameters:
+      - name: id
+        description: Combo Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: BigInteger
+    - httpMethod: DELETE
+      summary: Remove a combo
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: removeCombo
+      parameters:
+      - name: id
+        description: Combo Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: BigInteger
+  - path: "/1/ottif"
+    description: Operations on ottif information
+    operations:
+    - httpMethod: GET
+      summary: Get all ottif rules
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getOTTIFRecords
+      parameters:
+      - name: marketId
+        description: Market Id
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+    - httpMethod: POST
+      summary: Upload ottif rules
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: addOTTIFRecord
+  - path: "/1/ottif/{id:[0-9]+}"
+    description: Operations on ottif information
+    operations:
+    - httpMethod: GET
+      summary: Get an ottif rule
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: getOTTIFRecord
+      parameters:
+      - name: id
+        description: OTTIF Record Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: BigInteger
+    - httpMethod: DELETE
+      summary: Remove an ottif rule
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: removeOTTIFRecord
+      parameters:
+      - name: id
+        description: OTTIF Record Id
+        notes: 
+        paramType: path
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: BigInteger
+  models:
+    BigInteger:
+      required: false
+      name: 
+      id: BigInteger
+      properties:
+        signum:
+          required: false
+          name: 
+          id: 
+          properties: 
+          allowableValues: 
+          description: 
+          notes: 
+          access: 
+          default: 
+          additionalProperties: 
+          items: 
+          uniqueItems: false
+          type: int
+        bitCount:
+          required: false
+          name: 
+          id: 
+          properties: 
+          allowableValues: 
+          description: 
+          notes: 
+          access: 
+          default: 
+          additionalProperties: 
+          items: 
+          uniqueItems: false
+          type: int
+        lowestSetBit:
+          required: false
+          name: 
+          id: 
+          properties: 
+          allowableValues: 
+          description: 
+          notes: 
+          access: 
+          default: 
+          additionalProperties: 
+          items: 
+          uniqueItems: false
+          type: int
+        bitLength:
+          required: false
+          name: 
+          id: 
+          properties: 
+          allowableValues: 
+          description: 
+          notes: 
+          access: 
+          default: 
+          additionalProperties: 
+          items: 
+          uniqueItems: false
+          type: int
+      allowableValues: 
+      description: 
+      notes: 
+      access: 
+      default: 
+      additionalProperties: 
+      items: 
+      uniqueItems: false
+      type: any
+- !ruby/object:PdsService
+  path: search
+  description: ''
+  apis:
+  - path: "/1/search"
+    description: Combined search for various resource types
+    operations:
+    - httpMethod: GET
+      summary: Search for resources matching passed in query
+      notes: Query terms are used in lexigraphical search against instrumentnames,
+        product type names, market names, dates, etc.
+      deprecated: 
+      responseClass: void
+      nickname: search
+      parameters:
+      - name: query
+        description: Text to search for
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: marketIds
+        description: Coma separated list of market Ids (or one market Id) to filter
+          search results
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: startIdx
+        description: Start at this position in the return set (used for paging results);
+          default value = 0
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+      - name: endIdx
+        description: End at this position in the return set (used for paging results);
+          default value = 20
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+      - name: all
+        description: Search for all supported resource types
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+      - name: products
+        description: Search for products
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+      - name: instruments
+        description: Search for instruments
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+      - name: syntheticSpreads
+        description: Search for visibile synthetic spreads
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+      - name: aggregatorSpreads
+        description: Search for visibile aggregator spreads
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: boolean
+  models: 
+- !ruby/object:PdsService
+  path: syntheticspreadsearch
+  description: ''
+  apis:
+  - path: "/1/syntheticspreadsearch"
+    description: Synthetic spreads search
+    operations:
+    - httpMethod: GET
+      summary: Search for synthetic spreads matching passed in query
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: searchSpreads
+      parameters:
+      - name: startIdx
+        description: Start at this position in the return set (used for paging results);
+          default value = 0
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+      - name: endIdx
+        description: End at this position in the return set (used for paging results);
+          default value = 20
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+      - name: query
+        description: Text to search for
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+  models: 
+- !ruby/object:PdsService
+  path: systemdata
+  description: ''
+  apis:
+  - path: "/1/systemdata"
+    description: System settings operations
+    operations:
+    - httpMethod: GET
+      summary: Get system parameters
+      notes: Get various system parameters
+      deprecated: 
+      responseClass: void
+      nickname: getSystemData
+      parameters:
+      - name: type
+        description: 'Type of parameters to get. Valid values are: all, global, market,
+          allmarket, nativemarket, securityexchange, datacenter, symbolsource, product,
+          producttype, allproducttype, productgroup, currency, instrument, ticktable,
+          ordertype, timeinforce'
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+  models: 
+- !ruby/object:PdsService
+  path: productsearch
+  description: ''
+  apis:
+  - path: "/1/productsearch"
+    description: Product search
+    operations:
+    - httpMethod: GET
+      summary: Search for products matching passed in query
+      notes: Query terms are used in lexigraphical search against product names, product
+        type names, market names, etc.
+      deprecated: 
+      responseClass: void
+      nickname: searchProducts
+      parameters:
+      - name: query
+        description: Text to search for
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: marketIds
+        description: Coma separated list of market Ids (or one market Id) to filter
+          search results
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: string
+      - name: startIdx
+        description: Start at this position in the return set (used for paging results);
+          default value = 0
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+      - name: endIdx
+        description: End at this position in the return set (used for paging results);
+          default value = 20
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: false
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+    - httpMethod: POST
+      summary: Sync search domain with the active products in a given market
+      notes: 
+      deprecated: 
+      responseClass: void
+      nickname: syncInstruments
+      parameters:
+      - name: marketId
+        description: Market Id to operate on
+        notes: 
+        paramType: query
+        defaultValue: 
+        allowableValues: 
+        required: true
+        allowMultiple: false
+        paramAccess: 
+        internalDescription: 
+        wrapperName: 
+        dataType: int
+  models: 
