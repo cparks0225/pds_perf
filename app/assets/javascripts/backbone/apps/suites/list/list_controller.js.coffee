@@ -5,8 +5,14 @@
     initialize: ->
       @tests = App.request "tests:entities"
       @suites = App.request "suites:entities"
+      environments = App.request "environments:entities"
 
-      App.execute "when:fetched", [@tests, @suites], =>
+      App.execute "when:fetched", [@tests, @suites, environments], =>
+        
+        active = false
+        for e in environments.models
+          if e.get("active")
+            active = true
 
         for s in @suites.models
           extended_tests = []
@@ -19,7 +25,10 @@
 
         @listenTo @layout, "show", =>
           @showPanel()
-          @showSuites()
+          if active
+            @showSuites()
+          else
+            @showNoEnv()
 
         @show @layout
 
@@ -41,6 +50,9 @@
         App.execute "run:suite", suite.model.get("id")
 
       @layout.suitesRegion.show suitesView
+
+    showNoEnv: ->
+      App.execute "new:no:environment:selected:view", @layout.suitesRegion
 
     getLayoutView: ->
       new List.LayoutView

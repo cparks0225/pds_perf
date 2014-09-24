@@ -4,14 +4,23 @@
 
     initialize: ->
       queries = App.request "queries:entities"
+      environments = App.request "environments:entities"
 
-      App.execute "when:fetched", [queries], =>
+      App.execute "when:fetched", [queries, environments], =>
+
+        active = false
+        for e in environments.models
+          if e.get("active")
+            active = true
 
         @layout = @getLayoutView()
 
         @listenTo @layout, "show", =>
           @showPanel()
-          @showQueries queries
+          if active
+            @showQueries queries
+          else
+            @showNoEnv()
 
         @show @layout
 
@@ -35,6 +44,9 @@
         App.vent.trigger "queries:delete:clicked", child.model
 
       @layout.queriesRegion.show queriesView
+
+    showNoEnv: ->
+      App.execute "new:no:environment:selected:view", @layout.queriesRegion
 
     getPanelView: ->
       new List.Panel

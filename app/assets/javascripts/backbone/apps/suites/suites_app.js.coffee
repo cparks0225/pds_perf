@@ -4,7 +4,6 @@
     appRoutes:
       "suites" : "listSuites"
       "suites/" : "listSuites"
-      # "suites/run/:id" : 
 
   API =
     listSuites: ->
@@ -21,7 +20,6 @@
     API.newSuiteView region
 
   App.commands.setHandler "run:suite", (suite) ->
-    console.log "RUN ME"
     API.newRunView suite
 
   App.vent.on "model:set:active", (system) ->

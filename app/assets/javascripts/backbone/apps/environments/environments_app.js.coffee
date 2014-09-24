@@ -23,6 +23,10 @@
 
       region.show(v)
 
+    newNoEnvironmentSelectedView: (region) ->
+      v = new EnvironmentsApp.List.NoEnvironment
+      region.show(v)
+
     getSelectedEnvironment: ->
       App.request "environments:entity", App.getCookie "environment"
 
@@ -53,6 +57,9 @@
   App.vent.on "model:set:active", (m) =>
     if not ((Routes.environments_path().indexOf(App.getCurrentRoute())) == -1)
       API.listEnvironments()
+
+  App.commands.setHandler "new:no:environment:selected:view", (region) ->
+    API.newNoEnvironmentSelectedView region
 
   App.addInitializer ->
     new EnvironmentsApp.Router

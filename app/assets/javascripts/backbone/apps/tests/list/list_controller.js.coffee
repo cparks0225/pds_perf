@@ -5,8 +5,15 @@
     initialize: ->
       @queries = App.request "queries:entities"
       @tests = App.request "tests:entities"
+      environments = App.request "environments:entities"
 
-      App.execute "when:fetched", [@queries, @tests], =>
+      App.execute "when:fetched", [@queries, @tests, environments], =>
+
+        active = false
+        for e in environments.models
+          if e.get("active")
+            active = true
+            
         for t in @tests.models
           extended_queries = []
           for q in t.get("queries")
@@ -18,9 +25,15 @@
 
         @listenTo @layout, "show", =>
           @showPanel()
-          @showTests()
+          if active
+            @showTests()
+          else
+            @showNoEnv()
 
         @show @layout
+
+    showNoEnv: ->
+      App.execute "new:no:environment:selected:view", @layout.testsRegion
 
     showPanel: ->
       panelView = @getPanelView()
