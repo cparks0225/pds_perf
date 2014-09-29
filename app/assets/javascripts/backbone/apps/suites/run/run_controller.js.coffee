@@ -32,14 +32,14 @@
         utcSeconds = (new Date).getTime() / 1000
         d = new Date(0)
         d.setUTCSeconds utcSeconds
+        d_str += @pad(d.getFullYear(), 4)
         d_str = @pad(d.getMonth(), 2)
         d_str += @pad(d.getDate(), 2)
-        d_str += @pad(d.getYear(), 2)
         d_str += "T"
         d_str += @pad(d.getHours(), 2)
         d_str += @pad(d.getMinutes(), 2)
         d_str += @pad(d.getSeconds(), 2)
-        file_name = @suite.get("name") + d_str + ".csv"
+        file_name = @suite.get("name") + "_" + d_str + ".csv"
 
         headers = []
         _.each $('table:first').find('th'), (th) ->
