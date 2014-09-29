@@ -14,6 +14,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/doc
+
+.DS_Store
 
 # Ignore Sublime workspaces
 *sublime-workspace*
+
+/config/database.yml

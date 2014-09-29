@@ -15,7 +15,7 @@ role :db,  %w{perfteam@172.17.250.226}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '172.17.250.226', user: 'perfteam', roles: %w{web app db}, my_property: :my_value
+server '172.17.250.226', user: 'perfteam', roles: %w{web app, db}, primary: true
 
 
 # Custom SSH Options

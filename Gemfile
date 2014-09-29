@@ -16,15 +16,11 @@ gem 'bootstrap-sass-rails'
 gem 'rabl'
 gem 'oj'
 
-gem 'gon'
-
 gem 'js-routes'
 
 gem 'httpclient'
 
 gem 'font-awesome-sass'
-
-gem 'capistrano', '~> 3.2.0'
 
 gem 'execjs'
 gem 'therubyracer'
@@ -54,10 +50,13 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn', '~> 4.8.0'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'capistrano', '~> 3.2.0'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+gem 'capistrano-rbenv', '~> 2.0'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
