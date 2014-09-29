@@ -15,7 +15,6 @@ COSMETIC:
   When navigating to suites/tests/queries, set "active" class to currently navigated page.
 
 
-
 pds-dev
 https://riskapi-int-dev.debesys.net/api
 https://pds-dev.debesys.net

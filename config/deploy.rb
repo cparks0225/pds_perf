@@ -1,9 +1,9 @@
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
-set :application, 'swaggernaut'
+set :application, 'scuttle'
 set :repo_url, 'https://github.com/cparks0225/pds_perf.git'
-set :user, 'perfteam'
+set :rbenv_ruby, '2.1.2'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

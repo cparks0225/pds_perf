@@ -22,4 +22,11 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: db/prod.sqlite3
+  # adapter: mysql2
+  # encoding: utf8
+  # database: scuttle
+  # username: perfteam
+  # password: welovechipotle
+  # host: 172.17.250.226
+  # port: 3306
