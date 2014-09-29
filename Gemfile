@@ -53,6 +53,7 @@ gem 'spring',        group: :development
 gem 'unicorn', '~> 4.8.0'
 
 # Use Capistrano for deployment
+gem 'bundler'
 gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
