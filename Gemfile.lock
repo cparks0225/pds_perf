@@ -181,6 +181,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass-rails
+  bundler
   capistrano (~> 3.2.0)
   capistrano-bundler
   capistrano-rails
