@@ -3,16 +3,16 @@
   class New.Controller extends App.Controllers.Base
 
     initialize: =>
-      queries = App.request "queries:entities"
+      @queries = App.request "queries:entities"
       @new_test = App.request "new:tests:entity"
       @test_queries = App.request "new:queries:entities"
 
-      App.execute "when:fetched", [queries], =>
+      App.execute "when:fetched", [@queries], =>
         @layout = @getTestBuilder()
 
         @listenTo @layout, "show", =>
           @showNewTest()
-          @showQueries queries
+          @showQueries()
 
         @listenTo @layout, "cancel:new:test:button:clicked", =>
           @region.reset()
@@ -25,6 +25,7 @@
 
       @listenTo v, "childview:remove:test:query", (e) =>
         @test_queries.remove e.model
+        @queries.add e.model
 
       @listenTo v, "test:create:button:clicked", (e) =>
         data = Backbone.Syphon.serialize v
@@ -51,11 +52,12 @@
 
       @layout.testRegion.show v
 
-    showQueries: (queries) =>
-      v = App.request "tests:queries:view", queries
+    showQueries: =>
+      v = App.request "tests:queries:view", @queries
 
       @listenTo v, "childview:tests:queries:add:clicked", (e) =>
         @test_queries.add e.model
+        @queries.remove(e.model)
 
       @layout.queriesRegion.show v
 
