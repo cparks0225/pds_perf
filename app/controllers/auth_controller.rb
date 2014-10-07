@@ -29,7 +29,7 @@ def FetchAuthToken(username, password)
   clientId ='7acb772129644c4483f9944eec85476f'
   clientSecret ='417b19d133024e1e85e13133077cf7362de80f0f32e44a338383f0f7d0140f78'
   encodeValue = Base64.strict_encode64(clientId + ":" + clientSecret)
-  full_url = "https://id.ttstage.com/oauth/token"
+  full_url = current_environment().riskapi
 
   url = URI.parse(full_url)
 
@@ -70,7 +70,6 @@ class AuthController < ApplicationController
 
   def create
     resp = FetchAuthToken( params[:username], params[:password] )
-
 
     new_token = nil
     err = nil

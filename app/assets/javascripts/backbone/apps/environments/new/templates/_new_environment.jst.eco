@@ -8,7 +8,7 @@
         <input type="text" class="form-control" name="name" id="name" placeholder="name">
       </div>
       <div class="form-group">
-        <input type="text" class="form-control" name="riskapi" id="riskapi" placeholder="riskapi">
+        <input type="text" class="form-control" name="riskapi" id="riskapi" placeholder="login-url">
       </div>
       <div class="form-group">
         <input type="text" class="form-control" name="pds" id="pds" placeholder="pds">
