@@ -34,6 +34,7 @@
 
       @listenTo v, "childview:remove:suite:test", (e) =>
         @suite_tests.remove e.model
+        @tests.add e.model
 
       @listenTo v, "suite:create:button:clicked", (e) =>
         data = Backbone.Syphon.serialize v
@@ -65,6 +66,7 @@
 
       @listenTo v, "childview:suites:tests:add:clicked", (e) =>
         @suite_tests.add e.model
+        @tests.remove e.model
 
       @layout.testsRegion.show v
 
