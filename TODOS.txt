@@ -1,18 +1,4 @@
-creating new tests/suites without adding any queries/tests
-
-Query Builder is currently reading from a hard-coded api and isn't updating
-
-Deleting queries/tests when they're associated with test suites is a problem.
-
 Storing and displaying results
-
-Show something when attempting to run a test with no environment selected
-
-Deployment
-
-
-COSMETIC:
-  When navigating to suites/tests/queries, set "active" class to currently navigated page.
 
 
 pds-dev

@@ -196,12 +196,30 @@
         new_query = App.request "new:queries:entity"
         new_query.save query
         API.listQueries()
+
+    addManualQuery: (e) ->
+      data = Backbone.Syphon.serialize e.target
+
+      query = {}
+      query.url = data['url']
+      query.method = data['method']
+      query.data = []
+      new_query = App.request "new:queries:entity"
+      new_query.save query
+      API.listQueries()
         
   App.vent.on "queries:delete:clicked", (query) ->
     API.deleteQuery query
 
   App.vent.on "new:queries:query:clicked", (e) =>
+    console.log "ADDING NEW QUERY"
+    console.log e
     API.validateAddedQuery(e)
+
+  App.vent.on "new:queries:query:manual:clicked", (e) =>
+    console.log "ADDING NEW MANUAL QUERY"
+    console.log e
+    API.addManualQuery(e)
 
   App.reqres.setHandler "tests:queries:view", (queries) ->
     API.listQueriesForTests queries

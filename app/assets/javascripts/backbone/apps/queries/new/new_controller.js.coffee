@@ -6,22 +6,26 @@
       pdsapis = App.request "pdsapi:entities"
 
       App.execute "when:fetched", [pdsapis], =>
-        @layout = @getNewQueryView()
+        if pdsapis.length == 0
+          console.log "MANUAL ENTRY"
+          @layout = @getNewManualQueryView()
+        else
+          @layout = @getNewQueryView()
+          
+          @listenTo @layout, "button:refresh:swagger:clicked", =>
+            @region.reset()
+            @destroy()
+            App.execute "disable:add:environment"
+            $.get( "/pdsapis.json?refresh=true" )
+              .done (data) => 
+                App.execute "enable:add:environment"
 
-        @listenTo @layout, "show", =>
-          @apiListRegion pdsapis
+          @listenTo @layout, "show", =>
+            @apiListRegion pdsapis
 
         @listenTo @layout, "cancel:new:query:button:clicked", =>
           @region.reset()
           @destroy()
-
-        @listenTo @layout, "button:refresh:swagger:clicked", =>
-          @region.reset()
-          @destroy()
-          App.execute "disable:add:environment"
-          $.get( "/pdsapis.json?refresh=true" )
-            .done (data) => 
-              App.execute "enable:add:environment"
 
         @show @layout
 
@@ -44,6 +48,9 @@
     getNewQueryView: ->
       new New.QueryBuilder
 
+    getNewManualQueryView: ->
+      new New.ManualQuery
+
     getApisView: (pdsapis) ->
       new New.ApiList
         collection: pdsapis
@@ -51,3 +58,4 @@
     getRestfulView: (restful) ->
       new New.RestfulList
         model: restful
+        

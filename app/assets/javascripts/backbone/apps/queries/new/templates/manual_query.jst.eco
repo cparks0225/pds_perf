@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Manual Query Entry</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-inline" role="form">
+              <!-- <input type="text" class="form-control"  placeholder="method"> -->
+              <!-- https://pds-dev.debesystem.net           /api         /1/ottif -->
+
+          <div class="form-group">
+              <select name="method" id="method" class="form-control col-sm-2">
+                  <option>GET</option>
+                  <option>PUT</option>
+                  <option>DELETE</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <input type="text" class="form-control col-sm-8" name="url" id="url" placeholder="url">
+          </div>
+          <button type="submit" class="btn btn-default" id="new-query">Add</button>
+      </form>
+    </div>
+    <div class="panel-footer">
+      <button class="btn btn-danger" id="cancel-new-query">Cancel</button>
+    </div>
+</div>

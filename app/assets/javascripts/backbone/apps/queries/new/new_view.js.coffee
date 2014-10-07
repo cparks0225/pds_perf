@@ -12,6 +12,20 @@
       "click #cancel-new-query" : "cancel:new:query:button:clicked"
       "click .btn-success" : "button:refresh:swagger:clicked"
 
+  class New.ManualQuery extends App.Views.LayoutView
+    template: "queries/new/manual_query"
+    class: "panel-body"
+
+    triggers:
+      "click #cancel-new-query" : "cancel:new:query:button:clicked"
+      # "click #new-query" : "new:environment:button:clicked"
+
+    onShow: ->
+      $(@.$el).find("form").unbind()
+      $(@.$el).find("form").submit (e) ->
+        e.preventDefault()
+        App.vent.trigger "new:queries:query:manual:clicked", e
+
   class New.Query extends App.Views.ItemView
     template: "queries/new/_api"
     tagName: "tr"

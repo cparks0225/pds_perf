@@ -44,7 +44,7 @@ def FetchApi(api)
   clnt = HTTPClient.new(proxy)
   clnt.set_cookie_store("cookie.dat")
 
-  api_url_base = "http://pds-dev.debesys.net/api/1/api-docs/1/"
+  api_url_base = current_environment().pds + "/api/1/api-docs/1/"
   api_url = api_url_base + api.path
   api_result = clnt.get(api_url)
   raw_api_json = JSON.parse(api_result.body)
@@ -62,8 +62,13 @@ def StoreApis(file_name)
   clnt.set_cookie_store("cookie.dat")
 
   service_url = current_environment().pds + "/api/1/api-docs"
-  result = clnt.get(service_url)
-  raw_json = JSON.parse(result.body)["apis"]
+
+  begin
+    result = clnt.get(service_url)
+    raw_json = JSON.parse(result.body)["apis"]
+  rescue SocketError
+    raw_json = []
+  end
       
   api_url_base = current_environment().pds + "/api/1/api-docs/1/"
 

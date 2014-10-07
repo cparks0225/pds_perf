@@ -29,4 +29,7 @@ namespace :setup do
    end
   end
 
+  before :deploy, "setup:upload_yml"
+  before :deploy, "setup:seed_db"
+  before :deploy, "setup:symlink_config"
 end

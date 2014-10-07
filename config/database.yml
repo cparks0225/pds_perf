@@ -25,5 +25,5 @@ production:
   encoding: unicode
   pool: 5
   database: scuttle
-  username: perfteam
+  username: admin
   password: welovechipotle
