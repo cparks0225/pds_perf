@@ -1,28 +1,7 @@
-== README
+Scuttle is a project for generating load tests against restful apis that utilize Swagger(https://github.com/swagger-api/swagger-spec).
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+It allows the specification of several different Systems, and different environments within those systems (dev/test/staging/prod/etc)
 
-Things you may want to cover:
+Browsing the Swagger API, it is easy to create (or manually add) urls which can then be wrapped into simple tests and suites of tests.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Test Suites run asynchronously and return the Round Trip time in Microseconds for each restful call, and can be downloaded as CSVs.
